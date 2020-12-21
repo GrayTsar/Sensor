@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#388e3c</color>
+    <color name="colorPrimaryDark">#2e7d32</color>
+    <color name="colorAccent">#ff1744</color>
+    <color name="iconTint">#fafafa</color>
+    <color name="colorDrawerTint">#fafafa</color>
+
+    <color name="textColor">#212121</color>
+    <color name="textColorSecondary">#424242</color>
+    <color name="textColorTitle">#fafafa</color>
+
+    <color name="colorCardBackground">#eeeeee</color>
+    <color name="colorCardStroke">#e0e0e0</color>
+
+    <color name="colorRed">#e53935</color>
+    <color name="colorPink">#d81b60</color>
+    <color name="colorPurple">#8e24aa</color>
+    <color name="colorDeepPurple">#5e35b1</color>
+    <color name="colorIndigo">#3949ab</color>
+    <color name="colorBlue">#0d47a1</color>
+    <color name="colorLightBlue">#01579b</color>
+    <color name="colorCyan">#006064</color>
+    <color name="colorTeal">#00796b</color>
+    <color name="colorGreen">#2e7d32</color>
+    <color name="colorLightGreen">#558b2f</color>
+    <color name="colorLime">#827717</color>
+</resources>

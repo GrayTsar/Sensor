@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string name="app_name">Sensor</string>
+
+        <string name="sensorAccelerometer">Beschleunigungssensor</string>
+        <string name="sensorMagneticField">Magnetometer</string>
+        <string name="sensorGravity">Gravitation</string>
+        <string name="sensorGyroscope">Gyroskop</string>
+        <string name="sensorLinearAcceleration">Lineare Beschleunigung</string>
+        <string name="sensorAmbientTemperature">Temperatur</string>
+        <string name="sensorLight">Licht</string>
+        <string name="sensorPressure">Luftdruck</string>
+        <string name="sensorRelativeHumidity">Luftfeuchtigkeit</string>
+        <string name="sensorGeomagneticRotationVector">Rotations Vektor</string>
+        <string name="sensorProximity">Näherungssensoren</string>
+        <string name="sensorStepCounter">Schrittzähler</string>
+        <string name="home">Home</string>
+
+        <string name="labelName">Name:</string>
+        <string name="labelVendor">Hersteller:</string>
+        <string name="labelVersion">Version:</string>
+        <string name="labelPower">Strom:</string>
+        <string name="labelMaxDelay">Max Verzögerung:</string>
+        <string name="labelMinDelay">Min Verzögerung:</string>
+        <string name="labelMaxRange">Max Wertebereich:</string>
+
+        <string name="unitAcceleration">m/s²</string>
+        <string name="unitMagneticField">µT</string>
+        <string name="unitRadiantSecond">rad/s</string>
+        <string name="unitLight">lux</string>
+        <string name="unitPressure">hPa</string>
+        <string name="unitAmpere">mA</string>
+        <string name="unitSteps">Schritte</string>
+        <string name="unitMicroseconds">µs</string>
+        <string name="unitTemperature">°C</string>
+        <string name="unitProximity">cm</string>
+        <string name="unitPercent">%</string>
+
+        <string name="missingSensorBottomBar">nicht vorhanden</string>
+        <string name="startRecording">Aufzeichnung gestartet</string>
+        <string name="menuSensorText">Sensor</string>
+
+        <string name="logging">Aufzeichnen</string>
+        <string name="maxFileSize">4GB Max Datei Größe</string>
+        <string name="app_icon">app icon</string>
+        <string name="icon">icon</string>
+        <string name="information">Information</string>
+        <string name="details">Details</string>
+
+
+        <string name="darkTheme">Dark Mode</string>
+
+        <string name="infoAccelerometer">
+        Ein Beschleunigungssensor meldet die Beschleunigungskräfte des Geräts an den 3 Achsen zurück.
+        Der aufgezeichnete Beschleunigungswert beinhaltet den Einfluss der Gravitation.
+    </string>
+
+        <string name="infoMagneticField">
+        Ein Magnetometer meldet das Umgebungsmagnetfeld an den 3 Achsen zurück.
+        Die Werte sind in micro Tesla.
+    </string>
+
+        <string name="infoGravity">
+        Ein 3 Dimensionaler Vektor zeigt die Wirkrichtung der Gravitation auf das Gerät an.
+        Die Werte sind in meter pro Sekunde² (m/s²).
+    </string>
+
+        <string name="infoGyroscope">
+        Ein Gyroskop meldet die wirkenden Rotationskräfte auf das Gerät an den 3 Achsen.
+        Die Werte sind in Radiant pro Sekunde (rad/sec).
+    </string>
+
+        <string name="infoLinearAcceleration">
+        Ein Beschleunigungssensor ohne die Einflussnahme der Gravitation.
+        Die werte sind in meter pro Sekunde² (m/s²).
+    </string>
+
+        <string name="infoAmbientTemperature">
+        Der Sensor meldet die Umgebungstemperatur in Grad Celsius (°C).
+    </string>
+
+        <string name="infoLight">
+        Ein Lichtsensor. Der Wert ist in Lux angegeben.
+    </string>
+
+        <string name="infoPressure">
+        <br>Ein Barometer meldet den Luftdruck in Hektopascal (hPa).</br>
+        <br>Ein Barometer wird oft verwendet um die Höhe über dem Meeresspiegel zu berechnen.</br>
+    </string>
+
+        <string name="infoRelativeHumidity">
+        Luftfeuchtigkeit in Prozent.
+    </string>
+
+        <string name="infoGeomagneticRotationVector">
+        Ein Vektor der die Orientation des Gerätes angibt.
+        Die Werte sind Einheitslos.
+    </string>
+
+        <string name="infoProximity">
+        <br>Meldet die gemessene Entfernung zum Sensor.</br>
+        <br>Manche Näherungssensoren geben nur "nah" oder "fern" an.</br>
+    </string>
+
+        <string name="infoStepCounter">
+        Meldet die Schritte seit das Gerät zuletzt neu gestartet wurde.
+    </string>
+</resources>

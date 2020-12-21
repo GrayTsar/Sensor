@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">Sensor</string>
+
+    <string name="sensorAccelerometer">Accelerometer</string>
+    <string name="sensorMagneticField">Magnetometer</string>
+    <string name="sensorGravity">Gravity</string>
+    <string name="sensorGyroscope">Gyroscope</string>
+    <string name="sensorLinearAcceleration">Linear Acceleration</string>
+    <string name="sensorAmbientTemperature">Ambient Temperature</string>
+    <string name="sensorLight">Light</string>
+    <string name="sensorPressure">Pressure</string>
+    <string name="sensorRelativeHumidity">Relative Humidity</string>
+    <string name="sensorGeomagneticRotationVector">Rotation Vector</string>
+    <string name="sensorProximity">Proximity</string>
+    <string name="sensorStepCounter">Step Counter</string>
+    <string name="home">Home</string>
+
+    <string name="labelName">Name:</string>
+    <string name="labelVendor">Vendor:</string>
+    <string name="labelVersion">Version:</string>
+    <string name="labelPower">Power:</string>
+    <string name="labelMaxDelay">Max Delay:</string>
+    <string name="labelMinDelay">Min Delay:</string>
+    <string name="labelMaxRange">Max Range:</string>
+
+    <string name="unitAcceleration">m/s²</string>
+    <string name="unitMagneticField">µT</string>
+    <string name="unitRadiantSecond">rad/s</string>
+    <string name="unitMicroseconds">µs</string>
+    <string name="unitTemperature">°C</string>
+    <string name="unitLight">lux</string>
+    <string name="unitPressure">hPa</string>
+    <string name="unitPercent">%</string>
+    <string name="unitProximity">cm</string>
+    <string name="unitSteps">Steps</string>
+    <string name="unitAmpere">mA</string>
+
+    <string name="missingSensorBottomBar">is missing</string>
+    <string name="startRecording">Recording Sensor Data</string>
+    <string name="menuSensorText">Sensor</string>
+
+    <string name="logging">Logging</string>
+    <string name="maxFileSize">4GB Max File size</string>
+    <string name="app_icon">app icon</string>
+    <string name="icon">icon</string>
+    <string name="information">Information</string>
+    <string name="details">Details</string>
+
+    <string name="darkTheme">Dark Mode</string>
+
+    <string name="infoAccelerometer">
+        An accelerometer sensor reports the acceleration of the device
+        along the 3 sensor axes. The measured acceleration includes both
+        the physical acceleration (change of velocity) and the gravity.
+    </string>
+
+    <string name="infoMagneticField">
+        A magnetic field sensor (also known as magnetometer) reports
+        the ambient magnetic field, as measured along the 3 sensor axes.
+        The measurement is reported in the x, y and z Axis
+        and all values are in micro-Tesla (µT).
+    </string>
+
+    <string name="infoGravity">
+        A three dimensional vector indicating the direction and magnitude of gravity. Units are m/s².
+    </string>
+
+    <string name="infoGyroscope">
+        A gyroscope sensor reports the rate of rotation of the device around the 3 sensor axes.
+        Units are rad/sec (Radian per second)
+    </string>
+
+    <string name="infoLinearAcceleration">
+        A three dimensional vector indicating acceleration along each device axis, not including gravity.
+        Units are m/s².
+    </string>
+
+    <string name="infoAmbientTemperature">
+        This sensor reports the ambient (room) temperature in degrees Celsius.
+    </string>
+
+    <string name="infoLight">
+        A light sensor reports the current illumination in lux.
+    </string>
+
+    <string name="infoPressure">
+        <br>A pressure sensor (also known as barometer) reports the atmospheric pressure in hectopascal (hPa).</br>
+        <br>The barometer is often used to estimate elevation changes.</br>
+    </string>
+
+    <string name="infoRelativeHumidity">
+        A relative humidity sensor measures relative ambient air humidity and reports the value in percent.
+    </string>
+
+    <string name="infoGeomagneticRotationVector">
+        The rotation vector represents the orientation of the device as a combination of an angle and an axis.
+        Elements of the rotation vector are unitless.
+    </string>
+
+    <string name="infoProximity">
+        <br>A proximity sensor reports the distance from the sensor to the closest visible surface.</br>
+        <br>Note that some proximity sensors only support a binary "near" or "far" measurement.</br>
+    </string>
+
+    <string name="infoStepCounter">
+        A sensor of this type reports the number of steps taken by the user
+        since the last reboot while activated. The value is reset to zero only on a system reboot.
+    </string>
+</resources>

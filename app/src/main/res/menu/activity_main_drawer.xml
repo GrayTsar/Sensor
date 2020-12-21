@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+
+    <item
+        android:id="@+id/menuDarkMode"
+        android:icon="@drawable/ic_baseline_brightness_6_24"
+        android:title="@string/darkTheme"
+        app:actionViewClass="com.google.android.material.checkbox.MaterialCheckBox"/>
+
+
+    <item android:title="@string/app_name">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/home"
+                    android:icon="@drawable/ic_baseline_home_24"
+                    android:title="@string/home" />
+                <item
+                    android:id="@+id/accelerometer"
+                    android:icon="@drawable/ic_acceleration"
+                    android:title="@string/sensorAccelerometer" />
+                <item
+                    android:id="@+id/magneticField"
+                    android:icon="@drawable/ic_magnet"
+                    android:title="@string/sensorMagneticField" />
+                <item
+                    android:id="@+id/gravity"
+                    android:icon="@drawable/ic_gravity"
+                    android:title="@string/sensorGravity" />
+                <item
+                    android:id="@+id/gyroscope"
+                    android:icon="@drawable/ic_gyroscope"
+                    android:title="@string/sensorGyroscope" />
+                <item
+                    android:id="@+id/linearAcceleration"
+                    android:icon="@drawable/ic_linearacceleration"
+                    android:title="@string/sensorLinearAcceleration" />
+                <item
+                    android:id="@+id/ambient_Temperature"
+                    android:icon="@drawable/ic_temperature"
+                    android:title="@string/sensorAmbientTemperature" />
+                <item
+                    android:id="@+id/light"
+                    android:icon="@drawable/ic_light"
+                    android:title="@string/sensorLight" />
+                <item
+                    android:id="@+id/pressure"
+                    android:icon="@drawable/ic_pressure"
+                    android:title="@string/sensorPressure" />
+                <item
+                    android:id="@+id/relativeHumidity"
+                    android:icon="@drawable/ic_humidity"
+                    android:title="@string/sensorRelativeHumidity" />
+                <item
+                    android:id="@+id/geomagneticRotationVector"
+                    android:icon="@drawable/ic_rotate"
+                    android:title="@string/sensorGeomagneticRotationVector" />
+                <item
+                    android:id="@+id/proximity"
+                    android:icon="@drawable/ic_proximity"
+                    android:title="@string/sensorProximity" />
+                <item
+                    android:id="@+id/stepCounter"
+                    android:icon="@drawable/ic_steps"
+                    android:title="@string/sensorStepCounter" />
+            </group>
+        </menu>
+    </item>
+</menu>

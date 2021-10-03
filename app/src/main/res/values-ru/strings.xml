@@ -14,7 +14,7 @@
     <string name="sensorGeomagneticRotationVector">Вектор вращения</string>
     <string name="sensorProximity">Датчик приближения</string>
     <string name="sensorStepCounter">шагомер</string>
-    <string name="home">Home</string>
+    <string name="home">Дом</string>
 
     <string name="labelName">имя:</string>
     <string name="labelVendor">изготовитель:</string>

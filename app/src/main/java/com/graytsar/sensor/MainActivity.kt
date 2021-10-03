@@ -221,10 +221,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        if(destination.id == R.id.fragmentHome) {
+        //if(destination.id == R.id.fragmentHome) {
             val intent = Intent(this, ForegroundServiceLogging::class.java)
             stopService(intent)
-        }
+        //}
     }
 
     private fun initDrawerMenu(navView: NavigationView) {

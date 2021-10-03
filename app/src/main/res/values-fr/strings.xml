@@ -14,7 +14,7 @@
     <string name="sensorGeomagneticRotationVector">vecteur de rotation</string>
     <string name="sensorProximity">proximité</string>
     <string name="sensorStepCounter">podomètre</string>
-    <string name="home">home</string>
+    <string name="home">Accueil</string>
 
     <string name="labelName">nom:</string>
     <string name="labelVendor">vendeur:</string>
@@ -47,7 +47,6 @@
     <string name="information">information</string>
     <string name="details">détails</string>
 
-    <string name="lightTheme">Light Theme</string>
     <string name="darkTheme">Dark Theme</string>
 
     <string name="infoAccelerometer">

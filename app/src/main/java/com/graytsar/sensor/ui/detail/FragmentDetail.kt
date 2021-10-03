@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Insets
+import android.graphics.Rect
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,10 +13,13 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
+import android.util.Size
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -32,6 +37,15 @@ import com.graytsar.sensor.MainActivity
 import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.FragmentDetailBinding
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
+import android.view.WindowInsets
+
+import android.view.WindowMetrics
+
+
+
+
+
+
 
 class FragmentDetail : Fragment() {
     private val viewModelDetail:ViewModelDetail by viewModels<ViewModelDetail>()
@@ -80,12 +94,29 @@ class FragmentDetail : Fragment() {
 
 
         val p = DisplayMetrics()
+        var widthPixels = 0;
         if(Build.VERSION.SDK_INT < 30) {
             (context as Activity).windowManager.defaultDisplay.getMetrics(p)
+            widthPixels = p.widthPixels;
         } else {
-            requireActivity().display?.getRealMetrics(p)
+            //requireActivity().display?.getRealMetrics(p)
+            //widthPixels = p.widthPixels;
+
+            val windowManager: WindowManager = requireActivity().getSystemService(Context.WINDOW_SERVICE) as WindowManager;
+            val metrics = windowManager.currentWindowMetrics
+            val windowInsets = metrics.windowInsets
+            val insets: Insets = windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout())
+
+            val insetsWidth: Int = insets.right + insets.left
+            //val insetsHeight: Int = insets.top + insets.bottom
+
+            val bounds: Rect = metrics.bounds
+            widthPixels = bounds.width() - insetsWidth;
+
+            //Log.d("DBG: ", "$widthPixels")
         }
-        displayPoints = p.widthPixels / 2.5f
+
+        displayPoints = widthPixels / 2.5f
 
         if(displayPoints < 400)
             displayPoints = 400f
@@ -135,8 +166,6 @@ class FragmentDetail : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-        viewModelDetail.enableLog = false
     }
 
     override fun onActivityResult(request:Int, result:Int, resultData: Intent?){
@@ -300,7 +329,7 @@ class FragmentDetail : Fragment() {
             binding.includeToolbarDetail.sensorTextName.text = "${getString(R.string.labelName)} ${sensor.name}"
             binding.includeToolbarDetail.sensorTextVendor.text = "${getString(R.string.labelVendor)} ${sensor.vendor}"
             binding.includeToolbarDetail.sensorTextVersion.text = "${getString(R.string.labelVersion)} ${sensor.version}"
-            binding.includeToolbarDetail.sensorTextPower.text = "${getString(R.string.labelPower)} ${sensor.power}"
+            binding.includeToolbarDetail.sensorTextPower.text = "${getString(R.string.labelPower)} ${sensor.power} ${getString(R.string.unitAmpere)}"
             binding.includeToolbarDetail.sensorTextMaxDelay.text = "${getString(R.string.labelMaxDelay)} ${sensor.maxDelay}"
             binding.includeToolbarDetail.sensorTextMinDelay.text = "${getString(R.string.labelMinDelay)} ${sensor.minDelay}"
             binding.includeToolbarDetail.sensorTextMaxRange.text = "${getString(R.string.labelMaxRange)} ${sensor.maximumRange} ${viewModelDetail.unit}"
@@ -309,7 +338,7 @@ class FragmentDetail : Fragment() {
             mpChart = binding.includeToolbarDetail.chart
             setupChart(viewModelDetail.count, mData, mpChart)
 
-            csvHeader = "TIMESTAMP,X,Y,Z,${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power},MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
+            csvHeader = "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power} ${getString(R.string.unitAmpere)},MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
 
             if(viewModelDetail.count == 1) {
                 sensorEventListener = object : SensorEventListener {
@@ -383,7 +412,7 @@ class FragmentDetail : Fragment() {
 
         for(i in 0 until countGraphs)
         {
-            mData.addDataSet(createSet(('x'.toInt() + i).toChar() + " Axis", colorAr[i]))
+            mData.addDataSet(createSet(('x'.code + i).toChar() + " Axis", colorAr[i]))
         }
         mChart.data = mData
     }

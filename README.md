@@ -1,7 +1,10 @@
 
 Material Design
+
 MVVM
+
 Foreground Service
+
 RecyclerView
 
 ![Alt text](/screenshots/1.png?raw=true "")

@@ -38,14 +38,7 @@ import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.FragmentDetailBinding
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 import android.view.WindowInsets
-
 import android.view.WindowMetrics
-
-
-
-
-
-
 
 class FragmentDetail : Fragment() {
     private val viewModelDetail:ViewModelDetail by viewModels<ViewModelDetail>()
@@ -94,7 +87,7 @@ class FragmentDetail : Fragment() {
 
 
         val p = DisplayMetrics()
-        var widthPixels = 0;
+        var widthPixels = 0
         if(Build.VERSION.SDK_INT < 30) {
             (context as Activity).windowManager.defaultDisplay.getMetrics(p)
             widthPixels = p.widthPixels;

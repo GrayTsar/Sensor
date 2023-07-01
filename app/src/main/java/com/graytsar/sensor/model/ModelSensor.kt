@@ -6,10 +6,10 @@ class ModelSensor(
     val sensorType: Int,
     val title: String,
     val sensorValuesCount: Int,
-    val unit:String
+    val unit: String
 ) {
 
-    val xValue = MutableLiveData("default")
-    val yValue = MutableLiveData("default")
-    val zValue = MutableLiveData("default")
+    val xValue = MutableLiveData("0")
+    val yValue = MutableLiveData("0")
+    val zValue = MutableLiveData("0")
 }

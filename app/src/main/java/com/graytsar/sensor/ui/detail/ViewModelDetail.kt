@@ -8,9 +8,9 @@ class ViewModelDetail : ViewModel() {
     val yValue = MutableLiveData("0")
     val zValue = MutableLiveData("0")
 
-    var unit:String = ""
-    var name:String = ""
-    var count:Int = 1
+    var unit: String = ""
+    var name: String = ""
+    var count: Int = 1
 
-    var enableLog:Boolean = false
+    var enableLog: Boolean = false
 }

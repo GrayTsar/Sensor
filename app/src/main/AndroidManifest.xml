@@ -25,10 +25,18 @@
     <uses-feature
         android:name="android.hardware.sensor.light"
         android:required="false" />
-    <uses-feature android:name="android.hardware.sensor.proximity" android:required="false"/>
-    <uses-feature android:name="android.hardware.sensor.relative_humidity" android:required="false"/>
-    <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="false"/>
-    <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.relative_humidity"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -41,14 +49,12 @@
         <service
             android:name=".ForegroundServiceLogging"
             android:enabled="true"
-            android:exported="false">
-
-        </service>
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Sensor.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Sensor.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,5 +62,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

@@ -16,11 +16,11 @@ import android.os.ParcelFileDescriptor
 import androidx.core.app.NotificationCompat
 import java.io.FileOutputStream
 
-class ForegroundServiceLogging: Service() {
+class ForegroundServiceLogging : Service() {
     private var notificationManager: NotificationManager? = null
-    private var notification:NotificationCompat.Builder? = null
-    private var channelID:String = "com.graytsar.sensor.Log"
-    private val notificationID:Int = 101
+    private var notification: NotificationCompat.Builder? = null
+    private var channelID: String = "com.graytsar.sensor.Log"
+    private val notificationID: Int = 101
 
     private var sensorEventListener: SensorEventListener? = null
     private var sensorManager: SensorManager? = null
@@ -43,15 +43,15 @@ class ForegroundServiceLogging: Service() {
             writer?.close()
             sensorManager?.unregisterListener(sensorEventListener)
             stopSelf()
-        } catch (e:Exception) {
+        } catch (e: Exception) {
 
         }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val enableLog:Boolean = intent!!.getBooleanExtra("enableLog", false)
+        val enableLog: Boolean = intent!!.getBooleanExtra("enableLog", false)
 
-        if(enableLog){
+        if (enableLog) {
             val sensorType = intent.getIntExtra("sensorType", 1)
             val title = intent.getStringExtra("title")
             val sensorValuesCount = intent.getIntExtra("sensorValuesCount", 1)
@@ -61,7 +61,8 @@ class ForegroundServiceLogging: Service() {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
             val sensor = sensorManager!!.getDefaultSensor(sensorType)
 
-            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             createNotificationChannel(channelID, "Log", "Log Sensor Data")
 
             notification = NotificationCompat.Builder(this, channelID).apply {
@@ -73,8 +74,9 @@ class ForegroundServiceLogging: Service() {
 
             notification?.setProgress(100, 0, true)
 
-            if(sensorValuesCount == 1){
-                val pfd: ParcelFileDescriptor = applicationContext.contentResolver.openFileDescriptor(fUri, "w")!!
+            if (sensorValuesCount == 1) {
+                val pfd: ParcelFileDescriptor =
+                    applicationContext.contentResolver.openFileDescriptor(fUri, "w")!!
                 val bW = FileOutputStream(pfd.fileDescriptor)
                 bW.write(csvHeader!!.toByteArray())
                 writer = bW
@@ -86,8 +88,9 @@ class ForegroundServiceLogging: Service() {
                     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
 
                     }
+
                     override fun onSensorChanged(event: SensorEvent) {
-                        if(gbInByte > d.statSize){
+                        if (gbInByte > d.statSize) {
                             dupWriter.write("\n${event.timestamp},${event.values[0]},0,0,".toByteArray())
                             bW.flush()
 
@@ -96,18 +99,19 @@ class ForegroundServiceLogging: Service() {
                         } else {
                             try {
                                 dupWriter.close()
-                                notification?.setProgress(0,0, false)
+                                notification?.setProgress(0, 0, false)
                                 sensorManager?.unregisterListener(sensorEventListener)
                                 pfd.close()
                                 stopSelf()
-                            } catch (e:Exception) {
+                            } catch (e: Exception) {
 
                             }
                         }
                     }
                 }
-            } else if (sensorValuesCount == 3){
-                val pfd: ParcelFileDescriptor = applicationContext.contentResolver.openFileDescriptor(fUri, "w")!!
+            } else if (sensorValuesCount == 3) {
+                val pfd: ParcelFileDescriptor =
+                    applicationContext.contentResolver.openFileDescriptor(fUri, "w")!!
                 val bW = FileOutputStream(pfd.fileDescriptor)
                 bW.write(csvHeader!!.toByteArray())
                 writer = bW
@@ -118,29 +122,33 @@ class ForegroundServiceLogging: Service() {
 
                     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
                     }
+
                     override fun onSensorChanged(event: SensorEvent) {
-                        if(gbInByte > d.statSize){
+                        if (gbInByte > d.statSize) {
                             dupWriter.write("\n${event.timestamp},${event.values[0]},${event.values[1]},${event.values[2]}".toByteArray())
                             dupWriter.flush()
 
                             //notification.setProgress(100, ((d.statSize / gbInByte.toDouble()) * 100).toInt(), false)
                             //notificationManager!!.notify(1, notification.build())
-                        }
-                        else {
+                        } else {
                             try {
                                 dupWriter.close()
-                                notification?.setProgress(0,0, false)
+                                notification?.setProgress(0, 0, false)
                                 sensorManager?.unregisterListener(sensorEventListener)
                                 pfd.close()
                                 stopSelf()
-                            } catch (e:Exception) {
+                            } catch (e: Exception) {
 
                             }
                         }
                     }
                 }
             }
-            sensorManager!!.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+            sensorManager!!.registerListener(
+                sensorEventListener,
+                sensor,
+                SensorManager.SENSOR_DELAY_FASTEST
+            )
 
             //id can not be 0
             startForeground(1, notification?.build())
@@ -160,7 +168,7 @@ class ForegroundServiceLogging: Service() {
     }
 
     private fun createNotificationChannel(id: String, name: String, description: String) {
-        if(Build.VERSION.SDK_INT < 26 ){
+        if (Build.VERSION.SDK_INT < 26) {
             return
         }
 

@@ -1,13 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Sensor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:textColorPrimary">@color/textColorTitle</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:textColorPrimary">@color/text_title</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
         <!-- Customize your theme here. -->
 
         <item name="drawerArrowStyle">@style/ArrowHamburgerStyle</item>
@@ -23,10 +23,10 @@
     <style name="Theme.Sensor.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ArrowHamburgerStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/colorDrawerTint</item>
+        <item name="color">@color/drawer_tint</item>
     </style>
 
     <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:buttonTint">@color/colorAccent</item>
+        <item name="android:buttonTint">@color/accent</item>
     </style>
 </resources>

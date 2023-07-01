@@ -10,20 +10,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.ItemSensorBinding
 import com.graytsar.sensor.model.ModelSensor
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 
-class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSensor, ViewHolderSensor>(DIFF_CALLBACK) {
+class AdapterSensor(private val activity: FragmentActivity) :
+    ListAdapter<ModelSensor, ViewHolderSensor>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderSensor {
-        val binding = DataBindingUtil.inflate<ItemSensorBinding>(LayoutInflater.from(activity), R.layout.item_sensor, parent, false)
+        val binding = DataBindingUtil.inflate<ItemSensorBinding>(
+            LayoutInflater.from(activity),
+            R.layout.item_sensor,
+            parent,
+            false
+        )
         return ViewHolderSensor(binding.root, binding)
     }
 
@@ -31,13 +37,14 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
         holder.binding.lifecycleOwner = activity
 
 
-        val f = activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val f =
+            activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController: NavController = f.navController //for fragment switch
 
         getItem(position)?.let { model ->
             holder.binding.model = model
 
-            if(model.sensorValuesCount == 1){
+            if (model.sensorValuesCount == 1) {
                 holder.tView2.visibility = View.GONE
                 holder.tView3.visibility = View.GONE
             } else {
@@ -47,7 +54,12 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
 
             when (model.sensorType) {
                 Sensor.TYPE_ACCELEROMETER -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_acceleration), model.title, ContextCompat.getColor(activity, R.color.colorRed))
+                    holder.initViews(
+                        ContextCompat.getDrawable(
+                            activity,
+                            R.drawable.ic_acceleration
+                        ), model.title, ContextCompat.getColor(activity, R.color.red)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -56,8 +68,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_MAGNETIC_FIELD -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_magnet), model.title, ContextCompat.getColor(activity, R.color.colorPink))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_magnet),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.pink)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -66,8 +83,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_GRAVITY -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_gravity), model.title, ContextCompat.getColor(activity, R.color.colorPurple))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_gravity),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.purple)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -76,8 +98,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_GYROSCOPE -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_gyroscope), model.title, ContextCompat.getColor(activity, R.color.colorDeepPurple))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_gyroscope),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.deep_blue)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -86,8 +113,14 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_LINEAR_ACCELERATION -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_linearacceleration), model.title, ContextCompat.getColor(activity, R.color.colorIndigo))
+                    holder.initViews(
+                        ContextCompat.getDrawable(
+                            activity,
+                            R.drawable.ic_linearacceleration
+                        ), model.title, ContextCompat.getColor(activity, R.color.indigo)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -96,8 +129,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_AMBIENT_TEMPERATURE -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_temperature), model.title, ContextCompat.getColor(activity, R.color.colorBlue))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_temperature),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.blue)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -106,8 +144,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_LIGHT -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_light), model.title, ContextCompat.getColor(activity, R.color.colorLightBlue))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_light),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.light_blue)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -116,8 +159,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_PRESSURE -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_pressure), model.title, ContextCompat.getColor(activity, R.color.colorCyan))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_pressure),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.cyan)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -126,8 +174,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_RELATIVE_HUMIDITY -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_humidity), model.title, ContextCompat.getColor(activity, R.color.colorTeal))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_humidity),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.teal)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -136,8 +189,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_rotate), model.title, ContextCompat.getColor(activity, R.color.colorGreen))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_rotate),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.green)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -146,8 +204,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_PROXIMITY -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_proximity), model.title, ContextCompat.getColor(activity, R.color.colorLightGreen))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_proximity),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.light_green)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -156,8 +219,13 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
                         navController.navigate(R.id.fragmentDetail, bundle)
                     }
                 }
+
                 Sensor.TYPE_STEP_COUNTER -> {
-                    holder.initViews(ContextCompat.getDrawable(activity, R.drawable.ic_steps), model.title, ContextCompat.getColor(activity, R.color.colorLime))
+                    holder.initViews(
+                        ContextCompat.getDrawable(activity, R.drawable.ic_steps),
+                        model.title,
+                        ContextCompat.getColor(activity, R.color.lime)
+                    )
 
                     holder.binding.cardSensor.setOnClickListener {
                         val bundle = Bundle().apply {
@@ -172,7 +240,7 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
 
 
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<ModelSensor>(){
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ModelSensor>() {
             override fun areItemsTheSame(oldItem: ModelSensor, newItem: ModelSensor): Boolean {
                 return oldItem.sensorType == newItem.sensorType
             }
@@ -185,7 +253,7 @@ class AdapterSensor(private val activity: FragmentActivity): ListAdapter<ModelSe
     }
 }
 
-class ViewHolderSensor(view: View, val binding:ItemSensorBinding): RecyclerView.ViewHolder(view) {
+class ViewHolderSensor(view: View, val binding: ItemSensorBinding) : RecyclerView.ViewHolder(view) {
     private val icon: ImageView = binding.imageViewSensor
     private val titleView: TextView = binding.textSensorTitle
     val tView1: TextView = binding.textSensorVal1

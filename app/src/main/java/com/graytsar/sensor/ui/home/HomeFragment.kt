@@ -47,9 +47,10 @@ class HomeFragment : Fragment() {
         (requireActivity() as MainActivity).setSupportActionBar(toolbar)
 
         val navController = NavHostFragment.findNavController(this)
-        val drawerLayout: DrawerLayout = (context as MainActivity).findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout =
+            (requireActivity() as MainActivity).findViewById(R.id.drawer_layout)
         NavigationUI.setupActionBarWithNavController(
-            this.context as MainActivity,
+            requireActivity() as MainActivity,
             navController,
             drawerLayout
         )
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        //initAdapter()
+        initAdapter()
 
         activity?.window?.statusBarColor =
             ContextCompat.getColor(requireContext(), R.color.primary_dark)
@@ -70,11 +71,11 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //registerAllSensor()
+        registerAllSensor()
     }
 
     override fun onStop() {
-        //unregisterAllListener()
+        unregisterAllListener()
         super.onStop()
     }
 

@@ -1,6 +1,8 @@
 package com.graytsar.sensor
 
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -16,7 +18,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.databinding.ActivityMainBinding
+import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 import com.graytsar.sensor.utils.Globals
 import com.graytsar.sensor.utils.keyPreferenceTheme
 import com.graytsar.sensor.utils.keyTheme
@@ -47,10 +51,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
-        //initDrawerMenu(binding.navView)
+        initDrawerMenu(binding.navView)
 
         navController.addOnDestinationChangedListener(this)
-        /*binding.navView.setNavigationItemSelectedListener { item ->
+        binding.navView.setNavigationItemSelectedListener { item ->
             val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
             when (item.itemId) {
@@ -246,7 +250,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
             drawerLayout.close()
             true
-        }*/
+        }
     }
 
 

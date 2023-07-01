@@ -26,15 +26,16 @@
 
     <string name="unitAcceleration">m/s²</string>
     <string name="unitMagneticField">µT</string>
-    <string name="unitRadiantSecond">rad/s</string>
+    <string name="unitAngularVelocity">rad/s</string>
     <string name="unitMicroseconds">µs</string>
     <string name="unitTemperature">°C</string>
-    <string name="unitLight">lux</string>
+    <string name="unitIlluminance">lux</string>
     <string name="unitPressure">hPa</string>
     <string name="unitPercent">%</string>
     <string name="unitProximity">cm</string>
-    <string name="unitSteps">pas</string>
+    <string name="unitStep">pas</string>
     <string name="unitAmpere">mA</string>
+    <string name="unitNone"> </string>
 
     <string name="missingSensorBottomBar">est manquant</string>
     <string name="startRecording">l enregistrement a commencé</string>

@@ -1,6 +1,5 @@
 package com.graytsar.sensor
 
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
@@ -10,7 +9,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.net.Uri
-import android.os.Build
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import androidx.core.app.NotificationCompat
@@ -63,7 +61,6 @@ class ForegroundServiceLogging : Service() {
 
             notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            createNotificationChannel(channelID, "Log", "Log Sensor Data")
 
             notification = NotificationCompat.Builder(this, channelID).apply {
                 setContentTitle("${getString(R.string.logging)} $title")
@@ -165,17 +162,5 @@ class ForegroundServiceLogging : Service() {
         }
 
         return super.onStartCommand(intent, flags, startId)
-    }
-
-    private fun createNotificationChannel(id: String, name: String, description: String) {
-        if (Build.VERSION.SDK_INT < 26) {
-            return
-        }
-
-        val importance = NotificationManager.IMPORTANCE_LOW
-        val channel = NotificationChannel(id, name, importance)
-
-        channel.description = description
-        notificationManager!!.createNotificationChannel(channel)
     }
 }

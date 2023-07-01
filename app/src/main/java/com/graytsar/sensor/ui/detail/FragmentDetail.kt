@@ -286,7 +286,7 @@ class FragmentDetail : Fragment() {
                 Sensor.TYPE_GYROSCOPE -> {
                     viewModelDetail.name = getString(R.string.sensorGyroscope)
                     viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitRadiantSecond)
+                    viewModelDetail.unit = getString(R.string.unitAngularVelocity)
                     binding.includeToolbarDetail.sensorTextInformation.text =
                         getString(R.string.infoGyroscope)
                     toolbar.title = viewModelDetail.name
@@ -373,7 +373,7 @@ class FragmentDetail : Fragment() {
                 Sensor.TYPE_LIGHT -> {
                     viewModelDetail.name = getString(R.string.sensorLight)
                     viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitLight)
+                    viewModelDetail.unit = getString(R.string.unitIlluminance)
                     binding.includeToolbarDetail.sensorTextInformation.text =
                         getString(R.string.infoLight)
                     toolbar.title = viewModelDetail.name
@@ -518,7 +518,7 @@ class FragmentDetail : Fragment() {
                 Sensor.TYPE_STEP_COUNTER -> {
                     viewModelDetail.name = getString(R.string.sensorStepCounter)
                     viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitSteps)
+                    viewModelDetail.unit = getString(R.string.unitStep)
                     binding.includeToolbarDetail.sensorTextInformation.text =
                         getString(R.string.infoStepCounter)
                     toolbar.title = viewModelDetail.name

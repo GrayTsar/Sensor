@@ -15,14 +15,14 @@ android {
         applicationId = "com.graytsar.sensor"
         minSdk = 23
         targetSdk = 33
-        versionCode = 2
+        versionCode = 3
         versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
@@ -48,7 +48,6 @@ android {
 }
 
 dependencies {
-
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")

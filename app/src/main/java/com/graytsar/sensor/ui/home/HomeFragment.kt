@@ -20,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.graytsar.sensor.MainActivity
 import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.FragmentHomeBinding
-import com.graytsar.sensor.model.ModelSensor
-import com.graytsar.sensor.utils.StaticValues
+import com.graytsar.sensor.model.UISensor
+import com.graytsar.sensor.utils.Globals
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModelHome: ViewModelHome by viewModels<ViewModelHome>()
@@ -32,13 +34,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var sensorManager: SensorManager
     private var arListSensorEventListener: ArrayList<SensorEventListener> = ArrayList()
-    private var listSensor: ArrayList<ModelSensor> = ArrayList<ModelSensor>()
+    private var sensors: ArrayList<UISensor> = ArrayList<UISensor>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val toolbar: Toolbar = binding.includeToolbarHome.toolbarHome
@@ -58,7 +60,7 @@ class HomeFragment : Fragment() {
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        initAdapter()
+        //initAdapter()
 
         activity?.window?.statusBarColor =
             ContextCompat.getColor(requireContext(), R.color.primary_dark)
@@ -68,29 +70,26 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-        registerAllSensor()
+        //registerAllSensor()
     }
 
     override fun onStop() {
+        //unregisterAllListener()
         super.onStop()
-
-        unregisterAllListener()
     }
 
     override fun onDestroyView() {
+        //sensors.clear()
         super.onDestroyView()
-
-        listSensor.clear()
     }
 
     private fun registerAllSensor() {
         arListSensorEventListener.clear()
 
-        listSensor.forEach { model ->
+        sensors.forEach { model ->
             var listener: SensorEventListener? = null
 
-            if (model.sensorValuesCount == 1) {
+            if (model.valuesCount == 1) {
                 listener = object : SensorEventListener {
                     override fun onSensorChanged(event: SensorEvent?) {
                         event?.let { event ->
@@ -120,7 +119,7 @@ class HomeFragment : Fragment() {
             sensorManager.registerListener(
                 listener,
                 sensorManager.getDefaultSensor(model.sensorType),
-                SensorManager.SENSOR_DELAY_FASTEST
+                SensorManager.SENSOR_DELAY_UI
             )
         }
     }
@@ -133,134 +132,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        StaticValues.sensorTypeList.forEach {
-            val mSensor = sensorManager.getDefaultSensor(it)
-
-            if (mSensor != null) {
-                when (mSensor.type) {
-                    Sensor.TYPE_ACCELEROMETER -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_ACCELEROMETER,
-                            getString(R.string.sensorAccelerometer),
-                            3,
-                            getString(R.string.unitAcceleration)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_MAGNETIC_FIELD -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_MAGNETIC_FIELD,
-                            getString(R.string.sensorMagneticField),
-                            3,
-                            getString(R.string.unitMagneticField)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_GRAVITY -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_GRAVITY,
-                            getString(R.string.sensorGravity),
-                            3,
-                            getString(R.string.unitAcceleration)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_GYROSCOPE -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_GYROSCOPE,
-                            getString(R.string.sensorGyroscope),
-                            3,
-                            getString(R.string.unitRadiantSecond)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_LINEAR_ACCELERATION -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_LINEAR_ACCELERATION,
-                            getString(R.string.sensorLinearAcceleration),
-                            3,
-                            getString(R.string.unitAcceleration)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_AMBIENT_TEMPERATURE -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_AMBIENT_TEMPERATURE,
-                            getString(R.string.sensorAmbientTemperature),
-                            1,
-                            getString(R.string.unitTemperature)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_LIGHT -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_LIGHT,
-                            getString(R.string.sensorLight),
-                            1,
-                            getString(R.string.unitLight)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_PRESSURE -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_PRESSURE,
-                            getString(R.string.sensorPressure),
-                            1,
-                            getString(R.string.unitPressure)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_RELATIVE_HUMIDITY -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_RELATIVE_HUMIDITY,
-                            getString(R.string.sensorRelativeHumidity),
-                            1,
-                            getString(R.string.unitPercent)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR,
-                            getString(R.string.sensorGeomagneticRotationVector),
-                            3,
-                            ""
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_PROXIMITY -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_PROXIMITY,
-                            getString(R.string.sensorProximity),
-                            1,
-                            getString(R.string.unitProximity)
-                        )
-                        listSensor.add(model)
-                    }
-
-                    Sensor.TYPE_STEP_COUNTER -> {
-                        val model = ModelSensor(
-                            Sensor.TYPE_STEP_COUNTER,
-                            getString(R.string.sensorStepCounter),
-                            1,
-                            getString(R.string.unitSteps)
-                        )
-                        listSensor.add(model)
-                    }
-                }
-            }
+        sensors.clear()
+        Globals.sensors.filterTo(sensors) {
+            sensorManager.getDefaultSensor(it.sensorType) != null
         }
-
-        adapterSensor.submitList(listSensor)
+        adapterSensor.submitList(sensors)
     }
 }

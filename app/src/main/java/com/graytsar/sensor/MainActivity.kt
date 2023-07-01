@@ -1,10 +1,6 @@
 package com.graytsar.sensor
 
 import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -20,41 +16,18 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.databinding.ActivityMainBinding
-import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
-import com.graytsar.sensor.utils.StaticValues
+import com.graytsar.sensor.utils.Globals
 import com.graytsar.sensor.utils.keyPreferenceTheme
 import com.graytsar.sensor.utils.keyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val mask = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK)
-        val sharedPref = this.getSharedPreferences(keyPreferenceTheme, Context.MODE_PRIVATE)
-
-        when (mask) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                StaticValues.isNightMode = true
-            }
-
-            Configuration.UI_MODE_NIGHT_NO -> {
-                if (sharedPref.getBoolean(keyTheme, false)) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    StaticValues.isNightMode = true
-                } else {
-                    StaticValues.isNightMode = false
-                }
-            }
-
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                StaticValues.isNightMode = false
-            }
-        }
-
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -70,18 +43,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         val navController = navHostFragment.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.fragmentHome
-            ), drawerLayout
-        )
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.fragmentHome), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
-        initDrawerMenu(binding.navView)
+        //initDrawerMenu(binding.navView)
 
         navController.addOnDestinationChangedListener(this)
-        binding.navView.setNavigationItemSelectedListener { item ->
+        /*binding.navView.setNavigationItemSelectedListener { item ->
             val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
             when (item.itemId) {
@@ -277,7 +246,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
             drawerLayout.close()
             true
-        }
+        }*/
     }
 
 
@@ -292,16 +261,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         arguments: Bundle?
     ) {
         //if(destination.id == R.id.fragmentHome) {
-        val intent = Intent(this, ForegroundServiceLogging::class.java)
-        stopService(intent)
+        //val intent = Intent(this, ForegroundServiceLogging::class.java)
+        //stopService(intent)
         //}
     }
 
     private fun initDrawerMenu(navView: NavigationView) {
         val darkMode = (navView.menu.findItem(R.id.menuDarkMode)).actionView as MaterialCheckBox
-
-        darkMode.isChecked = StaticValues.isNightMode
-
+        darkMode.isChecked = Globals.isNightMode
         darkMode.setOnClickListener {
             onMenuDarkModeClick(darkMode)
         }
@@ -311,12 +278,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         val sharedPref = this.getSharedPreferences(keyPreferenceTheme, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
 
-        if (StaticValues.isNightMode) {
+        if (Globals.isNightMode) {
 
             editor.putBoolean(keyTheme, false)
             editor.apply()
 
-            StaticValues.isNightMode = false
+            Globals.isNightMode = false
             checkBox.isChecked = false
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
@@ -324,7 +291,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             editor.putBoolean(keyTheme, true)
             editor.apply()
 
-            StaticValues.isNightMode = true
+            Globals.isNightMode = true
             checkBox.isChecked = true
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 

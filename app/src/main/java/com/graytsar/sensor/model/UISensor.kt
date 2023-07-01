@@ -1,12 +1,15 @@
 package com.graytsar.sensor.model
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 
-class ModelSensor(
+class UISensor(
     val sensorType: Int,
-    val title: String,
-    val sensorValuesCount: Int,
-    val unit: String
+    val valuesCount: Int,
+    @StringRes
+    val title: Int,
+    @StringRes
+    val unit: Int
 ) {
 
     val xValue = MutableLiveData("0")

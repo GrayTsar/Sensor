@@ -37,7 +37,7 @@
     <string name="unitAmpere">mA</string>
     <string name="unitNone"> </string>
 
-    <string name="missingSensorBottomBar">не существует</string>
+    <string name="sensor_not_available">%s недоступен</string>
     <string name="startRecording">Запись началась</string>
     <string name="menuSensorText">сенсор</string>
 

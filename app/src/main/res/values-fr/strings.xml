@@ -37,7 +37,7 @@
     <string name="unitAmpere">mA</string>
     <string name="unitNone"> </string>
 
-    <string name="missingSensorBottomBar">est manquant</string>
+    <string name="sensor_not_available">%s n\'est pas disponible</string>
     <string name="startRecording">l enregistrement a commencé</string>
     <string name="menuSensorText">capteur App</string>
 

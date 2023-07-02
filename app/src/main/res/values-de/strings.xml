@@ -37,7 +37,7 @@
     <string name="unitPercent">%</string>
     <string name="unitNone"> </string>
 
-    <string name="missingSensorBottomBar">nicht vorhanden</string>
+    <string name="sensor_not_available">%s ist nicht vorhanden</string>
     <string name="startRecording">Aufzeichnung gestartet</string>
     <string name="menuSensorText">Sensor</string>
 

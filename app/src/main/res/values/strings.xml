@@ -36,7 +36,7 @@
     <string name="unitAmpere">mA</string>
     <string name="unitNone"> </string>
 
-    <string name="missingSensorBottomBar">is missing</string>
+    <string name="sensor_not_available">%s is not available</string>
     <string name="startRecording">Recording Sensor Data</string>
     <string name="menuSensorText">Sensor</string>
 

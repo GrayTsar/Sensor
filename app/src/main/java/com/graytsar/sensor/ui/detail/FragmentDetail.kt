@@ -32,8 +32,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.ForegroundServiceLogging
-import com.graytsar.sensor.MainActivity
 import com.graytsar.sensor.R
+import com.graytsar.sensor.SensorsActivity
 import com.graytsar.sensor.databinding.FragmentDetailBinding
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 
@@ -70,10 +70,10 @@ class FragmentDetail : Fragment() {
 
 
         val toolbar: Toolbar = binding.includeToolbarDetail.toolbarDetail
-        (requireActivity() as MainActivity).setSupportActionBar(toolbar)
+        (requireActivity() as SensorsActivity).setSupportActionBar(toolbar)
 
         val navController = NavHostFragment.findNavController(this)
-        NavigationUI.setupActionBarWithNavController(this.context as MainActivity, navController)
+        NavigationUI.setupActionBarWithNavController(this.context as SensorsActivity, navController)
 
 
         binding.includeToolbarDetail.lifecycleOwner = this

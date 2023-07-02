@@ -38,7 +38,7 @@
                     android:icon="@drawable/ic_linearacceleration"
                     android:title="@string/sensorLinearAcceleration" />
                 <item
-                    android:id="@+id/ambient_Temperature"
+                    android:id="@+id/temperature"
                     android:icon="@drawable/ic_temperature"
                     android:title="@string/sensorAmbientTemperature" />
                 <item
@@ -54,7 +54,7 @@
                     android:icon="@drawable/ic_humidity"
                     android:title="@string/sensorRelativeHumidity" />
                 <item
-                    android:id="@+id/geomagneticRotationVector"
+                    android:id="@+id/rotationVector"
                     android:icon="@drawable/ic_rotate"
                     android:title="@string/sensorGeomagneticRotationVector" />
                 <item

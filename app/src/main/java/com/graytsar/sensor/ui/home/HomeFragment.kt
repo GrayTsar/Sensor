@@ -17,8 +17,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.graytsar.sensor.MainActivity
 import com.graytsar.sensor.R
+import com.graytsar.sensor.SensorsActivity
 import com.graytsar.sensor.databinding.FragmentHomeBinding
 import com.graytsar.sensor.model.UISensor
 import com.graytsar.sensor.utils.Globals
@@ -44,13 +44,13 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val toolbar: Toolbar = binding.includeToolbarHome.toolbarHome
-        (requireActivity() as MainActivity).setSupportActionBar(toolbar)
+        (requireActivity() as SensorsActivity).setSupportActionBar(toolbar)
 
         val navController = NavHostFragment.findNavController(this)
         val drawerLayout: DrawerLayout =
-            (requireActivity() as MainActivity).findViewById(R.id.drawer_layout)
+            (requireActivity() as SensorsActivity).findViewById(R.id.drawer_layout)
         NavigationUI.setupActionBarWithNavController(
-            requireActivity() as MainActivity,
+            requireActivity() as SensorsActivity,
             navController,
             drawerLayout
         )

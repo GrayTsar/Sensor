@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.graytsar.sensor.ui.home.HomeFragment"
-        android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.graytsar.sensor.ui.home.SensorsFragment"
+        android:label="@string/sensors_title"
+        tools:layout="@layout/fragment_sensors" />
 
     <fragment
         android:id="@+id/fragmentDetail"

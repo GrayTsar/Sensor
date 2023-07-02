@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
@@ -19,6 +20,8 @@ import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.ItemSensorBinding
 import com.graytsar.sensor.model.UISensor
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class AdapterSensor(
     private val activity: FragmentActivity
@@ -37,19 +40,7 @@ class AdapterSensor(
     }
 
     override fun onBindViewHolder(holder: ViewHolderSensor, position: Int) {
-        holder.binding.lifecycleOwner = activity
-
         getItem(position)?.let { item ->
-            holder.binding.model = item
-
-            if (item.valuesCount == 1) {
-                holder.yVal.visibility = View.GONE
-                holder.zVal.visibility = View.GONE
-            } else {
-                holder.yVal.visibility = View.VISIBLE
-                holder.zVal.visibility = View.VISIBLE
-            }
-
             when (item.sensorType) {
                 Sensor.TYPE_ACCELEROMETER -> bindAccelerometer(item, holder)
                 Sensor.TYPE_MAGNETIC_FIELD -> bindMagnetometer(item, holder)
@@ -68,7 +59,8 @@ class AdapterSensor(
     }
 
     private fun bindAccelerometer(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_acceleration),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.red)
@@ -83,7 +75,8 @@ class AdapterSensor(
     }
 
     private fun bindMagnetometer(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_magnet),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.pink)
@@ -98,7 +91,8 @@ class AdapterSensor(
     }
 
     private fun bindGravity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_gravity),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.purple)
@@ -113,7 +107,8 @@ class AdapterSensor(
     }
 
     private fun bindGyroscope(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_gyroscope),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.deep_blue)
@@ -128,7 +123,8 @@ class AdapterSensor(
     }
 
     private fun bindLinearAcceleration(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_linearacceleration),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.indigo)
@@ -143,7 +139,8 @@ class AdapterSensor(
     }
 
     private fun bindTemperature(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_temperature),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.blue)
@@ -158,7 +155,8 @@ class AdapterSensor(
     }
 
     private fun bindLight(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_light),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.light_blue)
@@ -173,7 +171,8 @@ class AdapterSensor(
     }
 
     private fun bindPressure(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_pressure),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.cyan)
@@ -188,7 +187,8 @@ class AdapterSensor(
     }
 
     private fun bindHumidity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_humidity),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.teal)
@@ -203,7 +203,8 @@ class AdapterSensor(
     }
 
     private fun bindRotationVector(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_rotate),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.green)
@@ -218,7 +219,8 @@ class AdapterSensor(
     }
 
     private fun bindProximity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_proximity),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.light_green)
@@ -233,7 +235,8 @@ class AdapterSensor(
     }
 
     private fun bindStepCounter(item: UISensor, holder: ViewHolderSensor) {
-        holder.initViews(
+        holder.initView(
+            item = item,
             drawable = ContextCompat.getDrawable(activity, R.drawable.ic_steps),
             title = activity.getString(item.title),
             backgroundColor = ContextCompat.getColor(activity, R.color.lime)
@@ -247,18 +250,38 @@ class AdapterSensor(
         }
     }
 
+    override fun onViewRecycled(holder: ViewHolderSensor) {
+        super.onViewRecycled(holder)
+    }
+
     inner class ViewHolderSensor(val binding: ItemSensorBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val icon: ImageView = binding.imageViewSensor
-        private val title: TextView = binding.textSensorTitle
-        val xVal: TextView = binding.textSensorVal1
-        val yVal: TextView = binding.textSensorVal2
-        val zVal: TextView = binding.textSensorVal3
+        private val icon: ImageView = binding.icon
+        private val title: TextView = binding.title
+        private val xVal: TextView = binding.xValue
+        private val yVal: TextView = binding.yValue
+        private val zVal: TextView = binding.zValue
 
-        fun initViews(drawable: Drawable?, title: String, backgroundColor: Int) {
+        fun initView(item: UISensor, drawable: Drawable?, title: String, backgroundColor: Int) {
             icon.setImageDrawable(drawable)
             this.title.text = title
-            binding.backgroundColorSensor.setBackgroundColor(backgroundColor)
+            binding.background.setBackgroundColor(backgroundColor)
+
+            if (item.valuesCount == 1) {
+                yVal.visibility = View.GONE
+                zVal.visibility = View.GONE
+            } else {
+                yVal.visibility = View.VISIBLE
+                zVal.visibility = View.VISIBLE
+            }
+
+            activity.lifecycleScope.launch {
+                item.values.collectLatest {
+                    xVal.text = activity.getString(item.unit, it.first)
+                    yVal.text = activity.getString(item.unit, it.second)
+                    zVal.text = activity.getString(item.unit, it.third)
+                }
+            }
         }
     }
 
@@ -269,7 +292,7 @@ class AdapterSensor(
             }
 
             override fun areContentsTheSame(oldItem: UISensor, newItem: UISensor): Boolean {
-                return false
+                return oldItem == newItem
             }
         }
     }

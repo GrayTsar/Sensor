@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">сенсор</string>
+    <string name="sensors_title">датчик</string>
 
     <string name="sensorAccelerometer">Скоростной сенсор</string>
     <string name="sensorMagneticField">Магнетный датчик</string>
@@ -14,7 +15,6 @@
     <string name="sensorGeomagneticRotationVector">Вектор вращения</string>
     <string name="sensorProximity">Датчик приближения</string>
     <string name="sensorStepCounter">шагомер</string>
-    <string name="home">Дом</string>
 
     <string name="labelName">имя:</string>
     <string name="labelVendor">изготовитель:</string>
@@ -24,18 +24,18 @@
     <string name="labelMinDelay">мин. задержка:</string>
     <string name="labelMaxRange">Макс. диапазон:</string>
 
-    <string name="unitAcceleration">m/s²</string>
-    <string name="unitMagneticField">µT</string>
-    <string name="unitAngularVelocity">rad/s</string>
-    <string name="unitMicroseconds">µs</string>
-    <string name="unitTemperature">°C</string>
-    <string name="unitIlluminance">lux</string>
-    <string name="unitPressure">hPa</string>
-    <string name="unitPercent">%</string>
-    <string name="unitProximity">cm</string>
-    <string name="unitStep">Шаги</string>
-    <string name="unitAmpere">mA</string>
-    <string name="unitNone"> </string>
+    <string name="unitAcceleration">%s m/s²</string>
+    <string name="unitMagneticField">%s µT</string>
+    <string name="unitAngularVelocity">%s rad/s</string>
+    <string name="unitMicroseconds">%s µs</string>
+    <string name="unitTemperature">%s °C</string>
+    <string name="unitIlluminance">%s lux</string>
+    <string name="unitPressure">%s hPa</string>
+    <string name="unitPercent">%s %</string>
+    <string name="unitProximity">%s cm</string>
+    <string name="unitStep">%s Шаги</string>
+    <string name="unitAmpere">%s mA</string>
+    <string name="unitNone">%s</string>
 
     <string name="sensor_not_available">%s недоступен</string>
     <string name="startRecording">Запись началась</string>

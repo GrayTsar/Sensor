@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">센서</string>
+    <string name="sensors_title">센서</string>
 
     <string name="sensorAccelerometer">가속도계</string>
     <string name="sensorMagneticField">자기계</string>
@@ -14,7 +15,6 @@
     <string name="sensorGeomagneticRotationVector">회전 벡터</string>
     <string name="sensorProximity">근접성</string>
     <string name="sensorStepCounter">단계 계수기</string>
-    <string name="home">홈</string>
 
     <string name="labelName">이름:</string>
     <string name="labelVendor">노점상:</string>
@@ -24,18 +24,18 @@
     <string name="labelMinDelay">최소 지연:</string>
     <string name="labelMaxRange">최대 범위:</string>
 
-    <string name="unitAcceleration">m/s²</string>
-    <string name="unitMagneticField">µT</string>
-    <string name="unitAngularVelocity">rad/s</string>
-    <string name="unitMicroseconds">µs</string>
-    <string name="unitTemperature">°C</string>
-    <string name="unitIlluminance">lux</string>
-    <string name="unitPressure">hPa</string>
-    <string name="unitPercent">%</string>
-    <string name="unitProximity">cm</string>
-    <string name="unitStep">걸음</string>
-    <string name="unitAmpere">mA</string>
-    <string name="unitNone"> </string>
+    <string name="unitAcceleration">%s m/s²</string>
+    <string name="unitMagneticField">%s µT</string>
+    <string name="unitAngularVelocity">%s rad/s</string>
+    <string name="unitMicroseconds">%s µs</string>
+    <string name="unitTemperature">%s °C</string>
+    <string name="unitIlluminance">%s lux</string>
+    <string name="unitPressure">%s hPa</string>
+    <string name="unitPercent">%s %</string>
+    <string name="unitProximity">%s cm</string>
+    <string name="unitStep">%s 걸음</string>
+    <string name="unitAmpere">%s mA</string>
+    <string name="unitNone">%s</string>
 
     <string name="sensor_not_available">%s 사용할 수 없음</string>
     <string name="startRecording">녹음 시작</string>

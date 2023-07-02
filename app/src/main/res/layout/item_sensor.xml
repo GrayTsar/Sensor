@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="model"
-            type="com.graytsar.sensor.model.UISensor" />
-    </data>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardSensor"
         android:layout_width="match_parent"
@@ -27,17 +21,17 @@
             android:layout_height="wrap_content">
 
             <View
-                android:id="@+id/backgroundColorSensor"
+                android:id="@+id/background"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textSensorTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:background="@color/red" />
 
             <ImageView
-                android:id="@+id/imageViewSensor"
+                android:id="@+id/icon"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="8dp"
@@ -48,7 +42,7 @@
                 tools:srcCompat="@drawable/ic_acceleration" />
 
             <TextView
-                android:id="@+id/textSensorTitle"
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
@@ -56,50 +50,47 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/backgroundColorSensor"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewSensor"
+                app:layout_constraintStart_toStartOf="@+id/background"
+                app:layout_constraintTop_toBottomOf="@+id/icon"
                 tools:text="Acceleration" />
 
             <TextView
-                android:id="@+id/textSensorVal1"
+                android:id="@+id/xValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{model.xValue}"
                 android:textColor="@color/text_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/backgroundColorSensor"
+                app:layout_constraintTop_toBottomOf="@+id/background"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="9.81ms/s" />
 
             <TextView
-                android:id="@+id/textSensorVal2"
+                android:id="@+id/yValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{model.yValue}"
                 android:textColor="@color/text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textSensorVal1"
+                app:layout_constraintTop_toBottomOf="@+id/xValue"
                 tools:text="1.01ms/s" />
 
             <TextView
-                android:id="@+id/textSensorVal3"
+                android:id="@+id/zValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{model.zValue}"
                 android:textColor="@color/text_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textSensorVal2"
+                app:layout_constraintTop_toBottomOf="@+id/yValue"
                 tools:text="2.581ms/s" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

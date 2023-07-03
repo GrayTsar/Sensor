@@ -61,9 +61,9 @@ class AdapterSensor(
     private fun bindAccelerometer(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_acceleration),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.red)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -77,9 +77,9 @@ class AdapterSensor(
     private fun bindMagnetometer(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_magnet),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.pink)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -93,9 +93,9 @@ class AdapterSensor(
     private fun bindGravity(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_gravity),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.purple)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -109,9 +109,9 @@ class AdapterSensor(
     private fun bindGyroscope(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_gyroscope),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.deep_blue)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -125,9 +125,9 @@ class AdapterSensor(
     private fun bindLinearAcceleration(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_linearacceleration),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.indigo)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -141,9 +141,9 @@ class AdapterSensor(
     private fun bindTemperature(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_temperature),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.blue)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -157,9 +157,9 @@ class AdapterSensor(
     private fun bindLight(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_light),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.light_blue)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -173,9 +173,9 @@ class AdapterSensor(
     private fun bindPressure(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_pressure),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.cyan)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -189,9 +189,9 @@ class AdapterSensor(
     private fun bindHumidity(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_humidity),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.teal)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -205,9 +205,9 @@ class AdapterSensor(
     private fun bindRotationVector(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_rotate),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.green)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -221,9 +221,9 @@ class AdapterSensor(
     private fun bindProximity(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_proximity),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.light_green)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -237,9 +237,9 @@ class AdapterSensor(
     private fun bindStepCounter(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
-            drawable = ContextCompat.getDrawable(activity, R.drawable.ic_steps),
+            drawable = ContextCompat.getDrawable(activity, item.icon),
             title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, R.color.lime)
+            backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
@@ -276,10 +276,16 @@ class AdapterSensor(
             }
 
             activity.lifecycleScope.launch {
-                item.values.collectLatest {
-                    xVal.text = activity.getString(item.unit, it.first)
-                    yVal.text = activity.getString(item.unit, it.second)
-                    zVal.text = activity.getString(item.unit, it.third)
+                if (item.valuesCount == 1) {
+                    item.values.collectLatest {
+                        xVal.text = activity.getString(item.unit, it.first)
+                    }
+                } else {
+                    item.values.collectLatest {
+                        xVal.text = activity.getString(item.unit, it.first)
+                        yVal.text = activity.getString(item.unit, it.second)
+                        zVal.text = activity.getString(item.unit, it.third)
+                    }
                 }
             }
         }

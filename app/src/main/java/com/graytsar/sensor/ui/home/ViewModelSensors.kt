@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewModelSensors @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    sensorManager: SensorManager
+    val sensorManager: SensorManager
 ) : ViewModel() {
     val sensors: List<UISensor> = Globals.sensors.filter {
         sensorManager.getDefaultSensor(it.sensorType) != null

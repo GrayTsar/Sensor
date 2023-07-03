@@ -18,6 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,143 +35,117 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.ForegroundServiceLogging
 import com.graytsar.sensor.R
-import com.graytsar.sensor.SensorsActivity
 import com.graytsar.sensor.databinding.FragmentDetailBinding
-import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentDetail : Fragment() {
-    private val viewModelDetail: ViewModelDetail by viewModels<ViewModelDetail>()
-    private lateinit var binding: FragmentDetailBinding
+    private val viewModel: ViewModelDetail by viewModels()
+
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var fab: FloatingActionButton
-    private lateinit var sensorManager: SensorManager
+    private lateinit var name: TextView
+    private lateinit var vendor: TextView
+    private lateinit var version: TextView
+    private lateinit var power: TextView
+    private lateinit var maxDelay: TextView
+    private lateinit var minDelay: TextView
+    private lateinit var maxRange: TextView
+    private lateinit var info: TextView
+
 
     private lateinit var mpChart: LineChart
     private var mData: LineData = LineData()
 
-    private var sensorType: Int = -1
     private var sensorEventListener: SensorEventListener? = null
-
-    private var displayPoints: Float = 400f
-
-    private var csvHeader: String = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let { bundle ->
-            sensorType = bundle.getInt(ARG_SENSOR_TYPE, -1)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-
-        val toolbar: Toolbar = binding.includeToolbarDetail.toolbarDetail
-        (requireActivity() as SensorsActivity).setSupportActionBar(toolbar)
-
+        val toolbar = binding.includeToolbarDetail.toolbarDetail
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         val navController = NavHostFragment.findNavController(this)
-        NavigationUI.setupActionBarWithNavController(this.context as SensorsActivity, navController)
+        NavigationUI.setupActionBarWithNavController(
+            requireActivity() as AppCompatActivity,
+            navController
+        )
 
+        fab = binding.includeToolbarDetail.fab
+        name = binding.includeToolbarDetail.name
+        vendor = binding.includeToolbarDetail.vendor
+        version = binding.includeToolbarDetail.version
+        power = binding.includeToolbarDetail.power
+        maxDelay = binding.includeToolbarDetail.maxDelay
+        minDelay = binding.includeToolbarDetail.minDelay
+        maxRange = binding.includeToolbarDetail.maxRange
+        info = binding.includeToolbarDetail.textInformation
 
-        binding.includeToolbarDetail.lifecycleOwner = this
-        binding.includeToolbarDetail.viewModel = viewModelDetail
-
-
-        fab = binding.includeToolbarDetail.floatingActionButtonDetail
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
-
+        initDisplayPoints()
         initSensorData()
 
+        return binding.root
+    }
 
-        val p = DisplayMetrics()
-        var widthPixels = 0
-        if (Build.VERSION.SDK_INT < 30) {
-            (context as Activity).windowManager.defaultDisplay.getMetrics(p)
-            widthPixels = p.widthPixels;
-        } else {
-            //requireActivity().display?.getRealMetrics(p)
-            //widthPixels = p.widthPixels;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            val windowManager: WindowManager =
-                requireActivity().getSystemService(Context.WINDOW_SERVICE) as WindowManager;
-            val metrics = windowManager.currentWindowMetrics
-            val windowInsets = metrics.windowInsets
-            val insets: Insets =
-                windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout())
+        name.text = getString(R.string.labelName, viewModel.sensor.name)
+        vendor.text = getString(R.string.labelVendor, viewModel.sensor.vendor)
+        version.text = getString(R.string.labelVersion, viewModel.sensor.version.toString())
+        power.text = getString(R.string.labelPower, viewModel.sensor.power.toString())
+        maxDelay.text = getString(R.string.labelMaxDelay, viewModel.sensor.maxDelay.toString())
+        minDelay.text = getString(R.string.labelMinDelay, viewModel.sensor.minDelay.toString())
+        maxRange.text = getString(
+            R.string.labelMaxRange,
+            getString(viewModel.itemSensor.unit, viewModel.sensor.maximumRange)
+        )
+        info.text = getString(viewModel.itemSensor.info)
 
-            val insetsWidth: Int = insets.right + insets.left
-            //val insetsHeight: Int = insets.top + insets.bottom
+        viewModel.itemSensor.let {
+            val color = ContextCompat.getColor(requireContext(), it.color)
+            val toolbar: Toolbar = binding.includeToolbarDetail.toolbarDetail
+            val layout = binding.includeToolbarDetail.toolbarLayout
+            val icon = binding.includeToolbarDetail.appBarImage
 
-            val bounds: Rect = metrics.bounds
-            widthPixels = bounds.width() - insetsWidth;
-
-            //Log.d("DBG: ", "$widthPixels")
+            toolbar.title = getString(it.title)
+            layout.setBackgroundColor(color)
+            layout.setContentScrimColor(color)
+            activity?.window?.statusBarColor = color
+            icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), it.icon))
         }
 
-        displayPoints = widthPixels / 2.5f
-
-        if (displayPoints < 400)
-            displayPoints = 400f
-
-
-        if (viewModelDetail.enableLog) {
+        if (viewModel.enableLog) {
             fab.setImageResource(R.drawable.ic_baseline_pause_24)
         } else {
             fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         }
 
-        fab.setOnClickListener {
-            viewModelDetail.enableLog = !viewModelDetail.enableLog
-            if (viewModelDetail.enableLog) {
-                fab.setImageResource(R.drawable.ic_baseline_pause_24)
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.startRecording),
-                    Snackbar.LENGTH_LONG
-                ).show()
-
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_TITLE, viewModelDetail.name + ".txt")
-                startActivityForResult(intent, 1)
-            } else if (!viewModelDetail.enableLog) {
-                fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-
-                val intent = Intent(context, ForegroundServiceLogging::class.java)
-                intent.putExtra("enableLog", false)
-                ContextCompat.startForegroundService(requireContext(), intent)
-            }
-        }
-
-        return binding.root
+        fab.setOnClickListener { onFabClicked() }
     }
 
     override fun onStart() {
         super.onStart()
-
-        val sensor: Sensor = sensorManager.getDefaultSensor(sensorType)
-        sensorManager.registerListener(
+        viewModel.sensorManager.registerListener(
             sensorEventListener,
-            sensor,
+            viewModel.sensor,
             SensorManager.SENSOR_DELAY_FASTEST
         )
     }
 
     override fun onStop() {
+        viewModel.sensorManager.unregisterListener(sensorEventListener)
         super.onStop()
-
-        sensorManager.unregisterListener(sensorEventListener)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
 
     override fun onActivityResult(request: Int, result: Int, resultData: Intent?) {
@@ -178,446 +154,124 @@ class FragmentDetail : Fragment() {
 
             val intent = Intent(context, ForegroundServiceLogging::class.java).apply {
                 putExtra("enableLog", true)
-                putExtra("sensorType", sensorType)
-                putExtra("title", viewModelDetail.name)
-                putExtra("sensorValuesCount", viewModelDetail.count)
-                putExtra("csvHeader", csvHeader)
+                putExtra("sensorType", viewModel.sensorType)
+                putExtra("title", viewModel.itemSensor.title)
+                putExtra("sensorValuesCount", viewModel.itemSensor.valuesCount)
+                putExtra("csvHeader", viewModel.csvHeader)
                 putExtra("fUri", fUri.toString())
             }
             ContextCompat.startForegroundService(requireContext(), intent)
         }
     }
 
+    private fun initDisplayPoints() {
+        val p = DisplayMetrics()
+        val widthPixels = if (Build.VERSION.SDK_INT < 30) {
+            (context as Activity).windowManager.defaultDisplay.getMetrics(p)
+            p.widthPixels;
+        } else {
+            val windowManager: WindowManager =
+                requireActivity().getSystemService(Context.WINDOW_SERVICE) as WindowManager;
+            val metrics = windowManager.currentWindowMetrics
+            val windowInsets = metrics.windowInsets
+            val insets: Insets =
+                windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout())
+            val insetsWidth: Int = insets.right + insets.left
+            val bounds: Rect = metrics.bounds
+            bounds.width() - insetsWidth
+        }
+
+        viewModel.displayPoints = widthPixels / 2.5f
+        if (viewModel.displayPoints < 400)
+            viewModel.displayPoints = 400f
+    }
+
+    private fun onFabClicked() {
+        viewModel.enableLog = !viewModel.enableLog
+        if (viewModel.enableLog) {
+            fab.setImageResource(R.drawable.ic_baseline_pause_24)
+            Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG)
+                .show()
+
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TITLE, viewModel.itemSensor.title.toString() + ".txt")
+            startActivityForResult(intent, 1)
+        } else if (!viewModel.enableLog) {
+            fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            val intent = Intent(context, ForegroundServiceLogging::class.java)
+            intent.putExtra("enableLog", false)
+            ContextCompat.startForegroundService(requireContext(), intent)
+        }
+    }
+
     private fun initSensorData() {
-        if (sensorType > -1) {
-            val sensor: Sensor = sensorManager.getDefaultSensor(sensorType)
-            val toolbar: Toolbar = binding.includeToolbarDetail.toolbarDetail
-            val toolbarLayout = binding.includeToolbarDetail.toolbarLayout
-            val icon = binding.includeToolbarDetail.appBarImage
+        mpChart = binding.includeToolbarDetail.chart
+        setupChart(viewModel.itemSensor.valuesCount, mData, mpChart)
 
-            when (sensorType) {
-                Sensor.TYPE_ACCELEROMETER -> {
-                    viewModelDetail.name = getString(R.string.sensorAccelerometer)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitAcceleration)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoAccelerometer)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red
+        if (viewModel.itemSensor.valuesCount == 1) {
+            sensorEventListener = object : SensorEventListener {
+                var i = 0
+                override fun onSensorChanged(event: SensorEvent?) {
+                    if (event == null) return
+                    viewModel.xValue.postValue(
+                        getString(
+                            viewModel.itemSensor.unit,
+                            event.values[0]
                         )
                     )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.red)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_acceleration
-                        )
-                    )
+                    addPointsToChart(i, event.values)
+                    i++
                 }
 
-                Sensor.TYPE_MAGNETIC_FIELD -> {
-                    viewModelDetail.name = getString(R.string.sensorMagneticField)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitMagneticField)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoMagneticField)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.pink
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.pink)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.pink
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_magnet
-                        )
-                    )
-                }
-
-                Sensor.TYPE_GRAVITY -> {
-                    viewModelDetail.name = getString(R.string.sensorGravity)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitAcceleration)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoGravity)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.purple
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.purple)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.purple
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_gravity
-                        )
-                    )
-                }
-
-                Sensor.TYPE_GYROSCOPE -> {
-                    viewModelDetail.name = getString(R.string.sensorGyroscope)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitAngularVelocity)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoGyroscope)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.deep_blue
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.deep_blue)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.deep_blue
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_gyroscope
-                        )
-                    )
-                }
-
-                Sensor.TYPE_LINEAR_ACCELERATION -> {
-                    viewModelDetail.name = getString(R.string.sensorLinearAcceleration)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = getString(R.string.unitAcceleration)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoLinearAcceleration)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.indigo
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.indigo)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.indigo
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_linearacceleration
-                        )
-                    )
-                }
-
-                Sensor.TYPE_AMBIENT_TEMPERATURE -> {
-                    viewModelDetail.name = getString(R.string.sensorAmbientTemperature)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitTemperature)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoAmbientTemperature)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.blue
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.blue)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.blue
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_temperature
-                        )
-                    )
-                }
-
-                Sensor.TYPE_LIGHT -> {
-                    viewModelDetail.name = getString(R.string.sensorLight)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitIlluminance)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoLight)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.light_blue)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_light
-                        )
-                    )
-                }
-
-                Sensor.TYPE_PRESSURE -> {
-                    viewModelDetail.name = getString(R.string.sensorPressure)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitPressure)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoPressure)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.cyan
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.cyan)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.cyan
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_pressure
-                        )
-                    )
-                }
-
-                Sensor.TYPE_RELATIVE_HUMIDITY -> {
-                    viewModelDetail.name = getString(R.string.sensorRelativeHumidity)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitPercent)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoRelativeHumidity)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.teal
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.teal)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.teal
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_humidity
-                        )
-                    )
-                }
-
-                Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> {
-                    viewModelDetail.name = getString(R.string.sensorGeomagneticRotationVector)
-                    viewModelDetail.count = 3
-                    viewModelDetail.unit = ""
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoGeomagneticRotationVector)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.green
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.green)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.green
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_rotate
-                        )
-                    )
-                }
-
-                Sensor.TYPE_PROXIMITY -> {
-                    viewModelDetail.name = getString(R.string.sensorProximity)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitProximity)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoProximity)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_green
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.light_green)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_green
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_proximity
-                        )
-                    )
-                }
-
-                Sensor.TYPE_STEP_COUNTER -> {
-                    viewModelDetail.name = getString(R.string.sensorStepCounter)
-                    viewModelDetail.count = 1
-                    viewModelDetail.unit = getString(R.string.unitStep)
-                    binding.includeToolbarDetail.sensorTextInformation.text =
-                        getString(R.string.infoStepCounter)
-                    toolbar.title = viewModelDetail.name
-                    toolbarLayout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.lime
-                        )
-                    )
-                    activity?.window?.statusBarColor =
-                        ContextCompat.getColor(requireContext(), R.color.lime)
-                    toolbarLayout.setContentScrimColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.lime
-                        )
-                    )
-                    icon.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_steps
-                        )
-                    )
+                override fun onAccuracyChanged(p0: Sensor?, p1: Int) { /* do nothing */
                 }
             }
-
-            binding.includeToolbarDetail.sensorTextName.text =
-                "${getString(R.string.labelName)} ${sensor.name}"
-            binding.includeToolbarDetail.sensorTextVendor.text =
-                "${getString(R.string.labelVendor)} ${sensor.vendor}"
-            binding.includeToolbarDetail.sensorTextVersion.text =
-                "${getString(R.string.labelVersion)} ${sensor.version}"
-            binding.includeToolbarDetail.sensorTextPower.text =
-                "${getString(R.string.labelPower)} ${sensor.power} ${getString(R.string.unitAmpere)}"
-            binding.includeToolbarDetail.sensorTextMaxDelay.text =
-                "${getString(R.string.labelMaxDelay)} ${sensor.maxDelay}"
-            binding.includeToolbarDetail.sensorTextMinDelay.text =
-                "${getString(R.string.labelMinDelay)} ${sensor.minDelay}"
-            binding.includeToolbarDetail.sensorTextMaxRange.text =
-                "${getString(R.string.labelMaxRange)} ${sensor.maximumRange} ${viewModelDetail.unit}"
-
-
-            mpChart = binding.includeToolbarDetail.chart
-            setupChart(viewModelDetail.count, mData, mpChart)
-
-            csvHeader =
-                "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power} ${
-                    getString(R.string.unitAmpere)
-                },MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
-
-            if (viewModelDetail.count == 1) {
-                sensorEventListener = object : SensorEventListener {
-                    var i = 0
-                    override fun onSensorChanged(event: SensorEvent?) {
-                        event?.let {
-                            viewModelDetail.xValue.postValue("${event.values[0]} ${viewModelDetail.unit}")
-
-                            addPointsToChart(i, event.values)
-                            i++
-                        }
-                    }
-
-                    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-                    }
+        } else {
+            sensorEventListener = object : SensorEventListener {
+                var i = 0
+                override fun onSensorChanged(event: SensorEvent?) {
+                    if (event == null) return
+                    viewModel.xValue.postValue(
+                        getString(
+                            viewModel.itemSensor.unit,
+                            event.values[0]
+                        )
+                    )
+                    viewModel.yValue.postValue(
+                        getString(
+                            viewModel.itemSensor.unit,
+                            event.values[1]
+                        )
+                    )
+                    viewModel.zValue.postValue(
+                        getString(
+                            viewModel.itemSensor.unit,
+                            event.values[2]
+                        )
+                    )
+                    addPointsToChart(i, event.values)
+                    i++
                 }
-            } else {
-                sensorEventListener = object : SensorEventListener {
-                    var i = 0
-                    override fun onSensorChanged(event: SensorEvent?) {
-                        event?.let {
-                            viewModelDetail.xValue.postValue("${event.values[0]} ${viewModelDetail.unit}")
-                            viewModelDetail.yValue.postValue("${event.values[1]} ${viewModelDetail.unit}")
-                            viewModelDetail.zValue.postValue("${event.values[2]} ${viewModelDetail.unit}")
 
-                            addPointsToChart(i, event.values)
-                            i++
-                        }
-                    }
-
-                    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-                    }
-
+                override fun onAccuracyChanged(p0: Sensor?, p1: Int) { /* do nothing */
                 }
             }
         }
     }
 
     private fun addPointsToChart(position: Int, valueAr: FloatArray) {
-
-        for ((i, c) in (0 until viewModelDetail.count).withIndex()) {
+        for ((i, c) in (0 until viewModel.itemSensor.valuesCount).withIndex()) {
             val entry = Entry(position.toFloat(), valueAr[i])
             mData.addEntry(entry, i)
-            if (mData.getDataSetByIndex(i).entryCount > displayPoints)
+            if (mData.getDataSetByIndex(i).entryCount > viewModel.displayPoints)
                 mData.getDataSetByIndex(i).removeFirst()
         }
 
         mData.notifyDataChanged() //tell LineData to do its magic
         mpChart.notifyDataSetChanged() //tell LineChart to do its magic
-        mpChart.setVisibleXRange(displayPoints, displayPoints)
+        mpChart.setVisibleXRange(viewModel.displayPoints, viewModel.displayPoints)
         mpChart.moveViewToX(position.toFloat()) //auto calls invalidate
 
     }
@@ -640,7 +294,7 @@ class FragmentDetail : Fragment() {
         mChart.setHardwareAccelerationEnabled(true)
 
         for (i in 0 until countGraphs) {
-            mData.addDataSet(createSet(('x'.code + i).toChar() + " Axis", colorAr[i]))
+            mData.addDataSet(createSet(('x'.code + i).toChar().toString(), colorAr[i]))
         }
         mChart.data = mData
     }

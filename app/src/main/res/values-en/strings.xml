@@ -15,26 +15,26 @@
     <string name="sensorProximity">Proximity</string>
     <string name="sensorStepCounter">Step Counter</string>
 
-    <string name="labelName">Name:</string>
-    <string name="labelVendor">Vendor:</string>
-    <string name="labelVersion">Version:</string>
-    <string name="labelPower">Power:</string>
-    <string name="labelMaxDelay">Max Delay:</string>
-    <string name="labelMinDelay">Min Delay:</string>
-    <string name="labelMaxRange">Max Range:</string>
+    <string name="labelName">Name: %s</string>
+    <string name="labelVendor">Vendor: %s</string>
+    <string name="labelVersion">Version: %s</string>
+    <string name="labelPower">Power: %s mA</string>
+    <string name="labelMaxDelay">Max Delay: %s</string>
+    <string name="labelMinDelay">Min Delay: %s</string>
+    <string name="labelMaxRange">Max Range: %s</string>
 
-    <string name="unitAcceleration">%s m/s²</string>
-    <string name="unitMagneticField">%s µT</string>
-    <string name="unitAngularVelocity">%s rad/s</string>
-    <string name="unitMicroseconds">%s µs</string>
-    <string name="unitTemperature">%s °C</string>
-    <string name="unitIlluminance">%s lux</string>
-    <string name="unitPressure">%s hPa</string>
-    <string name="unitPercent">%s %</string>
-    <string name="unitProximity">%s cm</string>
-    <string name="unitStep">%s Steps</string>
-    <string name="unitAmpere">%s mA</string>
-    <string name="unitNone">%s</string>
+    <string name="unitAcceleration">%.4f m/s²</string>
+    <string name="unitMagneticField">%.4f µT</string>
+    <string name="unitAngularVelocity">%.6f rad/s</string>
+    <string name="unitMicroseconds">%.4f µs</string>
+    <string name="unitTemperature">%.1f °C</string>
+    <string name="unitIlluminance">%.4f lux</string>
+    <string name="unitPressure">%.4f hPa</string>
+    <string name="unitPercent">%.2f %%</string>
+    <string name="unitProximity">%.1f cm</string>
+    <string name="unitStep">%.4f Steps</string>
+    <string name="unitAmpere">%.2f mA</string>
+    <string name="unitNone">%.1f</string>
 
     <string name="sensor_not_available">%s is not available</string>
     <string name="startRecording">Recording Sensor Data</string>

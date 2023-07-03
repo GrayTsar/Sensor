@@ -1,6 +1,5 @@
 package com.graytsar.sensor.ui.home
 
-import android.content.Context
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,8 +28,6 @@ class SensorsFragment : Fragment() {
     private lateinit var recyclerHome: RecyclerView
     private lateinit var adapterSensor: AdapterSensor
 
-    private lateinit var sensorManager: SensorManager
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,8 +50,6 @@ class SensorsFragment : Fragment() {
         recyclerHome = binding.recyclerHome
         adapterSensor = AdapterSensor(requireActivity())
         recyclerHome.adapter = adapterSensor
-
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         //reset status bar color from details fragment color change
         activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary)
@@ -88,9 +83,9 @@ class SensorsFragment : Fragment() {
 
     private fun registerSensors() {
         viewModel.sensorListeners.forEach {
-            sensorManager.registerListener(
+            viewModel.sensorManager.registerListener(
                 it.value,
-                sensorManager.getDefaultSensor(it.key),
+                viewModel.sensorManager.getDefaultSensor(it.key),
                 SensorManager.SENSOR_DELAY_UI
             )
         }
@@ -98,7 +93,7 @@ class SensorsFragment : Fragment() {
 
     private fun unregisterSensors() {
         viewModel.sensorListeners.forEach {
-            sensorManager.unregisterListener(it.value)
+            viewModel.sensorManager.unregisterListener(it.value)
         }
     }
 }

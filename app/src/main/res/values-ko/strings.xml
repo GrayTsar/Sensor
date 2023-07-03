@@ -16,26 +16,26 @@
     <string name="sensorProximity">근접성</string>
     <string name="sensorStepCounter">단계 계수기</string>
 
-    <string name="labelName">이름:</string>
-    <string name="labelVendor">노점상:</string>
-    <string name="labelVersion">버전:</string>
-    <string name="labelPower">파워:</string>
-    <string name="labelMaxDelay">최대 지연:</string>
-    <string name="labelMinDelay">최소 지연:</string>
-    <string name="labelMaxRange">최대 범위:</string>
+    <string name="labelName">이름: %s</string>
+    <string name="labelVendor">노점상: %s</string>
+    <string name="labelVersion">버전: %s</string>
+    <string name="labelPower">파워: %s mA</string>
+    <string name="labelMaxDelay">최대 지연: %s</string>
+    <string name="labelMinDelay">최소 지연: %s</string>
+    <string name="labelMaxRange">최대 범위: %s</string>
 
-    <string name="unitAcceleration">%s m/s²</string>
-    <string name="unitMagneticField">%s µT</string>
-    <string name="unitAngularVelocity">%s rad/s</string>
-    <string name="unitMicroseconds">%s µs</string>
-    <string name="unitTemperature">%s °C</string>
-    <string name="unitIlluminance">%s lux</string>
-    <string name="unitPressure">%s hPa</string>
-    <string name="unitPercent">%s %</string>
-    <string name="unitProximity">%s cm</string>
-    <string name="unitStep">%s 걸음</string>
-    <string name="unitAmpere">%s mA</string>
-    <string name="unitNone">%s</string>
+    <string name="unitAcceleration">%.4f m/s²</string>
+    <string name="unitMagneticField">%.4f µT</string>
+    <string name="unitAngularVelocity">%.6f rad/s</string>
+    <string name="unitMicroseconds">%.4f µs</string>
+    <string name="unitTemperature">%.1f °C</string>
+    <string name="unitIlluminance">%.4f lux</string>
+    <string name="unitPressure">%.4f hPa</string>
+    <string name="unitPercent">%.2f %%</string>
+    <string name="unitProximity">%.1f cm</string>
+    <string name="unitStep">%.4f 걸음</string>
+    <string name="unitAmpere">%.2f mA</string>
+    <string name="unitNone">%.1f</string>
 
     <string name="sensor_not_available">%s 사용할 수 없음</string>
     <string name="startRecording">녹음 시작</string>

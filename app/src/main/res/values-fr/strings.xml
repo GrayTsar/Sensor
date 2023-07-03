@@ -16,26 +16,26 @@
     <string name="sensorProximity">proximité</string>
     <string name="sensorStepCounter">podomètre</string>
 
-    <string name="labelName">nom:</string>
-    <string name="labelVendor">vendeur:</string>
-    <string name="labelVersion">version:</string>
-    <string name="labelPower">énergie:</string>
-    <string name="labelMaxDelay">délai maximum:</string>
-    <string name="labelMinDelay">délai minimum:</string>
-    <string name="labelMaxRange">portée max:</string>
+    <string name="labelName">nom: %s</string>
+    <string name="labelVendor">vendeur: %s</string>
+    <string name="labelVersion">version: %s</string>
+    <string name="labelPower">énergie: %s mA</string>
+    <string name="labelMaxDelay">délai maximum: %s</string>
+    <string name="labelMinDelay">délai minimum: %s</string>
+    <string name="labelMaxRange">portée max: %s</string>
 
-    <string name="unitAcceleration">%s m/s²</string>
-    <string name="unitMagneticField">%s µT</string>
-    <string name="unitAngularVelocity">%s rad/s</string>
-    <string name="unitMicroseconds">%s µs</string>
-    <string name="unitTemperature">%s °C</string>
-    <string name="unitIlluminance">%s lux</string>
-    <string name="unitPressure">%s hPa</string>
-    <string name="unitPercent">%s %</string>
-    <string name="unitProximity">%s cm</string>
-    <string name="unitStep">%s pas</string>
-    <string name="unitAmpere">%s mA</string>
-    <string name="unitNone">%s</string>
+    <string name="unitAcceleration">%.4f m/s²</string>
+    <string name="unitMagneticField">%.4f µT</string>
+    <string name="unitAngularVelocity">%.6f rad/s</string>
+    <string name="unitMicroseconds">%.4f µs</string>
+    <string name="unitTemperature">%.1f °C</string>
+    <string name="unitIlluminance">%.4f lux</string>
+    <string name="unitPressure">%.4f hPa</string>
+    <string name="unitPercent">%.2f %%</string>
+    <string name="unitProximity">%.1f cm</string>
+    <string name="unitStep">%.4f pas</string>
+    <string name="unitAmpere">%.2f mA</string>
+    <string name="unitNone">%.1f</string>
 
     <string name="sensor_not_available">%s n\'est pas disponible</string>
     <string name="startRecording">l enregistrement a commencé</string>

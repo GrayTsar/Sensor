@@ -1,23 +1,11 @@
 package com.graytsar.sensor.ui.detail
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Insets
-import android.graphics.Rect
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -26,11 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.ForegroundServiceLogging
@@ -54,12 +40,11 @@ class FragmentDetail : Fragment() {
     private lateinit var minDelay: TextView
     private lateinit var maxRange: TextView
     private lateinit var info: TextView
+    private lateinit var xText: TextView
+    private lateinit var yText: TextView
+    private lateinit var zText: TextView
 
-
-    private lateinit var mpChart: LineChart
-    private var mData: LineData = LineData()
-
-    private var sensorEventListener: SensorEventListener? = null
+    private lateinit var chart: AAChartView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,9 +70,11 @@ class FragmentDetail : Fragment() {
         minDelay = binding.includeToolbarDetail.minDelay
         maxRange = binding.includeToolbarDetail.maxRange
         info = binding.includeToolbarDetail.textInformation
+        chart = binding.includeToolbarDetail.chart
 
-        initDisplayPoints()
-        initSensorData()
+        xText = binding.includeToolbarDetail.xValDetail
+        yText = binding.includeToolbarDetail.yValDetail
+        zText = binding.includeToolbarDetail.zValDetail
 
         return binding.root
     }
@@ -106,6 +93,11 @@ class FragmentDetail : Fragment() {
             getString(viewModel.itemSensor.unit, viewModel.sensor.maximumRange)
         )
         info.text = getString(viewModel.itemSensor.info)
+
+        if (viewModel.itemSensor.valuesCount == 3) {
+            yText.visibility = View.VISIBLE
+            zText.visibility = View.VISIBLE
+        }
 
         viewModel.itemSensor.let {
             val color = ContextCompat.getColor(requireContext(), it.color)
@@ -127,19 +119,24 @@ class FragmentDetail : Fragment() {
         }
 
         fab.setOnClickListener { onFabClicked() }
+
+        viewModel.singleUpdate = { updateSingleChart() }
+        viewModel.multiUpdate = { updateMultiChart() }
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.sensorManager.registerListener(
-            sensorEventListener,
+            viewModel.sensorEventListener,
             viewModel.sensor,
-            SensorManager.SENSOR_DELAY_FASTEST
+            SensorManager.SENSOR_DELAY_UI
         )
     }
 
     override fun onStop() {
-        viewModel.sensorManager.unregisterListener(sensorEventListener)
+        viewModel.singleUpdate = null
+        viewModel.multiUpdate = null
+        viewModel.sensorManager.unregisterListener(viewModel.sensorEventListener)
         super.onStop()
     }
 
@@ -164,28 +161,6 @@ class FragmentDetail : Fragment() {
         }
     }
 
-    private fun initDisplayPoints() {
-        val p = DisplayMetrics()
-        val widthPixels = if (Build.VERSION.SDK_INT < 30) {
-            (context as Activity).windowManager.defaultDisplay.getMetrics(p)
-            p.widthPixels;
-        } else {
-            val windowManager: WindowManager =
-                requireActivity().getSystemService(Context.WINDOW_SERVICE) as WindowManager;
-            val metrics = windowManager.currentWindowMetrics
-            val windowInsets = metrics.windowInsets
-            val insets: Insets =
-                windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout())
-            val insetsWidth: Int = insets.right + insets.left
-            val bounds: Rect = metrics.bounds
-            bounds.width() - insetsWidth
-        }
-
-        viewModel.displayPoints = widthPixels / 2.5f
-        if (viewModel.displayPoints < 400)
-            viewModel.displayPoints = 400f
-    }
-
     private fun onFabClicked() {
         viewModel.enableLog = !viewModel.enableLog
         if (viewModel.enableLog) {
@@ -206,105 +181,81 @@ class FragmentDetail : Fragment() {
         }
     }
 
-    private fun initSensorData() {
-        mpChart = binding.includeToolbarDetail.chart
-        setupChart(viewModel.itemSensor.valuesCount, mData, mpChart)
+    private fun updateSingleChart() {
+        xText.text = getString(
+            viewModel.itemSensor.unit,
+            viewModel.xValues.lastOrNull() ?: 0.0
+        )
 
-        if (viewModel.itemSensor.valuesCount == 1) {
-            sensorEventListener = object : SensorEventListener {
-                var i = 0
-                override fun onSensorChanged(event: SensorEvent?) {
-                    if (event == null) return
-                    viewModel.xValue.postValue(
-                        getString(
-                            viewModel.itemSensor.unit,
-                            event.values[0]
-                        )
+        val chartModel = AAChartModel(
+            chartType = AAChartType.Line,
+            animationDuration = 0,
+            animationType = null,
+            touchEventEnabled = false,
+            tooltipEnabled = false,
+            dataLabelsEnabled = false,
+            xAxisLabelsEnabled = false,
+            yAxisTitle = "",
+            yAxisGridLineWidth = 0f,
+            backgroundColor = "#00000000",
+            axesTextColor = "#78909C"
+        ).apply {
+            series(
+                arrayOf(
+                    mapOf(
+                        "name" to "X",
+                        "data" to viewModel.xValues.toTypedArray()
                     )
-                    addPointsToChart(i, event.values)
-                    i++
-                }
-
-                override fun onAccuracyChanged(p0: Sensor?, p1: Int) { /* do nothing */
-                }
-            }
-        } else {
-            sensorEventListener = object : SensorEventListener {
-                var i = 0
-                override fun onSensorChanged(event: SensorEvent?) {
-                    if (event == null) return
-                    viewModel.xValue.postValue(
-                        getString(
-                            viewModel.itemSensor.unit,
-                            event.values[0]
-                        )
-                    )
-                    viewModel.yValue.postValue(
-                        getString(
-                            viewModel.itemSensor.unit,
-                            event.values[1]
-                        )
-                    )
-                    viewModel.zValue.postValue(
-                        getString(
-                            viewModel.itemSensor.unit,
-                            event.values[2]
-                        )
-                    )
-                    addPointsToChart(i, event.values)
-                    i++
-                }
-
-                override fun onAccuracyChanged(p0: Sensor?, p1: Int) { /* do nothing */
-                }
-            }
+                )
+            )
         }
+        chart.aa_drawChartWithChartModel(chartModel)
     }
 
-    private fun addPointsToChart(position: Int, valueAr: FloatArray) {
-        for ((i, c) in (0 until viewModel.itemSensor.valuesCount).withIndex()) {
-            val entry = Entry(position.toFloat(), valueAr[i])
-            mData.addEntry(entry, i)
-            if (mData.getDataSetByIndex(i).entryCount > viewModel.displayPoints)
-                mData.getDataSetByIndex(i).removeFirst()
+    private fun updateMultiChart() {
+        xText.text = getString(
+            viewModel.itemSensor.unit,
+            viewModel.xValues.lastOrNull() ?: 0.0
+        )
+        yText.text = getString(
+            viewModel.itemSensor.unit,
+            viewModel.yValues.lastOrNull() ?: 0.0
+        )
+        zText.text = getString(
+            viewModel.itemSensor.unit,
+            viewModel.zValues.lastOrNull() ?: 0.0
+        )
+
+        val chartModel = AAChartModel(
+            chartType = AAChartType.Line,
+            animationDuration = 0,
+            animationType = null,
+            touchEventEnabled = false,
+            tooltipEnabled = false,
+            dataLabelsEnabled = false,
+            xAxisLabelsEnabled = false,
+            yAxisTitle = "",
+            yAxisGridLineWidth = 0f,
+            backgroundColor = "#00000000",
+            axesTextColor = "#78909C"
+        ).apply {
+            series(
+                arrayOf(
+                    mapOf(
+                        "name" to "X",
+                        "data" to viewModel.xValues.toTypedArray()
+                    ),
+                    mapOf(
+                        "name" to "Y",
+                        "data" to viewModel.yValues.toTypedArray()
+                    ),
+                    mapOf(
+                        "name" to "Z",
+                        "data" to viewModel.zValues.toTypedArray()
+                    )
+                )
+            )
         }
-
-        mData.notifyDataChanged() //tell LineData to do its magic
-        mpChart.notifyDataSetChanged() //tell LineChart to do its magic
-        mpChart.setVisibleXRange(viewModel.displayPoints, viewModel.displayPoints)
-        mpChart.moveViewToX(position.toFloat()) //auto calls invalidate
-
-    }
-
-    private fun setupChart(countGraphs: Int, mData: LineData, mChart: LineChart) {
-        val colorAr: IntArray = intArrayOf(Color.BLUE, Color.RED, Color.GREEN)
-
-        mChart.description.isEnabled = false //disable description at the right bottom corner
-        mChart.legend.textSize = 16f
-        mChart.legend.textColor = Color.GRAY
-        mChart.axisLeft.isEnabled = false
-        mChart.axisLeft.setDrawGridLines(false) //disable background grid lines
-        mChart.axisRight.textSize = 16f
-        mChart.axisRight.setDrawGridLines(false) //disable background grid lines
-        mChart.axisRight.textColor = Color.GRAY
-        mChart.xAxis.setDrawGridLines(false) //disable background grid lines
-        mChart.xAxis.position = XAxis.XAxisPosition.BOTTOM //x axis position
-        mChart.xAxis.setDrawLabels(false) //disable draw axis labels
-        mChart.setTouchEnabled(false) //disable all touch related stuff
-        mChart.setHardwareAccelerationEnabled(true)
-
-        for (i in 0 until countGraphs) {
-            mData.addDataSet(createSet(('x'.code + i).toChar().toString(), colorAr[i]))
-        }
-        mChart.data = mData
-    }
-
-    private fun createSet(description: String, _color: Int): LineDataSet {
-        val set = LineDataSet(null, description)
-        set.setDrawCircles(false)//disable circles around points
-        set.color = _color
-        set.lineWidth = 2f
-        set.setDrawValues(false) //disabled point labels
-        return set
+        chart.aa_drawChartWithChartModel(chartModel)
     }
 }

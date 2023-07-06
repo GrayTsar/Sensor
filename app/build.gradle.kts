@@ -61,7 +61,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
 
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.3.7")

@@ -1,8 +1,9 @@
 package com.graytsar.sensor.ui.detail
 
 import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
@@ -24,11 +25,50 @@ class ViewModelDetail @Inject constructor(
 
     val csvHeader =
         "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power}mA,MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
-    var displayPoints: Float = 400f
+    var displayPoints: Int = 100
 
-    val xValue = MutableLiveData("0")
-    val yValue = MutableLiveData("0")
-    val zValue = MutableLiveData("0")
+    val xValues = arrayListOf<Float>()
+    val yValues = arrayListOf<Float>()
+    val zValues = arrayListOf<Float>()
+
+    var singleUpdate: (() -> Unit)? = null
+    var multiUpdate: (() -> Unit)? = null
 
     var enableLog: Boolean = false
+
+    val sensorEventListener: SensorEventListener = when (itemSensor.valuesCount) {
+        1 -> object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent?) {
+                if (event == null) return
+                if (xValues.size >= displayPoints) {
+                    xValues.removeFirstOrNull()
+                }
+                xValues.add(event.values[0])
+                singleUpdate?.invoke()
+            }
+
+            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                /* do nothing */
+            }
+        }
+
+        else -> object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent?) {
+                if (event == null) return
+                if (xValues.size >= displayPoints) {
+                    xValues.removeFirstOrNull()
+                    yValues.removeFirstOrNull()
+                    zValues.removeFirstOrNull()
+                }
+                xValues.add(event.values[0])
+                yValues.add(event.values[1])
+                zValues.add(event.values[2])
+                multiUpdate?.invoke()
+            }
+
+            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                /* do nothing */
+            }
+        }
+    }
 }

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -101,11 +100,10 @@ class FragmentDetail : Fragment() {
 
         viewModel.itemSensor.let {
             val color = ContextCompat.getColor(requireContext(), it.color)
-            val toolbar: Toolbar = binding.includeToolbarDetail.toolbarDetail
             val layout = binding.includeToolbarDetail.toolbarLayout
             val icon = binding.includeToolbarDetail.appBarImage
 
-            toolbar.title = getString(it.title)
+            layout.title = getString(it.title)
             layout.setBackgroundColor(color)
             layout.setContentScrimColor(color)
             activity?.window?.statusBarColor = color

@@ -54,8 +54,7 @@
 
         <activity
             android:name=".SensorsActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Sensor.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -49,7 +49,8 @@ class SensorsActivity : AppCompatActivity(), NavController.OnDestinationChangedL
         val navController = navHostFragment.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.fragmentHome), drawerLayout)
+        appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.fragmentSensors), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 

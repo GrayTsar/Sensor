@@ -50,62 +50,68 @@
 
     <string name="darkTheme">Dark Theme</string>
 
-    <string name="infoAccelerometer">
-        An accelerometer sensor reports the acceleration of the device
-        along the 3 sensor axes. The measured acceleration includes both
-        the physical acceleration (change of velocity) and the gravity.
+    <string name="infoAccelerometer">Un accéléromètre est un dispositif qui mesure l\'accélération, c\'est-à-dire le taux de variation de la vitesse, qui peut se produire dans différentes directions.
+        \n\nLes accéléromètres sont couramment utilisés dans de nombreux domaines, notamment l\'ingénierie, la physique et l\'électronique grand public. On les trouve notamment dans les smartphones, les trackers de fitness, les manettes de jeu, les drones et les véhicules.
+        \n\nLa fonction première d\'un capteur d\'accélération est de détecter et de mesurer les forces d\'accélération agissant sur un objet ou un appareil. Il peut détecter à la fois l\'accélération statique (telle que la gravité) et l\'accélération dynamique (telle que le mouvement ou les vibrations).
+        \n\nLe principe de base d\'un accéléromètre implique l\'utilisation d\'un système masse-ressort ou d\'un système microélectromécanique (MEMS).Lorsqu\'une accélération est appliquée, la masse à l\'intérieur de l\'accéléromètre subit une force proportionnelle à l\'accélération.Cette force provoque un déplacement, qui est mesuré par le capteur.La mesure est ensuite convertie en un signal électrique qui peut être traité et interprété par des circuits électroniques ou des logiciels.
+        \n\nLes accéléromètres ont diverses applications.Dans l\'électronique grand public, ils sont utilisés pour la rotation de l\'écran, la reconnaissance des gestes, le comptage des pas et la détection des secousses.Dans les applications automobiles, ils permettent le déploiement des airbags, le contrôle de la stabilité et la détection des renversements.Ils sont également utilisés dans la surveillance des machines industrielles, la mesure de l\'activité sismique, la robotique et les systèmes de réalité virtuelle.
     </string>
 
-    <string name="infoMagneticField">
-        A magnetic field sensor (also known as magnetometer) reports
-        the ambient magnetic field, as measured along the 3 sensor axes.
-        The measurement is reported in the x, y and z Axis
-        and all values are in micro-Tesla (µT).
+    <string name="infoMagneticField">Un capteur magnétométrique, également appelé capteur magnétique, est un type spécifique de capteur qui mesure l\'intensité et la direction des champs magnétiques. Il s\'agit d\'un composant qui incorpore un magnétomètre dans un système ou un dispositif plus large.
+        \n\nLes capteurs magnétométriques sont couramment utilisés dans un large éventail d\'applications, notamment dans l\'électronique grand public, les systèmes de navigation, la robotique et la recherche scientifique. Ils permettent de détecter et de contrôler les champs magnétiques en temps réel.
+        \n\nLe capteur lui-même est généralement un petit appareil électronique qui contient un ou plusieurs magnétomètres. Ces magnétomètres peuvent être basés sur différentes technologies, telles que les principes de la porte à flux, de l\'effet Hall ou de la magnétorésistance, pour mesurer l\'intensité du champ magnétique.
+        \n\nLe capteur magnétométrique peut être intégré dans divers appareils, notamment les smartphones, les tablettes, les vêtements, les drones et les véhicules. Dans l\'électronique grand public, les capteurs magnétométriques sont souvent utilisés pour fournir une fonctionnalité de boussole, permettant aux appareils de déterminer leur orientation par rapport au champ magnétique terrestre. Cela permet des fonctions telles que la rotation automatique de l\'écran, les applications de réalité augmentée et l\'aide à la navigation.
     </string>
 
-    <string name="infoGravity">
-        A three dimensional vector indicating the direction and magnitude of gravity. Units are m/s².
+    <string name="infoGravity">Un capteur de gravité, également appelé gravitomètre ou accéléromètre de gravité, est un type de capteur qui mesure l\'accélération due à la gravité. Il détecte la force gravitationnelle agissant sur un objet ou un dispositif et fournit des informations sur l\'orientation et l\'inclinaison par rapport au champ de gravité de la Terre.
+        \n\nLa fonction première d\'un capteur de gravité est de mesurer l\'accélération causée par la gravité, qui est d\'environ 9,8 mètres par seconde au carré (m/s²) près de la surface de la Terre. Il peut détecter la composante statique du champ gravitationnel et est généralement utilisé pour déterminer l\'inclinaison, l\'inclinaison ou l\'orientation de l\'appareil.
+        \n\nLes capteurs de gravité sont couramment présents dans les appareils électroniques grand public tels que les smartphones, les tablettes et les manettes de jeu. Ils sont utilisés à diverses fins, notamment pour la rotation de l\'écran, la mise à niveau automatique des images et les jeux basés sur le mouvement.
+        \n\nLa technologie qui sous-tend les capteurs de gravité peut varier. Dans de nombreux appareils, les capteurs de gravité sont souvent intégrés à d\'autres capteurs tels que les accéléromètres ou les gyroscopes. En combinant les données de ces capteurs, l\'appareil peut estimer l\'inclinaison de l\'appareil dans l\'espace tridimensionnel.
     </string>
 
-    <string name="infoGyroscope">
-        A gyroscope sensor reports the rate of rotation of the device around the 3 sensor axes.
-        Units are rad/sec (Radian per second)
+    <string name="infoGyroscope">Un capteur gyroscopique est un dispositif qui mesure et détecte les mouvements angulaires ou rotatifs. Il est utilisé pour déterminer les changements d\'orientation et maintenir la stabilité de divers appareils et systèmes électroniques.
+        \n\nLa fonction première d\'un capteur gyroscopique est de fournir des informations sur le mouvement de rotation de l\'appareil autour de différents axes. Il mesure le taux de rotation angulaire et fournit des données sur les changements d\'orientation, la vitesse angulaire et le déplacement angulaire.
+        \n\nLes capteurs gyroscopiques sont couramment utilisés dans les appareils électroniques grand public, tels que les smartphones, les tablettes, les contrôleurs de jeux et les appareils de réalité virtuelle. Ils jouent un rôle crucial dans l\'activation de fonctions telles que les jeux contrôlés par le mouvement, la stabilisation de l\'image et la rotation de l\'écran.
+        \n\nIl existe différents types de capteurs gyroscopiques, notamment les gyroscopes mécaniques et les gyroscopes à semi-conducteurs. Les gyroscopes mécaniques, qui sont moins courants de nos jours, sont constitués d\'une roue ou d\'un disque en rotation qui résiste aux changements d\'orientation. Lorsque l\'appareil tourne, le gyroscope subit des forces qui peuvent être mesurées pour déterminer le mouvement angulaire.
     </string>
 
-    <string name="infoLinearAcceleration">
-        A three dimensional vector indicating acceleration along each device axis, not including gravity.
-        Units are m/s².
+    <string name="infoLinearAcceleration">Un capteur d\'accélération linéaire, également appelé accéléromètre linéaire, est un dispositif qui mesure l\'accélération le long d\'une ligne droite ou dans une direction spécifique. Contrairement à un accéléromètre classique, qui mesure l\'accélération dans les trois axes (x, y et z), un capteur d\'accélération linéaire se concentre sur la mesure de l\'accélération dans une seule direction.
+        \n\nLa fonction première d\'un capteur d\'accélération linéaire est de détecter et de quantifier l\'accélération linéaire ou en ligne droite. Il peut mesurer les changements de vitesse ou d\'accélération dans une direction spécifique sans être affecté par la force de gravité ou d\'autres facteurs le long des axes orthogonaux.
+        \n\nLes capteurs d\'accélération linéaire sont couramment utilisés dans diverses applications nécessitant une mesure précise du mouvement linéaire. On les trouve dans des appareils tels que les smartphones, les tablettes, les vêtements et les manettes de jeu.
     </string>
 
-    <string name="infoAmbientTemperature">
-        This sensor reports the ambient (room) temperature in degrees Celsius.
+    <string name="infoAmbientTemperature">Un capteur de température ambiante, également appelé capteur de température ou sonde de température ambiante, est un dispositif utilisé pour mesurer et surveiller la température environnante ou ambiante d\'un environnement. Il détecte la température de l\'air ou de l\'environnement immédiat sans contact direct avec les objets ou les surfaces mesurés.
+        \n\nLa fonction première d\'un capteur de température ambiante est de fournir des informations précises et en temps réel sur la température de la zone environnante. Il est généralement utilisé pour surveiller et contrôler la température dans diverses applications, notamment les systèmes CVC (chauffage, ventilation et climatisation), les stations météorologiques, les processus industriels, les appareils électroniques et les systèmes automobiles.
+        \n\nLes capteurs de température ambiante utilisent différentes technologies pour mesurer la température. Un type de capteur courant est la thermistance, qui est une résistance dont la résistance électrique varie en fonction des variations de température. Un autre type de capteur est un capteur à semi-conducteur, qui exploite les caractéristiques des matériaux semi-conducteurs en fonction de la température.
+        \n\nLe capteur de température ambiante est conçu pour être sensible aux variations de température et est généralement calibré pour fournir des relevés de température précis. Il peut mesurer des températures dans une plage spécifique et fournit un signal de sortie électrique, qui peut être analogique ou numérique, correspondant à la température détectée.
     </string>
 
-    <string name="infoLight">
-        A light sensor reports the current illumination in lux.
+    <string name="infoLight">Un capteur de lumière, également appelé photorésistance ou photodétecteur, est un dispositif qui détecte et mesure l\'intensité de la lumière dans son environnement. Il est conçu pour réagir aux changements d\'éclairage et convertir la lumière détectée en un signal électrique.
+        \n\nLa fonction première d\'un capteur de lumière est de détecter et de contrôler les niveaux de lumière. Il est utilisé dans diverses applications pour contrôler les systèmes d\'éclairage, régler la luminosité des écrans, activer les interrupteurs automatiques et fournir un retour d\'information pour le contrôle de l\'exposition dans les appareils photo.
     </string>
 
-    <string name="infoPressure">
-        <br>A pressure sensor (also known as barometer) reports the atmospheric pressure in hectopascal (hPa).</br>
-        <br>The barometer is often used to estimate elevation changes.</br>
+    <string name="infoPressure">Un capteur de pression, également appelé transducteur de pression, est un dispositif qui mesure la pression d\'un gaz ou d\'un liquide. Il détecte et convertit la pression appliquée en un signal électrique qui peut être mesuré, traité et utilisé pour diverses applications.
+        \n\nLa fonction première d\'un capteur de pression est de détecter et de quantifier la force par unité de surface exercée sur sa surface. Les capteurs de pression sont utilisés dans de nombreuses industries et applications, notamment dans l\'automobile, l\'aérospatiale, la médecine, les processus industriels et la surveillance de l\'environnement.
     </string>
 
-    <string name="infoRelativeHumidity">
-        A relative humidity sensor measures relative ambient air humidity and reports the value in percent.
+    <string name="infoRelativeHumidity">Un capteur d\'humidité, également appelé hygromètre ou transducteur d\'humidité, est un dispositif utilisé pour mesurer et surveiller le niveau d\'humidité dans l\'air ambiant ou dans d\'autres environnements. Il détecte et quantifie la quantité de vapeur d\'eau présente dans l\'air et fournit des informations sur l\'humidité relative.
+        \n\nLa fonction première d\'un capteur d\'humidité est de détecter et de mesurer la teneur en humidité de l\'air. Il est couramment utilisé dans diverses applications où le contrôle de l\'humidité est important, telles que la surveillance météorologique, les systèmes de chauffage, de ventilation et de climatisation, les opérations agricoles, la transformation des aliments et les processus industriels.
     </string>
 
-    <string name="infoGeomagneticRotationVector">
-        The rotation vector represents the orientation of the device as a combination of an angle and an axis.
-        Elements of the rotation vector are unitless.
+    <string name="infoGeomagneticRotationVector">Le capteur géomagnétique à vecteur de rotation, également appelé capteur à vecteur de rotation ou capteur d\'orientation, est un capteur qui combine les données du magnétomètre (capteur géomagnétique), de l\'accéléromètre et du gyroscope pour fournir des informations sur l\'orientation et la rotation de l\'appareil dans l\'espace tridimensionnel.
+        \n\nLa fonction première du capteur de vecteur de rotation géomagnétique est d\'estimer l\'orientation de l\'appareil par rapport au champ magnétique terrestre. Il utilise les relevés de champ magnétique du magnétomètre, les relevés de gravité de l\'accéléromètre et les données de rotation angulaire du gyroscope pour calculer l\'orientation 3D de l\'appareil, y compris les angles de tangage, de roulis et de lacet.
+        \n\nEn intégrant les données de plusieurs capteurs, le capteur de vecteur de rotation géomagnétique fournit une estimation plus précise et plus robuste de l\'orientation de l\'appareil qu\'en utilisant les différents capteurs séparément. Il compense les limites des capteurs individuels et minimise les erreurs et les dérives dans le temps.
     </string>
 
-    <string name="infoProximity">
-        <br>A proximity sensor reports the distance from the sensor to the closest visible surface.</br>
-        <br>Note that some proximity sensors only support a binary "near" or "far" measurement.</br>
+    <string name="infoProximity">Un capteur de proximité est un dispositif qui détecte la présence ou l\'absence d\'objets dans un certain rayon d\'action sans aucun contact physique. Il utilise diverses technologies pour détecter la proximité d\'un objet et fournit un signal de sortie en fonction de sa détection.
+        \n\nLa fonction première d\'un capteur de proximité est de déterminer la présence ou l\'absence d\'objets et de déclencher des actions ou des réponses en conséquence. Les capteurs de proximité sont largement utilisés dans de nombreuses applications, notamment les smartphones, l\'automatisation industrielle, la robotique, les systèmes automobiles et les systèmes de sécurité.
     </string>
 
-    <string name="infoStepCounter">
-        A sensor of this type reports the number of steps taken by the user
-        since the last reboot while activated. The value is reset to zero only on a system reboot.
+    <string name="infoStepCounter">Un capteur compteur de pas, également appelé capteur podomètre, est un appareil ou un capteur qui mesure et compte le nombre de pas effectués par une personne lors d\'une marche, d\'une course ou d\'autres activités. Il est principalement utilisé pour estimer la distance parcourue ou pour suivre l\'activité physique.
+        \n\nLa fonction principale d\'un capteur compteur de pas est de détecter et d\'enregistrer les mouvements associés aux pas. Il s\'appuie généralement sur des capteurs de mouvement, tels que des accéléromètres ou des gyroscopes, pour mesurer l\'accélération et la décélération du corps à chaque pas.
+        \n\nLes capteurs de pas se trouvent généralement dans les dispositifs portables, tels que les trackers de fitness, les smartwatches et les smartphones. Ces capteurs utilisent des algorithmes pour analyser les données du capteur et identifier les modèles de pas en fonction de seuils spécifiques ou de modèles d\'accélération.
+        \n\nLorsqu\'une personne fait un pas, le capteur du compteur de pas détecte l\'accélération et la décélération du corps lorsque le pied touche le sol et se soulève. Il compte ensuite les pas détectés et fournit une estimation du nombre de pas effectués.
+        \n\nLes capteurs compteurs de pas peuvent fournir des informations supplémentaires, telles que la distance parcourue, les calories brûlées et la durée de l\'activité. Ces informations peuvent être utilisées pour suivre l\'activité physique, fixer des objectifs de remise en forme et surveiller la santé et le bien-être en général.
+        \n\nIl convient de noter que si les capteurs de comptage de pas sont généralement précis pour compter les pas lors d\'activités normales de marche ou de course, ils peuvent ne pas être aussi précis lors d\'autres activités ou lorsque les schémas de mouvement diffèrent sensiblement de la marche ou de la course. La précision du comptage des pas peut varier d\'un capteur à l\'autre et d\'un appareil à l'autre.
     </string>
 </resources>

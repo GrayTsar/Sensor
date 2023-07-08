@@ -51,58 +51,68 @@
 
     <string name="darkTheme">Dark Mode</string>
 
-    <string name="infoAccelerometer">
-        Ein Beschleunigungssensor meldet die Beschleunigungskräfte des Geräts an den 3 Achsen zurück.
-        Der aufgezeichnete Beschleunigungswert beinhaltet den Einfluss der Gravitation.
+    <string name="infoAccelerometer">Ein Beschleunigungsmesser ist ein Gerät, das die Beschleunigung misst, d. h. die Änderung der Geschwindigkeit, die in verschiedene Richtungen erfolgen kann.
+        \n\nBeschleunigungsmesser werden häufig in vielen Bereichen eingesetzt, darunter Technik, Physik und Unterhaltungselektronik. Sie finden sich unter anderem in Smartphones, Fitness-Trackern, Spiele-Controllern, Drohnen und Fahrzeugen.
+        \n\nDie Hauptfunktion eines Beschleunigungssensors besteht darin, die auf ein Objekt oder Gerät wirkenden Beschleunigungskräfte zu erkennen und zu messen. Er kann sowohl statische Beschleunigung (z. B. Schwerkraft) als auch dynamische Beschleunigung (z. B. Bewegung oder Vibrationen) erfassen.
+        \n\nDas Grundprinzip eines Beschleunigungssensors besteht in der Verwendung eines Masse-Feder-Systems oder eines mikroelektromechanischen Systems (MEMS). Wenn eine Beschleunigung einwirkt, erfährt die Masse innerhalb des Beschleunigungssensors eine Kraft, die proportional zur Beschleunigung ist. Diese Kraft verursacht eine Verschiebung, die vom Sensor gemessen wird. Die Messung wird dann in ein elektrisches Signal umgewandelt, das von elektronischen Schaltungen oder Software verarbeitet und interpretiert werden kann.
+        \n\nIn der Unterhaltungselektronik werden sie für die Drehung des Bildschirms, die Erkennung von Gesten, das Zählen von Schritten und die Erkennung von Erschütterungen eingesetzt, in der Automobilindustrie für die Auslösung von Airbags, die Stabilitätskontrolle und die Erkennung von Überschlägen, in der Industrie für die Überwachung von Maschinen, für die Messung seismischer Aktivitäten, in der Robotik und für Virtual-Reality-Systeme.
     </string>
 
-    <string name="infoMagneticField">
-        Ein Magnetometer meldet das Umgebungsmagnetfeld an den 3 Achsen zurück.
-        Die Werte sind in micro Tesla.
+    <string name="infoMagneticField">Ein Magnetometersensor, auch bekannt als Magnetsensor, ist ein spezieller Sensortyp, der die Stärke und Richtung von Magnetfeldern misst. Es handelt sich um eine Komponente, die ein Magnetometer in ein größeres System oder Gerät integriert.
+        \n\nMagnetometersensoren werden häufig in einer Vielzahl von Anwendungen eingesetzt, z. B. in der Unterhaltungselektronik, in Navigationssystemen, in der Robotik und in der wissenschaftlichen Forschung. Sie bieten die Möglichkeit, Magnetfelder in Echtzeit zu erkennen und zu überwachen.
+        \n\nDer Sensor selbst ist in der Regel ein kleines elektronisches Gerät, das ein oder mehrere Magnetometer enthält. Diese Magnetometer können auf verschiedenen Technologien beruhen, z. B. Fluxgate, Hall-Effekt oder magnetoresistive Prinzipien, um die Magnetfeldstärke zu messen.
+        \n\nDer Magnetometersensor kann in verschiedene Geräte integriert werden, darunter Smartphones, Tablets, Wearables, Drohnen und Fahrzeuge. In der Unterhaltungselektronik werden Magnetometersensoren häufig für Kompassfunktionen verwendet, mit denen Geräte ihre Ausrichtung relativ zum Magnetfeld der Erde bestimmen können. Dies ermöglicht Funktionen wie die automatische Bildschirmdrehung, Augmented-Reality-Anwendungen und Navigationshilfen.
     </string>
 
-    <string name="infoGravity">
-        Ein 3 Dimensionaler Vektor zeigt die Wirkrichtung der Gravitation auf das Gerät an.
-        Die Werte sind in meter pro Sekunde² (m/s²).
+    <string name="infoGravity">Ein Schwerkraftsensor, auch Gravitometer oder Gravitationsbeschleunigungsmesser genannt, ist eine Art von Sensor, der die durch die Schwerkraft verursachte Beschleunigung misst. Er erfasst die auf ein Objekt oder Gerät wirkende Gravitationskraft und liefert Informationen über die Ausrichtung und Neigung relativ zum Schwerefeld der Erde.
+        \n\nDie Hauptfunktion eines Schwerkraftsensors ist die Messung der durch die Schwerkraft verursachten Beschleunigung, die in der Nähe der Erdoberfläche etwa 9,8 Meter pro Sekunde im Quadrat (m/s²) beträgt. Er kann die statische Komponente des Gravitationsfeldes erfassen und wird in der Regel verwendet, um die Neigung, den Neigungswinkel oder die Ausrichtung des Geräts zu bestimmen.
+        \n\nSchwerkraftsensoren sind häufig in Geräten der Unterhaltungselektronik wie Smartphones, Tablets und Spielcontrollern zu finden. Sie werden zu verschiedenen Zwecken eingesetzt, z. B. zur Drehung des Bildschirms, zur automatischen Ausrichtung von Bildern und für bewegungsbasierte Spiele.
+        \n\nDie Technologie hinter den Schwerkraftsensoren kann variieren. In vielen Geräten sind die Schwerkraftsensoren oft mit anderen Sensoren wie Beschleunigungsmessern oder Gyroskopen integriert. Durch die Kombination der Daten dieser Sensoren kann das Gerät die Neigung oder den Winkel des Geräts im dreidimensionalen Raum schätzen.
     </string>
 
-    <string name="infoGyroscope">
-        Ein Gyroskop meldet die wirkenden Rotationskräfte auf das Gerät an den 3 Achsen.
-        Die Werte sind in Radiant pro Sekunde (rad/sec).
+    <string name="infoGyroscope">Ein Gyroskopsensor ist ein Gerät, das Winkel- oder Rotationsbewegungen misst und erkennt. Er wird verwendet, um Änderungen in der Ausrichtung festzustellen und die Stabilität verschiedener elektronischer Geräte und Systeme zu gewährleisten.
+        \n\nDie Hauptfunktion eines Gyroskopsensors besteht darin, Informationen über die Rotationsbewegung des Geräts um verschiedene Achsen zu liefern. Er misst die Winkelgeschwindigkeit und liefert Daten über Änderungen der Ausrichtung, der Winkelgeschwindigkeit und der Winkelverschiebung.
+        \n\nGyroskopsensoren werden häufig in Geräten der Unterhaltungselektronik eingesetzt, z. B. in Smartphones, Tablets, Gaming-Controllern und Virtual-Reality-Geräten. Sie spielen eine entscheidende Rolle bei der Ermöglichung von Funktionen wie bewegungsgesteuerten Spielen, Bildstabilisierung und Bildschirmdrehung.
+        \n\nEs gibt verschiedene Arten von Gyroskopsensoren, darunter mechanische Gyroskope und Festkörpergyroskope. Mechanische Gyroskope, die heutzutage weniger verbreitet sind, bestehen aus einem sich drehenden Rad oder einer Scheibe, die Änderungen ihrer Ausrichtung widersteht. Wenn sich das Gerät dreht, wirken auf das Gyroskop Kräfte, die gemessen werden können, um die Winkelbewegung zu bestimmen.
     </string>
 
-    <string name="infoLinearAcceleration">
-        Ein Beschleunigungssensor ohne die Einflussnahme der Gravitation.
-        Die werte sind in meter pro Sekunde² (m/s²).
+    <string name="infoLinearAcceleration">Ein linearer Beschleunigungssensor, auch bekannt als Linearbeschleunigungsmesser, ist ein Gerät, das die Beschleunigung entlang einer geraden Linie oder in einer bestimmten Richtung misst. Im Gegensatz zu einem normalen Beschleunigungsmesser, der die Beschleunigung in allen drei Achsen (x, y und z) misst, konzentriert sich ein linearer Beschleunigungssensor auf die Messung der Beschleunigung in einer einzigen Richtung.
+        \n\nDie Hauptfunktion eines linearen Beschleunigungssensors besteht darin, lineare oder geradlinige Beschleunigungen zu erkennen und zu quantifizieren. Er kann Änderungen der Geschwindigkeit oder Beschleunigung in einer bestimmten Richtung messen, ohne von der Schwerkraft oder anderen Faktoren entlang orthogonaler Achsen beeinflusst zu werden.
+        \n\nLineare Beschleunigungssensoren werden häufig in verschiedenen Anwendungen eingesetzt, bei denen eine präzise Messung der linearen Bewegung erforderlich ist. Sie finden sich in Geräten wie Smartphones, Tablets, Wearables und Gaming-Controllern.
     </string>
 
-    <string name="infoAmbientTemperature">
-        Der Sensor meldet die Umgebungstemperatur in Grad Celsius (°C).
+    <string name="infoAmbientTemperature">Ein Umgebungstemperatursensor, auch Temperatursensor oder Umgebungstemperatursensor genannt, ist ein Gerät zur Messung und Überwachung der Umgebungs- oder Umgebungstemperatur einer Umgebung. Er erfasst die Temperatur der Luft oder der unmittelbaren Umgebung, ohne dass ein direkter Kontakt mit den zu messenden Objekten oder Oberflächen besteht.
+        \n\nDie Hauptfunktion eines Umgebungstemperatursensors besteht darin, genaue Echtzeit-Temperaturinformationen über den umgebenden Bereich zu liefern. Er wird in der Regel zur Überwachung und Steuerung der Temperatur in verschiedenen Anwendungen eingesetzt, z. B. in HLK-Systemen (Heizung, Lüftung und Klimatisierung), Wetterstationen, industriellen Prozessen, elektronischen Geräten und Automobilsystemen.
+        \n\nUmgebungstemperatursensoren verwenden verschiedene Technologien zur Temperaturmessung. Ein gängiger Sensortyp ist der Thermistor, ein Widerstand, der seinen elektrischen Widerstand bei Temperaturschwankungen ändert. Ein anderer Typ ist ein Festkörpersensor, z. B. ein Sensor auf Halbleiterbasis, der die temperaturabhängigen Eigenschaften von Halbleitermaterialien nutzt.
+        \n\nDer Umgebungstemperatursensor ist so konzipiert, dass er empfindlich auf Temperaturschwankungen reagiert und in der Regel so kalibriert ist, dass er präzise Temperaturmesswerte liefert. Er kann Temperaturen innerhalb eines bestimmten Bereichs messen und liefert ein elektrisches Ausgangssignal, das analog oder digital sein kann und der ermittelten Temperatur entspricht.
     </string>
 
-    <string name="infoLight">
-        Ein Lichtsensor. Der Wert ist in Lux angegeben.
+    <string name="infoLight">Ein Lichtsensor, auch bekannt als Fotowiderstand oder Fotodetektor, ist ein Gerät, das die Lichtintensität in seiner Umgebung erfasst und misst. Er ist so konzipiert, dass er auf Änderungen der Beleuchtung reagiert und das erkannte Licht in ein elektrisches Signal umwandelt.
+        \n\nDie Hauptfunktion eines Lichtsensors ist die Erfassung und Überwachung von Lichtverhältnissen. Er wird in verschiedenen Anwendungen eingesetzt, um Beleuchtungssysteme zu steuern, die Helligkeit von Bildschirmen anzupassen, automatische Schalter zu aktivieren und Rückmeldungen für die Belichtungssteuerung in Kameras zu liefern.
     </string>
 
-    <string name="infoPressure">
-        <br>Ein Barometer meldet den Luftdruck in Hektopascal (hPa).</br>
-        <br>Ein Barometer wird oft verwendet um die Höhe über dem Meeresspiegel zu berechnen.</br>
+    <string name="infoPressure">Ein Drucksensor, auch bekannt als Druckwandler oder Druckumwandler, ist ein Gerät, das den Druck eines Gases oder einer Flüssigkeit misst. Er erkennt den anliegenden Druck und wandelt ihn in ein elektrisches Signal um, das gemessen, verarbeitet und für verschiedene Anwendungen genutzt werden kann.
+        \n\nDie Hauptfunktion eines Drucksensors besteht darin, die auf seine Oberfläche ausgeübte Kraft pro Flächeneinheit zu erfassen und zu quantifizieren. Drucksensoren werden in zahlreichen Branchen und Anwendungen eingesetzt, z. B. im Automobilbau, in der Luft- und Raumfahrt, in der Medizin, bei industriellen Prozessen und bei der Umweltüberwachung.
     </string>
 
-    <string name="infoRelativeHumidity">
-        Luftfeuchtigkeit in Prozent.
+    <string name="infoRelativeHumidity">Ein Feuchtigkeitssensor, auch bekannt als Hygrometer oder Feuchtigkeitsmessgerät, ist ein Gerät zur Messung und Überwachung des Feuchtigkeitsgehalts der Umgebungsluft oder anderer Umgebungen. Er erkennt und quantifiziert die Menge des in der Luft vorhandenen Wasserdampfs und liefert Informationen über die relative Luftfeuchtigkeit.
+        \n\nDie Hauptfunktion eines Feuchtigkeitssensors besteht darin, den Feuchtigkeitsgehalt der Luft zu erfassen und zu messen. Er wird häufig in verschiedenen Anwendungen eingesetzt, bei denen die Kontrolle der Luftfeuchtigkeit wichtig ist, z. B. bei der Wetterüberwachung, in HLK-Systemen, in der Landwirtschaft, bei der Lebensmittelverarbeitung und in industriellen Prozessen.
     </string>
 
-    <string name="infoGeomagneticRotationVector">
-        Ein Vektor der die Orientation des Gerätes angibt.
-        Die Werte sind Einheitslos.
+    <string name="infoGeomagneticRotationVector">Der geomagnetische Rotationsvektorsensor, der auch als Rotationsvektorsensor oder Orientierungssensor bezeichnet wird, ist ein Sensor, der Daten von Magnetometer (geomagnetischer Sensor), Beschleunigungsmesser und Gyroskop kombiniert, um Informationen über die Orientierung und Rotation des Geräts im dreidimensionalen Raum zu liefern.
+        \n\nDie Hauptfunktion des geomagnetischen Rotationsvektorsensors besteht darin, die Ausrichtung des Geräts in Bezug auf das Magnetfeld der Erde zu schätzen. Er verwendet die Magnetfeldmesswerte des Magnetometers, die Schwerkraftmesswerte des Beschleunigungsmessers und die Winkelrotationsdaten des Gyroskops, um die 3D-Orientierung des Geräts zu berechnen, einschließlich Nick-, Roll- und Gierwinkel.
+        \n\nDurch die Integration der Daten von mehreren Sensoren bietet der geomagnetische Rotationsvektorsensor eine genauere und zuverlässigere Schätzung der Geräteausrichtung als die Verwendung einzelner Sensoren. Er gleicht die Einschränkungen der einzelnen Sensoren aus und minimiert Fehler und Drift im Laufe der Zeit.
     </string>
 
-    <string name="infoProximity">
-        <br>Meldet die gemessene Entfernung zum Sensor.</br>
-        <br>Manche Näherungssensoren geben nur "nah" oder "fern" an.</br>
+    <string name="infoProximity">Ein Näherungssensor ist ein Gerät, das die Anwesenheit oder Abwesenheit von Objekten innerhalb eines bestimmten Bereichs ohne physischen Kontakt erkennt. Er nutzt verschiedene Technologien, um die Nähe eines Objekts zu erfassen und ein Ausgangssignal auf der Grundlage seiner Erkennung zu liefern.
+        \n\nDie Hauptfunktion eines Näherungssensors besteht darin, die An- oder Abwesenheit von Objekten festzustellen und entsprechende Aktionen oder Reaktionen auszulösen. Näherungssensoren werden in zahlreichen Anwendungen eingesetzt, darunter Smartphones, industrielle Automatisierung, Robotik, Automobilsysteme und Sicherheitssysteme.
     </string>
 
-    <string name="infoStepCounter">Meldet die Schritte seit das Gerät zuletzt neu gestartet wurde.
+    <string name="infoStepCounter">Ein Schrittzähler-Sensor, auch bekannt als Pedometer-Sensor, ist ein Gerät oder Sensor, der die Anzahl der Schritte misst und zählt, die eine Person beim Gehen, Laufen oder anderen Aktivitäten macht. Er wird in erster Linie verwendet, um die zurückgelegte Strecke zu schätzen oder um die körperliche Aktivität zu verfolgen.
+        \n\nDie Hauptfunktion eines Schrittzählersensors besteht darin, die mit Schritten verbundenen Bewegungsmuster zu erkennen und aufzuzeichnen. Er stützt sich in der Regel auf Bewegungssensoren wie Beschleunigungsmesser oder Gyroskope, um die Beschleunigung und Abbremsung des Körpers bei jedem Schritt zu messen.
+        \n\nSchrittzählersensoren sind häufig in tragbaren Geräten wie Fitness-Trackern, Smartwatches und Smartphones zu finden. Diese Sensoren verwenden Algorithmen, um die Sensordaten zu analysieren und Schrittmuster auf der Grundlage bestimmter Schwellenwerte oder Beschleunigungsmuster zu erkennen.
+        \n\nWenn eine Person einen Schritt macht, erkennt der Schrittzählersensor die Beschleunigung und Abbremsung des Körpers, wenn der Fuß den Boden berührt und abhebt. Anschließend zählt er diese erkannten Schritte und liefert eine Schätzung der Anzahl der zurückgelegten Schritte.
+        \n\nSchrittzähler-Sensoren können über die Schrittzahl hinaus zusätzliche Informationen liefern, z. B. die zurückgelegte Strecke, den Kalorienverbrauch und die Aktivitätsdauer. Diese Informationen können dazu verwendet werden, die körperliche Aktivität zu verfolgen, Fitnessziele festzulegen und die allgemeine Gesundheit und das Wohlbefinden zu überwachen.
+        \n\nEs ist zu beachten, dass Schrittzählersensoren beim normalen Gehen oder Laufen im Allgemeinen genau sind, während sie bei anderen Aktivitäten oder bei Bewegungsmustern, die sich deutlich vom Gehen oder Laufen unterscheiden, möglicherweise nicht so genau sind. Die Genauigkeit der Schrittzählung kann bei verschiedenen Sensoren und Geräten variieren.
     </string>
 </resources>

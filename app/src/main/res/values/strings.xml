@@ -49,62 +49,68 @@
 
     <string name="darkTheme">Dark Mode</string>
 
-    <string name="infoAccelerometer">
-        An accelerometer sensor reports the acceleration of the device
-        along the 3 sensor axes. The measured acceleration includes both
-        the physical acceleration (change of velocity) and the gravity.
+    <string name="infoAccelerometer">An accelerometer is a device that measures acceleration.Acceleration refers to the rate of change of velocity, which can occur in various directions.
+        \n\nAccelerometers are commonly used in many fields, including engineering, physics, and consumer electronics. They are found in smartphones, fitness trackers, gaming controllers, drones, and vehicles, among other devices.
+        \n\nThe primary function of an acceleration sensor is to detect and measure acceleration forces acting on an object or device. It can sense both static acceleration (such as gravity) and dynamic acceleration (such as movement or vibrations).
+        \n\nThe basic principle behind an accelerometer involves the use of a mass-spring system or a microelectromechanical system (MEMS).When acceleration is applied, the mass within the accelerometer experiences a force proportional to the acceleration.This force causes displacement, which is measured by the sensor.The measurement is then converted into an electrical signal that can be processed and interpreted by electronic circuits or software.
+        \n\nAccelerometers have various applications.In consumer electronics, they are used for screen rotation, gesture recognition, step counting, and shake detection.In automotive applications, they enable airbag deployment, stability control, and rollover detection.They are also employed in industrial machinery monitoring, seismic activity measurement, robotics, and virtual reality systems.
     </string>
 
-    <string name="infoMagneticField">
-        A magnetic field sensor (also known as magnetometer) reports
-        the ambient magnetic field, as measured along the 3 sensor axes.
-        The measurement is reported in the x, y and z Axis
-        and all values are in micro-Tesla (µT).
+    <string name="infoMagneticField">A magnetometer sensor, also known as a magnetic sensor, is a specific type of sensor that measures the strength and direction of magnetic fields. It is a component that incorporates a magnetometer within a larger system or device.
+        \n\nMagnetometer sensors are commonly used in a wide range of applications, including consumer electronics, navigation systems, robotics, and scientific research. They provide the ability to detect and monitor magnetic fields in real-time.
+        \n\nThe sensor itself is typically a small electronic device that contains one or more magnetometers. These magnetometers can be based on different technologies, such as fluxgate, Hall effect, or magnetoresistive principles, to measure the magnetic field strength.
+        \n\nThe magnetometer sensor can be integrated into various devices, including smartphones, tablets, wearables, drones, and vehicles. In consumer electronics, magnetometer sensors are often used to provide compass functionality, enabling devices to determine their orientation relative to the Earth\'s magnetic field. This allows for features such as automatic screen rotation, augmented reality applications, and navigation assistance.
     </string>
 
-    <string name="infoGravity">
-        A three dimensional vector indicating the direction and magnitude of gravity. Units are m/s².
+    <string name="infoGravity">A gravity sensor, also known as a gravitometer or gravity accelerometer, is a type of sensor that measures the acceleration due to gravity. It detects the gravitational force acting on an object or device and provides information about the orientation and inclination relative to the Earth\'s gravity field.
+        \n\nThe primary function of a gravity sensor is to measure the acceleration caused by gravity, which is approximately 9.8 meters per second squared (m/s²) near the Earth\'s surface. It can detect the static component of the gravitational field and is typically used to determine the device\'s tilt, inclination, or orientation.
+        \n\nGravity sensors are commonly found in consumer electronic devices such as smartphones, tablets, and gaming controllers. They are used for various purposes, including screen rotation, auto-leveling of images, and motion-based gaming.
+        \n\nThe technology behind gravity sensors can vary. In many devices, gravity sensors are often integrated with other sensors like accelerometers or gyroscopes. By combining the data from these sensors, the device can estimate the device\'s tilt or inclination in three-dimensional space.
     </string>
 
-    <string name="infoGyroscope">
-        A gyroscope sensor reports the rate of rotation of the device around the 3 sensor axes.
-        Units are rad/sec (Radian per second)
+    <string name="infoGyroscope">A gyroscope sensor is a device that measures and detects angular or rotational motion. It is used to determine changes in orientation and maintain stability in various electronic devices and systems.
+        \n\nThe primary function of a gyroscope sensor is to provide information about the device\'s rotational movement around different axes. It measures the rate of angular rotation and provides data about changes in orientation, angular velocity, and angular displacement.
+        \n\nGyroscope sensors are commonly used in consumer electronics, such as smartphones, tablets, gaming controllers, and virtual reality devices. They play a crucial role in enabling features like motion-controlled gaming, image stabilization, and screen rotation.
+        \n\nThere are different types of gyroscope sensors, including mechanical gyroscopes and solid-state gyroscopes. Mechanical gyroscopes, which are less common nowadays, consist of a spinning wheel or disk that resists changes in its orientation. As the device rotates, the gyroscope experiences forces that can be measured to determine the angular motion.
     </string>
 
-    <string name="infoLinearAcceleration">
-        A three dimensional vector indicating acceleration along each device axis, not including gravity.
-        Units are m/s².
+    <string name="infoLinearAcceleration">A linear acceleration sensor, also known as a linear accelerometer, is a device that measures acceleration along a straight line or in a specific direction. Unlike a regular accelerometer, which measures acceleration in all three axes (x, y, and z), a linear acceleration sensor focuses on measuring acceleration in a single direction.
+        \n\nThe primary function of a linear acceleration sensor is to detect and quantify linear or straight-line acceleration. It can measure changes in velocity or acceleration in a specific direction without being affected by the force of gravity or other factors along orthogonal axes.
+        \n\nLinear acceleration sensors are commonly used in various applications where precise measurement of linear motion is required. They are found in devices like smartphones, tablets, wearables, and gaming controllers.
     </string>
 
-    <string name="infoAmbientTemperature">
-        This sensor reports the ambient (room) temperature in degrees Celsius.
+    <string name="infoAmbientTemperature">An ambient temperature sensor, also known as a temperature sensor or ambient temperature sensor, is a device used to measure and monitor the surrounding or ambient temperature of an environment. It detects the temperature of the air or the immediate surroundings without any direct contact with the objects or surfaces being measured.
+        \n\nThe primary function of an ambient temperature sensor is to provide accurate and real-time temperature information of the surrounding area. It is typically used to monitor and control temperature in various applications, including HVAC (Heating, Ventilation, and Air Conditioning) systems, weather stations, industrial processes, electronic devices, and automotive systems.
+        \n\nAmbient temperature sensors utilize different technologies to measure temperature. One common type of sensor is a thermistor, which is a resistor that changes its electrical resistance with temperature variations. Another type is a solid-state sensor, such as a semiconductor-based sensor, which exploits the temperature-dependent characteristics of semiconductor materials.
+        \n\nThe ambient temperature sensor is designed to be sensitive to temperature changes and is usually calibrated to provide precise temperature readings. It can measure temperatures within a specific range and provides an electrical output signal, which can be analog or digital, corresponding to the detected temperature.
     </string>
 
-    <string name="infoLight">
-        A light sensor reports the current illumination in lux.
+    <string name="infoLight">A light sensor, also known as a photoresistor or photodetector, is a device that detects and measures the intensity of light in its surrounding environment. It is designed to respond to changes in illumination and convert the detected light into an electrical signal.
+        \n\nThe primary function of a light sensor is to sense and monitor light levels. It is used in various applications to control lighting systems, adjust screen brightness, enable automatic switches, and provide feedback for exposure control in cameras.
     </string>
 
-    <string name="infoPressure">
-        <br>A pressure sensor (also known as barometer) reports the atmospheric pressure in hectopascal (hPa).</br>
-        <br>The barometer is often used to estimate elevation changes.</br>
+    <string name="infoPressure">A pressure sensor, also known as a pressure transducer or pressure transducer, is a device that measures the pressure of a gas or liquid. It detects and converts the applied pressure into an electrical signal that can be measured, processed, and used for various applications.
+        \n\nThe primary function of a pressure sensor is to sense and quantify the force per unit area exerted on its surface. Pressure sensors are utilized in numerous industries and applications, including automotive, aerospace, medical, industrial processes, and environmental monitoring.
     </string>
 
-    <string name="infoRelativeHumidity">
-        A relative humidity sensor measures relative ambient air humidity and reports the value in percent.
+    <string name="infoRelativeHumidity">A humidity sensor, also known as a hygrometer or humidity transducer, is a device used to measure and monitor the moisture or humidity level in the surrounding air or other environments. It detects and quantifies the amount of water vapor present in the air and provides information about relative humidity.
+        \n\nThe primary function of a humidity sensor is to sense and measure the moisture content in the air. It is commonly used in various applications where humidity control is important, such as weather monitoring, HVAC systems, agricultural operations, food processing, and industrial processes.
     </string>
 
-    <string name="infoGeomagneticRotationVector">
-        The rotation vector represents the orientation of the device as a combination of an angle and an axis.
-        Elements of the rotation vector are unitless.
+    <string name="infoGeomagneticRotationVector">The geomagnetic rotation vector sensor, also known as the rotation vector sensor or orientation sensor, is a sensor that combines data from the magnetometer (geomagnetic sensor), accelerometer, and gyroscope to provide information about the device\'s orientation and rotation in three-dimensional space.
+        \n\nThe primary function of the geomagnetic rotation vector sensor is to estimate the device\'s orientation relative to the Earth\'s magnetic field. It uses the magnetic field readings from the magnetometer, gravity readings from the accelerometer, and angular rotation data from the gyroscope to calculate the device\'s 3D orientation, including pitch, roll, and yaw angles.
+        \n\nBy integrating the data from multiple sensors, the geomagnetic rotation vector sensor provides a more accurate and robust estimation of the device\'s orientation compared to using individual sensors separately. It compensates for the limitations of individual sensors and minimizes errors and drift over time.
     </string>
 
-    <string name="infoProximity">
-        <br>A proximity sensor reports the distance from the sensor to the closest visible surface.</br>
-        <br>Note that some proximity sensors only support a binary "near" or "far" measurement.</br>
+    <string name="infoProximity">A proximity sensor is a device that detects the presence or absence of objects within a certain range without any physical contact. It utilizes various technologies to sense the proximity of an object and provides an output signal based on its detection.
+        \n\nThe primary function of a proximity sensor is to determine the presence or absence of objects and trigger actions or responses accordingly. Proximity sensors are widely used in numerous applications, including smartphones, industrial automation, robotics, automotive systems, and security systems.
     </string>
 
-    <string name="infoStepCounter">
-        A sensor of this type reports the number of steps taken by the user
-        since the last reboot while activated. The value is reset to zero only on a system reboot.
+    <string name="infoStepCounter">A step counter sensor, also known as a pedometer sensor, is a device or sensor that measures and counts the number of steps taken by a person during walking, running, or other activities. It is primarily used to estimate the distance traveled or to track physical activity.
+        \n\nThe main function of a step counter sensor is to detect and record the movement patterns associated with steps. It typically relies on motion sensors, such as accelerometers or gyroscopes, to measure the acceleration and deceleration of the body during each step.
+        \n\nStep counter sensors are commonly found in wearable devices, such as fitness trackers, smartwatches, and smartphones. These sensors utilize algorithms to analyze the sensor data and identify step patterns based on specific thresholds or patterns of acceleration.
+        \n\nWhen a person takes a step, the step counter sensor detects the acceleration and deceleration of the body as the foot hits the ground and lifts off. It then counts these detected steps and provides an estimate of the number of steps taken.
+        \n\nStep counter sensors can provide additional information beyond step count, such as distance traveled, calories burned, and activity duration. This information can be used to track physical activity, set fitness goals, and monitor overall health and wellness.
+        \n\nIt\'s worth noting that while step counter sensors are generally accurate for counting steps during normal walking or running activities, they may not be as precise during other activities or when the movement patterns differ significantly from walking or running. The accuracy of step counting can vary among different sensors and devices.
     </string>
 </resources>

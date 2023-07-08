@@ -52,7 +52,7 @@ class FragmentDetail : Fragment() {
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        val toolbar = binding.includeToolbarDetail.toolbarDetail
+        val toolbar = binding.detail.toolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         val navController = NavHostFragment.findNavController(this)
         NavigationUI.setupActionBarWithNavController(
@@ -60,20 +60,20 @@ class FragmentDetail : Fragment() {
             navController
         )
 
-        fab = binding.includeToolbarDetail.fab
-        name = binding.includeToolbarDetail.name
-        vendor = binding.includeToolbarDetail.vendor
-        version = binding.includeToolbarDetail.version
-        power = binding.includeToolbarDetail.power
-        maxDelay = binding.includeToolbarDetail.maxDelay
-        minDelay = binding.includeToolbarDetail.minDelay
-        maxRange = binding.includeToolbarDetail.maxRange
-        info = binding.includeToolbarDetail.textInformation
-        chart = binding.includeToolbarDetail.chart
+        fab = binding.detail.fab
+        name = binding.detail.name
+        vendor = binding.detail.vendor
+        version = binding.detail.version
+        power = binding.detail.power
+        maxDelay = binding.detail.maxDelay
+        minDelay = binding.detail.minDelay
+        maxRange = binding.detail.maxRange
+        info = binding.detail.textInformation
+        chart = binding.detail.chart
 
-        xText = binding.includeToolbarDetail.xValDetail
-        yText = binding.includeToolbarDetail.yValDetail
-        zText = binding.includeToolbarDetail.zValDetail
+        xText = binding.detail.xValDetail
+        yText = binding.detail.yValDetail
+        zText = binding.detail.zValDetail
 
         return binding.root
     }
@@ -93,15 +93,15 @@ class FragmentDetail : Fragment() {
         )
         info.text = getString(viewModel.itemSensor.info)
 
-        if (viewModel.itemSensor.valuesCount == 3) {
+        if (viewModel.itemSensor.axes == 3) {
             yText.visibility = View.VISIBLE
             zText.visibility = View.VISIBLE
         }
 
         viewModel.itemSensor.let {
             val color = ContextCompat.getColor(requireContext(), it.color)
-            val layout = binding.includeToolbarDetail.toolbarLayout
-            val icon = binding.includeToolbarDetail.appBarImage
+            val layout = binding.detail.toolbarLayout
+            val icon = binding.detail.appBarImage
 
             layout.title = getString(it.title)
             layout.setBackgroundColor(color)
@@ -124,6 +124,12 @@ class FragmentDetail : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        if (viewModel.itemSensor.axes == 1) {
+            updateSingleChart()
+        } else {
+            updateMultiChart()
+        }
+
         viewModel.sensorManager.registerListener(
             viewModel.sensorEventListener,
             viewModel.sensor,
@@ -151,7 +157,7 @@ class FragmentDetail : Fragment() {
                 putExtra("enableLog", true)
                 putExtra("sensorType", viewModel.sensorType)
                 putExtra("title", viewModel.itemSensor.title)
-                putExtra("sensorValuesCount", viewModel.itemSensor.valuesCount)
+                putExtra("sensorValuesCount", viewModel.itemSensor.axes)
                 putExtra("csvHeader", viewModel.csvHeader)
                 putExtra("fUri", fUri.toString())
             }

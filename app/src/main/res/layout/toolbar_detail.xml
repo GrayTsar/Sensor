@@ -33,7 +33,7 @@
                 tools:src="@drawable/ic_acceleration" />
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbarDetail"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />

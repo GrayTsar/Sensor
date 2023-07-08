@@ -1,6 +1,5 @@
 package com.graytsar.sensor.ui.home
 
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.graytsar.sensor.R
 import com.graytsar.sensor.SensorsActivity
 import com.graytsar.sensor.databinding.FragmentSensorsBinding
+import com.graytsar.sensor.utils.Globals
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SensorsFragment : Fragment() {
     private val viewModel: ViewModelSensors by viewModels()
-
-    private var _binding: FragmentSensorsBinding? = null
-    private val binding get() = _binding!!
 
     private lateinit var recyclerHome: RecyclerView
     private lateinit var adapterSensor: AdapterSensor
@@ -33,7 +30,7 @@ class SensorsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSensorsBinding.inflate(inflater, container, false)
+        val binding = FragmentSensorsBinding.inflate(inflater, container, false)
 
         val toolbar: Toolbar = binding.includeToolbarHome.toolbarHome
         (requireActivity() as SensorsActivity).setSupportActionBar(toolbar)
@@ -50,6 +47,9 @@ class SensorsFragment : Fragment() {
         recyclerHome = binding.recyclerHome
         adapterSensor = AdapterSensor(requireActivity())
         recyclerHome.adapter = adapterSensor
+        //FIXME: this is a hack to fix listener updating wrong view holder
+        recyclerHome.recycledViewPool.setMaxRecycledViews(-1, 0)
+        recyclerHome.setItemViewCacheSize(Globals.sensors.size)
 
         //reset status bar color from details fragment color change
         activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.primary)
@@ -64,36 +64,15 @@ class SensorsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        registerSensors()
+        viewModel.registerListeners()
     }
 
-    override fun onStop() {
-        unregisterSensors()
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onPause() {
+        viewModel.unregisterListeners()
+        super.onPause()
     }
 
     private fun initSensors() {
         adapterSensor.submitList(viewModel.sensors)
-    }
-
-    private fun registerSensors() {
-        viewModel.sensorListeners.forEach {
-            viewModel.sensorManager.registerListener(
-                it.value,
-                viewModel.sensorManager.getDefaultSensor(it.key),
-                SensorManager.SENSOR_DELAY_UI
-            )
-        }
-    }
-
-    private fun unregisterSensors() {
-        viewModel.sensorListeners.forEach {
-            viewModel.sensorManager.unregisterListener(it.value)
-        }
     }
 }

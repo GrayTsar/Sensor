@@ -3,6 +3,7 @@ package com.graytsar.sensor.ui.home
 import android.graphics.drawable.Drawable
 import android.hardware.Sensor
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
@@ -20,8 +20,6 @@ import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.ItemSensorBinding
 import com.graytsar.sensor.model.UISensor
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class AdapterSensor(
     private val activity: FragmentActivity
@@ -235,6 +233,7 @@ class AdapterSensor(
     }
 
     private fun bindStepCounter(item: UISensor, holder: ViewHolderSensor) {
+        Log.d("DBG", "bind step counter")
         holder.initView(
             item = item,
             drawable = ContextCompat.getDrawable(activity, item.icon),
@@ -250,10 +249,6 @@ class AdapterSensor(
         }
     }
 
-    override fun onViewRecycled(holder: ViewHolderSensor) {
-        super.onViewRecycled(holder)
-    }
-
     inner class ViewHolderSensor(val binding: ItemSensorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val icon: ImageView = binding.icon
@@ -266,26 +261,25 @@ class AdapterSensor(
             icon.setImageDrawable(drawable)
             this.title.text = title
             binding.background.setBackgroundColor(backgroundColor)
+            xVal.text = "0"
+            yVal.text = "0"
+            zVal.text = "0"
 
-            if (item.valuesCount == 1) {
+            if (item.axes == 1) {
                 yVal.visibility = View.GONE
                 zVal.visibility = View.GONE
+
+                item.listener = {
+                    xVal.text = activity.getString(item.unit, it.first)
+                }
             } else {
                 yVal.visibility = View.VISIBLE
                 zVal.visibility = View.VISIBLE
-            }
 
-            activity.lifecycleScope.launch {
-                if (item.valuesCount == 1) {
-                    item.values.collectLatest {
-                        xVal.text = activity.getString(item.unit, it.first)
-                    }
-                } else {
-                    item.values.collectLatest {
-                        xVal.text = activity.getString(item.unit, it.first)
-                        yVal.text = activity.getString(item.unit, it.second)
-                        zVal.text = activity.getString(item.unit, it.third)
-                    }
+                item.listener = {
+                    xVal.text = activity.getString(item.unit, it.first)
+                    yVal.text = activity.getString(item.unit, it.second)
+                    zVal.text = activity.getString(item.unit, it.third)
                 }
             }
         }
@@ -295,10 +289,16 @@ class AdapterSensor(
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UISensor>() {
             override fun areItemsTheSame(oldItem: UISensor, newItem: UISensor): Boolean {
                 return oldItem.sensorType == newItem.sensorType
+                        && oldItem.title == newItem.title
             }
 
             override fun areContentsTheSame(oldItem: UISensor, newItem: UISensor): Boolean {
-                return oldItem == newItem
+                return oldItem.axes == newItem.axes
+                        && oldItem.dataPoints == newItem.dataPoints
+                        && oldItem.unit == newItem.unit
+                        && oldItem.info == newItem.info
+                        && oldItem.color == newItem.color
+                        && oldItem.icon == newItem.icon
             }
         }
     }

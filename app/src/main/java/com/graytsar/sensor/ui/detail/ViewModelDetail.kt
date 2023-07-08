@@ -25,7 +25,6 @@ class ViewModelDetail @Inject constructor(
 
     val csvHeader =
         "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power}mA,MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
-    var displayPoints: Int = 100
 
     val xValues = arrayListOf<Float>()
     val yValues = arrayListOf<Float>()
@@ -36,11 +35,11 @@ class ViewModelDetail @Inject constructor(
 
     var enableLog: Boolean = false
 
-    val sensorEventListener: SensorEventListener = when (itemSensor.valuesCount) {
+    val sensorEventListener: SensorEventListener = when (itemSensor.axes) {
         1 -> object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 if (event == null) return
-                if (xValues.size >= displayPoints) {
+                if (xValues.size >= itemSensor.dataPoints) {
                     xValues.removeFirstOrNull()
                 }
                 xValues.add(event.values[0])
@@ -55,7 +54,7 @@ class ViewModelDetail @Inject constructor(
         else -> object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 if (event == null) return
-                if (xValues.size >= displayPoints) {
+                if (xValues.size >= itemSensor.dataPoints) {
                     xValues.removeFirstOrNull()
                     yValues.removeFirstOrNull()
                     zValues.removeFirstOrNull()

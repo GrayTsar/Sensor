@@ -7,6 +7,6 @@
     tools:context=".ui.detail.FragmentDetail">
 
     <include
-        android:id="@+id/includeToolbarDetail"
+        android:id="@+id/detail"
         layout="@layout/toolbar_detail" />
 </FrameLayout>

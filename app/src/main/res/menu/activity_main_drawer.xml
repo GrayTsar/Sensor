@@ -10,6 +10,11 @@
         android:title="@string/darkTheme"
         app:actionViewClass="com.google.android.material.checkbox.MaterialCheckBox" />
 
+    <item
+        android:id="@+id/menuExport"
+        android:icon="@drawable/ic_baseline_folder_open_24"
+        android:title="Export" />
+
     <item android:title="@string/app_name">
         <menu>
             <group android:checkableBehavior="none">

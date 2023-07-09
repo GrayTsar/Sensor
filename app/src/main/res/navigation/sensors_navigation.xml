@@ -13,8 +13,14 @@
 
     <fragment
         android:id="@+id/fragmentDetail"
-        android:name="com.graytsar.sensor.ui.detail.FragmentDetail"
+        android:name="com.graytsar.sensor.ui.detail.DetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_detail" />
+
+    <fragment
+        android:id="@+id/fragmentExport"
+        android:name="com.graytsar.sensor.ui.export.ExportFragment"
+        android:label="Export"
+        tools:layout="@layout/fragment_export" />
 
 </navigation>

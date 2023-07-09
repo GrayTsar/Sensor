@@ -14,7 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelDetail @Inject constructor(
+class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     val sensorManager: SensorManager,
     private val sensorRepository: SensorRepository,
@@ -79,6 +79,7 @@ class ViewModelDetail @Inject constructor(
             SensorEntity(
                 id = 0,
                 sensorType = sensorType,
+                timestamp = System.currentTimeMillis()
             )
         )
     }

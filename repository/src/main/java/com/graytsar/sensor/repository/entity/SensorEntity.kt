@@ -8,4 +8,5 @@ import androidx.room.PrimaryKey
 data class SensorEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "sensor_type") val sensorType: Int,
+    @ColumnInfo(name = "timestamp") val timestamp: Long
 )

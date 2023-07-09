@@ -33,8 +33,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
-class FragmentDetail : Fragment() {
-    private val viewModel: ViewModelDetail by viewModels()
+class DetailFragment : Fragment() {
+    private val viewModel: DetailViewModel by viewModels()
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!

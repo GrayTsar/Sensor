@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,7 +27,7 @@ import com.graytsar.sensor.utils.keyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SensorsActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
+class SensorsActivity : AppCompatActivity() {
     private var _binding: ActivitySensorsBinding? = null
     private val binding get() = _binding!!
 
@@ -56,27 +55,15 @@ class SensorsActivity : AppCompatActivity(), NavController.OnDestinationChangedL
 
         initDrawerMenu(binding.navView)
 
-        navController.addOnDestinationChangedListener(this)
+        //navController.addOnDestinationChangedListener(this)
         binding.navView.setNavigationItemSelectedListener { item: MenuItem ->
             onNavigationItemSelected(item)
         }
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
-        //if(destination.id == R.id.fragmentHome) {
-        //val intent = Intent(this, ForegroundServiceLogging::class.java)
-        //stopService(intent)
-        //}
     }
 
     override fun onDestroy() {
@@ -100,6 +87,11 @@ class SensorsActivity : AppCompatActivity(), NavController.OnDestinationChangedL
             R.id.menuDarkMode -> {
                 val darkMode = item.actionView as MaterialCheckBox
                 onMenuDarkModeClick(darkMode)
+            }
+
+            R.id.menuExport -> {
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigate(R.id.fragmentExport)
             }
 
             R.id.accelerometer -> openDetail(sensorName, Sensor.TYPE_ACCELEROMETER)

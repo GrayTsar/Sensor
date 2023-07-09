@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SensorsFragment : Fragment() {
-    private val viewModel: ViewModelSensors by viewModels()
+    private val viewModel: SensorsViewModel by viewModels()
 
     private lateinit var recyclerHome: RecyclerView
     private lateinit var adapterSensor: AdapterSensor

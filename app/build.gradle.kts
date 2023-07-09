@@ -67,12 +67,18 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.3.7")
 
+    //paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+
     //hilt
     implementation("androidx.hilt:hilt-common:1.0.0")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
     implementation("com.google.dagger:hilt-android:2.46.1")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    //room
+    implementation("androidx.room:room-paging:2.5.2")
 
     implementation(project(":repository"))
 

@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelSensors @Inject constructor(
+class SensorsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val sensorManager: SensorManager
 ) : ViewModel() {

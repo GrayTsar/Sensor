@@ -8,6 +8,9 @@ const val ARG_SENSOR_TYPE = "ARG_SENSOR_TYPE"
 const val keyPreferenceTheme = "preferenceTheme"
 const val keyTheme = "theme"
 
+const val RECORD_CHANNEL_ID = "1"
+const val RECORD_NOTIFICATION_ID = 101
+
 object Globals {
     var isNightMode: Boolean = false
 

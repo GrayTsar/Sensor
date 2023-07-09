@@ -46,7 +46,7 @@ class ViewModelDetail @Inject constructor(
                 singleUpdate?.invoke()
             }
 
-            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
                 /* do nothing */
             }
         }
@@ -65,7 +65,7 @@ class ViewModelDetail @Inject constructor(
                 multiUpdate?.invoke()
             }
 
-            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
                 /* do nothing */
             }
         }

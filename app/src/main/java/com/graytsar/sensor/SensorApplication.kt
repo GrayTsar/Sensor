@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.graytsar.sensor.utils.Globals
+import com.graytsar.sensor.utils.RECORD_CHANNEL_ID
 import com.graytsar.sensor.utils.keyPreferenceTheme
 import com.graytsar.sensor.utils.keyTheme
 import dagger.hilt.android.HiltAndroidApp
@@ -40,11 +41,12 @@ open class SensorApplication : Application() {
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val loggingChannel = NotificationChannel(
-            "1",
-            "log",
-            NotificationManager.IMPORTANCE_LOW
+            RECORD_CHANNEL_ID,
+            getString(R.string.record_channel_name),
+            NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
-            description = "log"
+            description = getString(R.string.record_channel_description)
+            setSound(null, null)
         }
 
         val notificationManager: NotificationManager =

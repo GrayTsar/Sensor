@@ -3,6 +3,8 @@
     <string name="app_name">capteur</string>
     <string name="sensors_title">Capteurs</string>
 
+    <string name="all_notification">Notification</string>
+
     <string name="sensorAccelerometer">accéléromètre</string>
     <string name="sensorMagneticField">magnétomètre</string>
     <string name="sensorGravity">la gravité</string>
@@ -23,6 +25,8 @@
     <string name="labelMaxDelay">délai maximum: %s</string>
     <string name="labelMinDelay">délai minimum: %s</string>
     <string name="labelMaxRange">portée max: %s</string>
+
+    <string name="notification_permission_rationale">Le capteur utilise la notification pour enregistrer des données lorsque l\'écran est éteint.</string>
 
     <string name="unitAcceleration">%.4f m/s²</string>
     <string name="unitMagneticField">%.4f µT</string>
@@ -49,6 +53,9 @@
     <string name="details">détails</string>
 
     <string name="darkTheme">Dark Theme</string>
+
+    <string name="record_channel_name">Enregistrer</string>
+    <string name="record_channel_description">Enregistrement des données des capteurs</string>
 
     <string name="infoAccelerometer">Un accéléromètre est un dispositif qui mesure l\'accélération, c\'est-à-dire le taux de variation de la vitesse, qui peut se produire dans différentes directions.
         \n\nLes accéléromètres sont couramment utilisés dans de nombreux domaines, notamment l\'ingénierie, la physique et l\'électronique grand public. On les trouve notamment dans les smartphones, les trackers de fitness, les manettes de jeu, les drones et les véhicules.

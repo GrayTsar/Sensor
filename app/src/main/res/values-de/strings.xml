@@ -3,6 +3,8 @@
     <string name="app_name">Sensor</string>
     <string name="sensors_title">Sensors</string>
 
+    <string name="all_notification">Benachrichtigung</string>
+
     <string name="sensorAccelerometer">Beschleunigungssensor</string>
     <string name="sensorMagneticField">Magnetometer</string>
     <string name="sensorGravity">Gravitation</string>
@@ -23,6 +25,8 @@
     <string name="labelMaxDelay">Max Verzögerung: %s</string>
     <string name="labelMinDelay">Min Verzögerung: %s</string>
     <string name="labelMaxRange">Max Wertebereich: %s</string>
+
+    <string name="notification_permission_rationale">Sensor verwendet Benachrichtigungen, um Daten aufzuzeichnen auch wenn der Bildschirm ausgeschaltet ist.</string>
 
     <string name="unitAcceleration">%.4f m/s²</string>
     <string name="unitMagneticField">%.4f µT</string>
@@ -48,8 +52,10 @@
     <string name="information">Information</string>
     <string name="details">Details</string>
 
-
     <string name="darkTheme">Dark Mode</string>
+
+    <string name="record_channel_name">Aufzeichnung</string>
+    <string name="record_channel_description">Sensor Daten aufzeichnen</string>
 
     <string name="infoAccelerometer">Ein Beschleunigungsmesser ist ein Gerät, das die Beschleunigung misst, d. h. die Änderung der Geschwindigkeit, die in verschiedene Richtungen erfolgen kann.
         \n\nBeschleunigungsmesser werden häufig in vielen Bereichen eingesetzt, darunter Technik, Physik und Unterhaltungselektronik. Sie finden sich unter anderem in Smartphones, Fitness-Trackern, Spiele-Controllern, Drohnen und Fahrzeugen.

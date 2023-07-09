@@ -3,6 +3,8 @@
     <string name="app_name">센서</string>
     <string name="sensors_title">센서</string>
 
+    <string name="all_notification">알림</string>
+
     <string name="sensorAccelerometer">가속도계</string>
     <string name="sensorMagneticField">자기계</string>
     <string name="sensorGravity">중력</string>
@@ -23,6 +25,8 @@
     <string name="labelMaxDelay">최대 지연: %s</string>
     <string name="labelMinDelay">최소 지연: %s</string>
     <string name="labelMaxRange">최대 범위: %s</string>
+
+    <string name="notification_permission_rationale">센서는 화면이 꺼질 때 알림을 사용하여 데이터를 기록합니다.</string>
 
     <string name="unitAcceleration">%.4f m/s²</string>
     <string name="unitMagneticField">%.4f µT</string>
@@ -49,6 +53,9 @@
     <string name="details">세부 사항</string>
 
     <string name="darkTheme">다크 테마</string>
+
+    <string name="record_channel_name">기록</string>
+    <string name="record_channel_description">센서 데이터 기록</string>
 
     <string name="infoAccelerometer">가속도계는 가속도를 측정하는 장치입니다.가속도는 다양한 방향으로 발생할 수 있는 속도 변화 속도를 나타냅니다.
         \n\n가속도계는 공학, 물리학, 그리고 가전제품을 포함한 많은 분야에서 일반적으로 사용됩니다. 그들은 스마트폰, 피트니스 트래커, 게임 컨트롤러, 드론 및 차량 등에서 발견됩니다.

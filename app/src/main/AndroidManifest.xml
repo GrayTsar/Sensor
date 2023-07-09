@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -49,7 +50,7 @@
         android:theme="@style/Theme.Sensor">
 
         <service
-            android:name=".ForegroundServiceLogging"
+            android:name=".RecordService"
             android:enabled="true"
             android:exported="false" />
 

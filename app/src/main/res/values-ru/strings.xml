@@ -3,6 +3,8 @@
     <string name="app_name">сенсор</string>
     <string name="sensors_title">датчик</string>
 
+    <string name="all_notification">Уведомление</string>
+
     <string name="sensorAccelerometer">Скоростной сенсор</string>
     <string name="sensorMagneticField">Магнетный датчик</string>
     <string name="sensorGravity">гравитация</string>
@@ -23,6 +25,8 @@
     <string name="labelMaxDelay">Макс. задержка: %s</string>
     <string name="labelMinDelay">мин. задержка: %s</string>
     <string name="labelMaxRange">Макс. диапазон: %s</string>
+
+    <string name="notification_permission_rationale">Сенсор использует уведомление для записи данных при выключенном экране.</string>
 
     <string name="unitAcceleration">%.4f m/s²</string>
     <string name="unitMagneticField">%.4f µT</string>
@@ -49,6 +53,9 @@
     <string name="details">деталь</string>
 
     <string name="darkTheme">темная тема</string>
+
+    <string name="record_channel_name">Запись</string>
+    <string name="record_channel_description">Запись данных датчика</string>
 
     <string name="infoAccelerometer">Акселерометр - это устройство, которое измеряет ускорение. Ускорение относится к скорости изменения скорости, которое может происходить в различных направлениях.
         \n\nАкселерометры широко используются во многих областях, включая инженерное дело, физику и бытовую электронику. Их можно найти в смартфонах, фитнес-трекерах, игровых контроллерах, беспилотниках и транспортных средствах, среди прочих устройств.

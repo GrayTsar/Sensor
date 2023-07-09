@@ -1,12 +1,15 @@
 package com.graytsar.sensor.ui.detail
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,11 +19,13 @@ import androidx.navigation.ui.NavigationUI
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.graytsar.sensor.ForegroundServiceLogging
 import com.graytsar.sensor.R
+import com.graytsar.sensor.RecordService
 import com.graytsar.sensor.databinding.FragmentDetailBinding
+import com.graytsar.sensor.util.PermissionUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +49,11 @@ class FragmentDetail : Fragment() {
     private lateinit var zText: TextView
 
     private lateinit var chart: AAChartView
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) startRecordingService()
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -149,40 +159,39 @@ class FragmentDetail : Fragment() {
         _binding = null
     }
 
-    override fun onActivityResult(request: Int, result: Int, resultData: Intent?) {
-        if (resultData != null && resultData.data != null) {
-            val fUri = resultData.data!!
+    private fun onFabClicked() {
+        if (!PermissionUtil.isNotificationPermissionGranted(requireContext())) {
+            requestNotificationPermission()
+            return
+        }
 
-            val intent = Intent(context, ForegroundServiceLogging::class.java).apply {
-                putExtra("enableLog", true)
-                putExtra("sensorType", viewModel.sensorType)
-                putExtra("title", viewModel.itemSensor.title)
-                putExtra("sensorValuesCount", viewModel.itemSensor.axes)
-                putExtra("csvHeader", viewModel.csvHeader)
-                putExtra("fUri", fUri.toString())
-            }
-            ContextCompat.startForegroundService(requireContext(), intent)
+        viewModel.enableLog = !viewModel.enableLog
+        if (viewModel.enableLog) {
+            startRecordingService()
+        } else {
+            stopRecording()
         }
     }
 
-    private fun onFabClicked() {
-        viewModel.enableLog = !viewModel.enableLog
-        if (viewModel.enableLog) {
-            fab.setImageResource(R.drawable.ic_baseline_pause_24)
-            Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG)
-                .show()
+    private fun startRecordingService() {
+        fab.setImageResource(R.drawable.ic_baseline_pause_24)
+        Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG).show()
 
-            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_TITLE, viewModel.itemSensor.title.toString() + ".txt")
-            startActivityForResult(intent, 1)
-        } else if (!viewModel.enableLog) {
-            fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-            val intent = Intent(context, ForegroundServiceLogging::class.java)
-            intent.putExtra("enableLog", false)
-            ContextCompat.startForegroundService(requireContext(), intent)
+        val intent = Intent(context, RecordService::class.java).apply {
+            putExtra(RecordService.ARG_ENABLED, true)
+            putExtra(RecordService.ARG_SENSOR_TYPE, viewModel.sensorType)
         }
+
+        ContextCompat.startForegroundService(requireContext(), intent)
+    }
+
+    private fun stopRecording() {
+        fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+
+        val intent = Intent(context, RecordService::class.java).apply {
+            putExtra(RecordService.ARG_ENABLED, false)
+        }
+        requireActivity().stopService(intent)
     }
 
     private fun updateSingleChart() {
@@ -261,5 +270,34 @@ class FragmentDetail : Fragment() {
             )
         }
         chart.aa_drawChartWithChartModel(chartModel)
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    /* do nothing */
+                }
+
+                shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS) -> {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.all_notification)
+                        .setMessage(R.string.notification_permission_rationale)
+                        .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
+                            permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                            dialogInterface?.dismiss()
+                        }
+                        .setNegativeButton(android.R.string.cancel) { dialogInterface, _ ->
+                            dialogInterface?.dismiss()
+                        }
+                        .show()
+                }
+
+                else -> permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@
     <string name="app_name">Sensor</string>
     <string name="sensors_title">Sensors</string>
 
+    <string name="all_notification">Notification</string>
+
     <string name="sensorAccelerometer">Accelerometer</string>
     <string name="sensorMagneticField">Magnetometer</string>
     <string name="sensorGravity">Gravity</string>
@@ -22,6 +24,8 @@
     <string name="labelMaxDelay">Max Delay: %s</string>
     <string name="labelMinDelay">Min Delay: %s</string>
     <string name="labelMaxRange">Max Range: %s</string>
+
+    <string name="notification_permission_rationale">Sensor uses notification to record data when the screen is turned off.</string>
 
     <string name="unitAcceleration">%.4f m/s²</string>
     <string name="unitMagneticField">%.4f µT</string>
@@ -48,6 +52,9 @@
     <string name="details">Details</string>
 
     <string name="darkTheme">Dark Mode</string>
+
+    <string name="record_channel_name">Record</string>
+    <string name="record_channel_description">Recording sensor data</string>
 
     <string name="infoAccelerometer">An accelerometer is a device that measures acceleration.Acceleration refers to the rate of change of velocity, which can occur in various directions.
         \n\nAccelerometers are commonly used in many fields, including engineering, physics, and consumer electronics. They are found in smartphones, fitness trackers, gaming controllers, drones, and vehicles, among other devices.

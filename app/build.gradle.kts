@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.graytsar.sensor"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 33
         versionCode = 3
         versionName = "1.0.3"

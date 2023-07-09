@@ -3,7 +3,6 @@ package com.graytsar.sensor.ui.home
 import android.graphics.drawable.Drawable
 import android.hardware.Sensor
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -233,7 +232,6 @@ class AdapterSensor(
     }
 
     private fun bindStepCounter(item: UISensor, holder: ViewHolderSensor) {
-        Log.d("DBG", "bind step counter")
         holder.initView(
             item = item,
             drawable = ContextCompat.getDrawable(activity, item.icon),

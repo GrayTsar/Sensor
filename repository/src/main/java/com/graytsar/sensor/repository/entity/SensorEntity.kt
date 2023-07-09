@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "sensor")
 data class SensorEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "sensor_type") val sensorType: Int,
     @ColumnInfo(name = "timestamp") val timestamp: Long
 )

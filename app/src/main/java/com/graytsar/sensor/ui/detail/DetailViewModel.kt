@@ -26,9 +26,6 @@ class DetailViewModel @Inject constructor(
         it.sensorType == sensorType
     }!!
 
-    val csvHeader =
-        "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power}mA,MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
-
     val xValues = arrayListOf<Float>()
     val yValues = arrayListOf<Float>()
     val zValues = arrayListOf<Float>()

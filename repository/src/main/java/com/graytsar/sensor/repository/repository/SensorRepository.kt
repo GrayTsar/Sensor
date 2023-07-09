@@ -17,6 +17,10 @@ class SensorRepository @Inject constructor(
         return sensorDAO.insert(sensor)
     }
 
+    suspend fun deleteById(id: Long) {
+        sensorDAO.delete(id)
+    }
+
     fun getRecordsPaged(): Flow<PagingData<Record>> {
         return Pager(
             config = PagingConfig(

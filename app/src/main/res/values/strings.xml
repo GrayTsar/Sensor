@@ -2,7 +2,13 @@
     <string name="app_name">Sensor</string>
     <string name="sensors_title">Sensors</string>
 
+    <string name="all_delete">Delete</string>
+    <string name="all_export">Export</string>
     <string name="all_notification">Notification</string>
+    <string name="all_warning">Warning</string>
+
+    <string name="export_item_detail">Recorded on %s with %d events</string>
+    <string name="export_item_delete_warning">Are you sure you want to delete this recording?</string>
 
     <string name="sensorAccelerometer">Accelerometer</string>
     <string name="sensorMagneticField">Magnetometer</string>

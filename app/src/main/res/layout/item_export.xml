@@ -22,7 +22,7 @@
             android:layout_marginEnd="8dp"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textColor="@color/text_primary"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/menu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Accelerometer" />
@@ -37,13 +37,13 @@
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="@color/text_primary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/menu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="Recorded on 09.07.2023, 23:59:59 with 1337 events" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/menu"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"

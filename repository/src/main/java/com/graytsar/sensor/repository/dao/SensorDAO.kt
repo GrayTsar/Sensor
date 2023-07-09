@@ -25,6 +25,9 @@ interface SensorDAO {
     @Delete
     suspend fun delete(entity: SensorEntity)
 
-    @Query("SELECT id, sensor_type, timestamp, (SELECT COUNT(*) FROM record WHERE record.record_id=sensor.id) as count FROM sensor")
+    @Query("DELETE FROM sensor WHERE sensor.id = :id")
+    suspend fun delete(id: Long)
+
+    @Query("SELECT id, sensor_type, timestamp, (SELECT COUNT(*) FROM record WHERE record.record_id=sensor.id) as count FROM sensor ORDER BY timestamp DESC")
     fun selectAllPaged(): PagingSource<Int, Record>
 }

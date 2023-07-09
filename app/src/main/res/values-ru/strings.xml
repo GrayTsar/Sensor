@@ -3,7 +3,13 @@
     <string name="app_name">сенсор</string>
     <string name="sensors_title">датчик</string>
 
+    <string name="all_delete">Удалить</string>
+    <string name="all_export">Экспорт</string>
     <string name="all_notification">Уведомление</string>
+    <string name="all_warning">Предупреждение</string>
+
+    <string name="export_item_detail">Записано %s с %d событиями</string>
+    <string name="export_item_delete_warning">Вы уверены, что хотите удалить эту запись?</string>
 
     <string name="sensorAccelerometer">Скоростной сенсор</string>
     <string name="sensorMagneticField">Магнетный датчик</string>

@@ -17,9 +17,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ExportViewModel @Inject constructor(
     private val sensorManager: SensorManager,
-    private val sensorRepository: SensorRepository,
+    val sensorRepository: SensorRepository,
     private val recordRepository: RecordRepository
 ) : ViewModel() {
+
+    //val csvHeader =
+    //    "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor},VERSION:${sensor.version},POWER:${sensor.power}mA,MAXDELAY:${sensor.maxDelay},MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}"
 
     private val pageDataFlow: MutableStateFlow<Flow<PagingData<Record>>> = MutableStateFlow(
         sensorRepository.getRecordsPaged()

@@ -3,7 +3,13 @@
     <string name="app_name">센서</string>
     <string name="sensors_title">센서</string>
 
+    <string name="all_delete">삭제</string>
+    <string name="all_export">내보내기</string>
     <string name="all_notification">알림</string>
+    <string name="all_warning">경고문</string>
+
+    <string name="export_item_detail">%s %d 이벤트 기록</string>
+    <string name="export_item_delete_warning">이 기록을 삭제하시겠습니까?</string>
 
     <string name="sensorAccelerometer">가속도계</string>
     <string name="sensorMagneticField">자기계</string>

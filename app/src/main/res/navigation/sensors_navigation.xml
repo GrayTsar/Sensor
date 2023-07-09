@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/fragmentExport"
         android:name="com.graytsar.sensor.ui.export.ExportFragment"
-        android:label="Export"
+        android:label="@string/all_export"
         tools:layout="@layout/fragment_export" />
 
 </navigation>

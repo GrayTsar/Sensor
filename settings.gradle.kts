@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Sensor"
 include(":app")
+include(":repository")

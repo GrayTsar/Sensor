@@ -6,6 +6,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.graytsar.sensor.repository.entity.SensorEntity
+import com.graytsar.sensor.repository.repository.SensorRepository
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 import com.graytsar.sensor.utils.Globals
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewModelDetail @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    val sensorManager: SensorManager
+    val sensorManager: SensorManager,
+    private val sensorRepository: SensorRepository,
 ) : ViewModel() {
 
     val sensorType = savedStateHandle.get<Int>(ARG_SENSOR_TYPE)!!
@@ -69,5 +72,14 @@ class ViewModelDetail @Inject constructor(
                 /* do nothing */
             }
         }
+    }
+
+    suspend fun insertSensor(): Long {
+        return sensorRepository.insert(
+            SensorEntity(
+                id = 0,
+                sensorType = sensorType,
+            )
+        )
     }
 }

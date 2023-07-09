@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -27,6 +28,9 @@ import com.graytsar.sensor.RecordService
 import com.graytsar.sensor.databinding.FragmentDetailBinding
 import com.graytsar.sensor.util.PermissionUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class FragmentDetail : Fragment() {
@@ -177,12 +181,17 @@ class FragmentDetail : Fragment() {
         fab.setImageResource(R.drawable.ic_baseline_pause_24)
         Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG).show()
 
-        val intent = Intent(context, RecordService::class.java).apply {
-            putExtra(RecordService.ARG_ENABLED, true)
-            putExtra(RecordService.ARG_SENSOR_TYPE, viewModel.sensorType)
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val id = viewModel.insertSensor()
+            withContext(Dispatchers.Main) {
+                val intent = Intent(context, RecordService::class.java).apply {
+                    putExtra(RecordService.ARG_ENABLED, true)
+                    putExtra(RecordService.ARG_SENSOR_TYPE, viewModel.sensorType)
+                    putExtra(RecordService.ARG_RECORDING_ID, id)
+                }
+                ContextCompat.startForegroundService(requireContext(), intent)
+            }
         }
-
-        ContextCompat.startForegroundService(requireContext(), intent)
     }
 
     private fun stopRecording() {

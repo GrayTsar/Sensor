@@ -27,5 +27,5 @@ interface RecordDAO {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM record WHERE record_id = :recordId")
-    suspend fun selectBySensor(recordId: Int): List<RecordEntity>
+    suspend fun selectByRecording(recordId: Long): List<RecordEntity>
 }

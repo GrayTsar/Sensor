@@ -12,7 +12,7 @@ class RecordRepository @Inject constructor(
         recordDAO.insertAll(records)
     }
 
-    suspend fun getBySensor(sensorType: Int): List<RecordEntity> {
-        return recordDAO.selectBySensor(sensorType)
+    suspend fun getByRecording(recording: Long): List<RecordEntity> {
+        return recordDAO.selectByRecording(recording)
     }
 }

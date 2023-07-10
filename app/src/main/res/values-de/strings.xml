@@ -6,10 +6,12 @@
     <string name="all_delete">Löschen</string>
     <string name="all_export">Export</string>
     <string name="all_notification">Benachrichtigung</string>
+    <string name="all_open">Öffnen</string>
     <string name="all_warning">Warnung</string>
 
     <string name="export_item_detail">Aufgenommen am %s mit %d Events</string>
     <string name="export_item_delete_warning">Wollen sie diese Aufnahme löschen?</string>
+    <string name="export_write_complete">Aufnahme wurde im Download Order abgespeichert</string>
 
     <string name="sensorAccelerometer">Beschleunigungssensor</string>
     <string name="sensorMagneticField">Magnetometer</string>

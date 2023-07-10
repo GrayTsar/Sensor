@@ -6,10 +6,12 @@
     <string name="all_delete">Supprimer</string>
     <string name="all_export">Exporter</string>
     <string name="all_notification">Notification</string>
+    <string name="all_open">ouvrir</string>
     <string name="all_warning">Avertissement</string>
 
     <string name="export_item_detail">Enregistré le %s avec %d événements</string>
     <string name="export_item_delete_warning">Êtes-vous sûr de vouloir supprimer cet enregistrement ?</string>
+    <string name="export_write_complete">L\'enregistrement a été sauvegardé dans le dossier des téléchargements</string>
 
     <string name="sensorAccelerometer">accéléromètre</string>
     <string name="sensorMagneticField">magnétomètre</string>

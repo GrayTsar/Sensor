@@ -2,27 +2,32 @@ package com.graytsar.sensor.ui.export
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.R
 import com.graytsar.sensor.databinding.ItemExportBinding
 import com.graytsar.sensor.repository.data.Record
 import com.graytsar.sensor.utils.Globals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Date
+
 
 class AdapterExport(
     val fragment: ExportFragment,
@@ -66,6 +71,7 @@ class AdapterExport(
                 popupMenu.setOnMenuItemClickListener { itemMenu ->
                     when (itemMenu.itemId) {
                         R.id.menuExportOpen -> {
+                            saveToFile(item)
                             true
                         }
 
@@ -78,6 +84,44 @@ class AdapterExport(
                     }
                 }
                 popupMenu.show()
+            }
+        }
+    }
+
+    private fun saveToFile(item: Record) {
+        viewModel.viewModelScope.launch(Dispatchers.IO) {
+            val records = viewModel.recordRepository.getByRecording(item.id)
+                .joinToString(System.lineSeparator()) {
+                    "${it.timestamp},${it.x},${it.y},${it.x}"
+                }
+
+            val uri = if (Build.VERSION.SDK_INT >= 29) {
+                viewModel.saveFileToDownloads(
+                    fragment.requireContext(),
+                    item.sensorType,
+                    records,
+                    "${item.timestamp}-export.txt"
+                )
+            } else {
+                viewModel.saveFileToDownloads(
+                    records,
+                    item.sensorType,
+                    "${item.timestamp}-export.txt"
+                )
+            }
+
+            withContext(Dispatchers.Main) {
+                Snackbar.make(
+                    fragment.requireView(),
+                    R.string.export_write_complete,
+                    Snackbar.LENGTH_LONG
+                ).setAction(R.string.all_open) {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        setDataAndType(uri, "text/plain")
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    fragment.startActivity(intent)
+                }.show()
             }
         }
     }

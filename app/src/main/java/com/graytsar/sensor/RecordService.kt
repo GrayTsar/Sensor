@@ -47,7 +47,6 @@ class RecordService : Service() {
     private val events = LinkedTransferQueue<RecordEntity>()
     private val transfers = mutableListOf<RecordEntity>()
 
-
     private val builder: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, RECORD_CHANNEL_ID).apply {
             setContentTitle(applicationContext.getString(model!!.title))

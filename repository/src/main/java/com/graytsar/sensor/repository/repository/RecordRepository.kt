@@ -15,4 +15,8 @@ class RecordRepository @Inject constructor(
     suspend fun getByRecording(recording: Long): List<RecordEntity> {
         return recordDAO.selectByRecording(recording)
     }
+
+    suspend fun getByRecodingLimit(recording: Long, limit: Int, offset: Int): List<RecordEntity> {
+        return recordDAO.selectByRecordingLimit(recording, limit, offset)
+    }
 }

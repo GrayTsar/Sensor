@@ -30,8 +30,8 @@ import java.util.Date
 
 
 class AdapterExport(
-    val fragment: ExportFragment,
-    val viewModel: ExportViewModel
+    private val fragment: ExportFragment,
+    private val viewModel: ExportViewModel
 ) : PagingDataAdapter<Record, AdapterExport.ViewHolderExport>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderExport {
@@ -97,16 +97,16 @@ class AdapterExport(
 
             val uri = if (Build.VERSION.SDK_INT >= 29) {
                 viewModel.saveFileToDownloads(
-                    fragment.requireContext(),
-                    item.sensorType,
-                    records,
-                    "${item.timestamp}-export.txt"
+                    context = fragment.requireContext(),
+                    sensorType = item.sensorType,
+                    recordingId = item.id,
+                    fileName = "${item.timestamp}-export.txt"
                 )
             } else {
                 viewModel.saveFileToDownloads(
-                    records,
-                    item.sensorType,
-                    "${item.timestamp}-export.txt"
+                    sensorType = item.sensorType,
+                    recordingId = item.id,
+                    fileName = "${item.timestamp}-export.txt"
                 )
             }
 

@@ -33,7 +33,7 @@ class DetailViewModel @Inject constructor(
     var singleUpdate: (() -> Unit)? = null
     var multiUpdate: (() -> Unit)? = null
 
-    var enableLog: Boolean = false
+    var isRecording: Boolean = false
 
     val sensorEventListener: SensorEventListener = when (itemSensor.axes) {
         1 -> object : SensorEventListener {

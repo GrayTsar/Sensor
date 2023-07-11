@@ -50,7 +50,7 @@
         android:theme="@style/Theme.Sensor">
 
         <service
-            android:name=".RecordService"
+            android:name=".service.RecordService"
             android:enabled="true"
             android:exported="false" />
 

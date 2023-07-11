@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -24,16 +25,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.R
-import com.graytsar.sensor.RecordService
+import com.graytsar.sensor.RecordViewModel
 import com.graytsar.sensor.databinding.FragmentDetailBinding
+import com.graytsar.sensor.service.RecordService
 import com.graytsar.sensor.util.PermissionUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
+    private val recordViewModel: RecordViewModel by activityViewModels()
     private val viewModel: DetailViewModel by viewModels()
 
     private var _binding: FragmentDetailBinding? = null
@@ -124,7 +127,7 @@ class DetailFragment : Fragment() {
             icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), it.icon))
         }
 
-        if (viewModel.enableLog) {
+        if (viewModel.isRecording) {
             fab.setImageResource(R.drawable.ic_baseline_pause_24)
         } else {
             fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
@@ -134,6 +137,17 @@ class DetailFragment : Fragment() {
 
         viewModel.singleUpdate = { updateSingleChart() }
         viewModel.multiUpdate = { updateMultiChart() }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            recordViewModel.recordServicesState.collectLatest {
+                viewModel.isRecording = it
+                if (it) {
+                    fab.setImageResource(R.drawable.ic_baseline_pause_24)
+                } else {
+                    fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -169,38 +183,30 @@ class DetailFragment : Fragment() {
             return
         }
 
-        viewModel.enableLog = !viewModel.enableLog
-        if (viewModel.enableLog) {
-            startRecordingService()
-        } else {
+        if (viewModel.isRecording) {
             stopRecording()
+        } else {
+            startRecordingService()
         }
     }
 
     private fun startRecordingService() {
-        fab.setImageResource(R.drawable.ic_baseline_pause_24)
         Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG).show()
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val id = viewModel.insertSensor()
-            withContext(Dispatchers.Main) {
-                val intent = Intent(context, RecordService::class.java).apply {
-                    putExtra(RecordService.ARG_ENABLED, true)
-                    putExtra(RecordService.ARG_SENSOR_TYPE, viewModel.sensorType)
-                    putExtra(RecordService.ARG_RECORDING_ID, id)
-                }
-                ContextCompat.startForegroundService(requireContext(), intent)
+            val intent = Intent(context, RecordService::class.java).apply {
+                putExtra(RecordService.ARG_ENABLED, true)
+                putExtra(RecordService.ARG_SENSOR_TYPE, viewModel.sensorType)
+                putExtra(RecordService.ARG_RECORDING_ID, id)
             }
+            ContextCompat.startForegroundService(requireContext(), intent)
+            recordViewModel.bindService(requireActivity() as AppCompatActivity)
         }
     }
 
     private fun stopRecording() {
-        fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-
-        val intent = Intent(context, RecordService::class.java).apply {
-            putExtra(RecordService.ARG_ENABLED, false)
-        }
-        requireActivity().stopService(intent)
+        recordViewModel.unbindAndStopService(requireActivity() as AppCompatActivity)
     }
 
     private fun updateSingleChart() {

@@ -1,4 +1,4 @@
-package com.graytsar.sensor
+package com.graytsar.sensor.service
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
@@ -8,10 +8,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Binder
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.PendingIntentCompat
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.graytsar.sensor.R
 import com.graytsar.sensor.model.UISensor
 import com.graytsar.sensor.repository.entity.RecordEntity
 import com.graytsar.sensor.repository.repository.RecordRepository
@@ -24,6 +26,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.LinkedTransferQueue
 import javax.inject.Inject
@@ -36,6 +40,8 @@ class RecordService : Service() {
     @Inject
     lateinit var recordRepository: RecordRepository
 
+    private val binder = LocalBinder()
+
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
@@ -46,6 +52,9 @@ class RecordService : Service() {
     private var isRecording = false
     private val events = LinkedTransferQueue<RecordEntity>()
     private val transfers = mutableListOf<RecordEntity>()
+
+    private val _state: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val state = _state.asStateFlow()
 
     private val builder: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, RECORD_CHANNEL_ID).apply {
@@ -88,16 +97,18 @@ class RecordService : Service() {
         }
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
-        return null
+    override fun onBind(intent: Intent?): IBinder {
+        return binder
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val enableLog: Boolean = intent!!.getBooleanExtra(ARG_ENABLED, false)
 
         if (enableLog) {
+            _state.tryEmit(true)
             startRecordingService(intent)
         } else {
+            _state.tryEmit(false)
             isRecording = false
             stopRecordingService()
         }
@@ -106,6 +117,7 @@ class RecordService : Service() {
     }
 
     override fun onDestroy() {
+        _state.tryEmit(false)
         super.onDestroy()
         try {
             sensorManager.unregisterListener(sensorEventListener)
@@ -115,6 +127,10 @@ class RecordService : Service() {
         } catch (e: Exception) {
             FirebaseCrashlytics.getInstance().recordException(e)
         }
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        return super.onUnbind(intent)
     }
 
     private fun startRecordingService(intent: Intent) {
@@ -183,6 +199,10 @@ class RecordService : Service() {
             val notification = builder.setContentText(text).build()
             startForeground(RECORD_NOTIFICATION_ID, notification)
         }
+    }
+
+    inner class LocalBinder : Binder() {
+        fun getService(): RecordService = this@RecordService
     }
 
     companion object {

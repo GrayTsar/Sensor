@@ -90,11 +90,6 @@ class AdapterExport(
 
     private fun saveToFile(item: Record) {
         viewModel.viewModelScope.launch(Dispatchers.IO) {
-            val records = viewModel.recordRepository.getByRecording(item.id)
-                .joinToString(System.lineSeparator()) {
-                    "${it.timestamp},${it.x},${it.y},${it.x}"
-                }
-
             val uri = if (Build.VERSION.SDK_INT >= 29) {
                 viewModel.saveFileToDownloads(
                     context = fragment.requireContext(),

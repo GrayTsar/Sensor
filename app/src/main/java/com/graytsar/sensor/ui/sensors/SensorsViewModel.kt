@@ -1,4 +1,4 @@
-package com.graytsar.sensor.ui.home
+package com.graytsar.sensor.ui.sensors
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent

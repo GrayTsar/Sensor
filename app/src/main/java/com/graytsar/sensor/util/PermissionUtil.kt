@@ -7,8 +7,14 @@ import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
+/**
+ * Utility class to request and check permissions for the app.
+ */
 object PermissionUtil {
 
+    /**
+     * Verifies if post notification permission was granted.
+     */
     fun isNotificationPermissionGranted(context: Context): Boolean {
         return try {
             if (Build.VERSION.SDK_INT >= 33) {

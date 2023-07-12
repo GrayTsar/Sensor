@@ -10,20 +10,32 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Hilt module to provide the database.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
+    /**
+     * Provides the [SensorDatabase].
+     */
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): SensorDatabase {
         return Room.databaseBuilder(context, SensorDatabase::class.java, "sensor_database").build()
     }
 
+    /**
+     * Provides the [com.graytsar.sensor.repository.dao.SessionDAO].
+     */
     @Provides
     @Singleton
-    fun provideSensorRepo(db: SensorDatabase) = db.sensorDao()
+    fun provideSessionRepo(db: SensorDatabase) = db.sessionDao()
 
+    /**
+     * Provides the [com.graytsar.sensor.repository.dao.RecordDAO].
+     */
     @Provides
     @Singleton
     fun provideRecordDao(db: SensorDatabase) = db.recordDao()

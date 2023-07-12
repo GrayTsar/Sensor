@@ -8,26 +8,26 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.graytsar.sensor.repository.data.Record
-import com.graytsar.sensor.repository.entity.SensorEntity
+import com.graytsar.sensor.repository.entity.SessionEntity
 
 @Dao
-interface SensorDAO {
+interface SessionDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(entity: SensorEntity): Long
+    suspend fun insert(entity: SessionEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(entities: List<SensorEntity>)
+    suspend fun insertAll(entities: List<SessionEntity>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(entity: SensorEntity)
+    suspend fun update(entity: SessionEntity)
 
     @Delete
-    suspend fun delete(entity: SensorEntity)
+    suspend fun delete(entity: SessionEntity)
 
-    @Query("DELETE FROM sensor WHERE sensor.id = :id")
+    @Query("DELETE FROM session WHERE session.id = :id")
     suspend fun delete(id: Long)
 
-    @Query("SELECT id, sensor_type, timestamp, (SELECT COUNT(*) FROM record WHERE record.record_id=sensor.id) as count FROM sensor ORDER BY timestamp DESC")
+    @Query("SELECT id, sensor_type, timestamp, (SELECT COUNT(*) FROM record WHERE record.record_id=session.id) as count FROM session ORDER BY timestamp DESC")
     fun selectAllPaged(): PagingSource<Int, Record>
 }

@@ -28,7 +28,9 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Date
 
-
+/**
+ * Adapter for recording sessions.
+ */
 class AdapterExport(
     private val fragment: ExportFragment,
     private val viewModel: ExportViewModel
@@ -50,8 +52,9 @@ class AdapterExport(
                 it.sensorType == item.sensorType
             }!!
 
-            holder.title.text = holder.itemView.context.getString(model.title)
+            holder.title.text = holder.itemView.context.getString(model.name)
 
+            //date and time when the recording was started
             val date = if (Build.VERSION.SDK_INT >= 26) {
                 LocalDateTime.ofInstant(
                     Instant.ofEpochMilli(item.timestamp),
@@ -60,8 +63,9 @@ class AdapterExport(
             } else {
                 SimpleDateFormat("dd.MM.yyyy, HH:mm:ss").format(Date(item.timestamp))
             }
+            //amount of sensor events recorded
             val count = item.count
-
+            //display date-time and amount of sensor events recorded.
             holder.message.text =
                 holder.itemView.context.getString(R.string.export_item_detail, date, count)
 
@@ -88,6 +92,10 @@ class AdapterExport(
         }
     }
 
+    /**
+     * Save a recording session to a file in the Downloads folder.
+     * Show a [Snackbar] with a button to open the file directly.
+     */
     private fun saveToFile(item: Record) {
         viewModel.viewModelScope.launch(Dispatchers.IO) {
             val uri = if (Build.VERSION.SDK_INT >= 29) {
@@ -121,13 +129,16 @@ class AdapterExport(
         }
     }
 
+    /**
+     * Delete a recording session from the database.
+     */
     private fun deleteRecord(item: Record) {
         MaterialAlertDialogBuilder(fragment.requireContext())
             .setTitle(R.string.all_warning)
             .setMessage(R.string.export_item_delete_warning)
             .setPositiveButton(android.R.string.ok) { dialogInterface: DialogInterface, _: Int ->
                 fragment.lifecycleScope.launch(Dispatchers.IO) {
-                    viewModel.sensorRepository.deleteById(item.id)
+                    viewModel.sessionRepository.deleteById(item.id)
                 }
                 dialogInterface.dismiss()
             }
@@ -137,6 +148,9 @@ class AdapterExport(
             .show()
     }
 
+    /**
+     * ViewHolder for recording sessions.
+     */
     inner class ViewHolderExport(binding: ItemExportBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val title = binding.title

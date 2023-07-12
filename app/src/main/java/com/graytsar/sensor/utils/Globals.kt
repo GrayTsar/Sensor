@@ -11,15 +11,22 @@ const val keyTheme = "theme"
 const val RECORD_CHANNEL_ID = "1"
 const val RECORD_NOTIFICATION_ID = 101
 
+/**
+ * Hold global static variables.
+ */
 object Globals {
+    //because this works and i don't care anymore
     var isNightMode: Boolean = false
 
+    /**
+     * Info data about all sensors.
+     */
     val sensors = listOf(
         UISensor(
             sensorType = Sensor.TYPE_ACCELEROMETER,
             axes = 3,
             dataPoints = 100,
-            title = R.string.sensorAccelerometer,
+            name = R.string.sensorAccelerometer,
             unit = R.string.unitAcceleration,
             info = R.string.infoAccelerometer,
             color = R.color.red,
@@ -29,7 +36,7 @@ object Globals {
             sensorType = Sensor.TYPE_MAGNETIC_FIELD,
             axes = 3,
             dataPoints = 100,
-            title = R.string.sensorMagneticField,
+            name = R.string.sensorMagneticField,
             unit = R.string.unitMagneticField,
             info = R.string.infoMagneticField,
             color = R.color.pink,
@@ -39,7 +46,7 @@ object Globals {
             sensorType = Sensor.TYPE_GRAVITY,
             axes = 3,
             dataPoints = 100,
-            title = R.string.sensorGravity,
+            name = R.string.sensorGravity,
             unit = R.string.unitAcceleration,
             info = R.string.infoGravity,
             color = R.color.purple,
@@ -49,7 +56,7 @@ object Globals {
             sensorType = Sensor.TYPE_GYROSCOPE,
             axes = 3,
             dataPoints = 200,
-            title = R.string.sensorGyroscope,
+            name = R.string.sensorGyroscope,
             unit = R.string.unitAngularVelocity,
             info = R.string.infoGyroscope,
             color = R.color.deep_blue,
@@ -59,7 +66,7 @@ object Globals {
             sensorType = Sensor.TYPE_LINEAR_ACCELERATION,
             axes = 3,
             dataPoints = 100,
-            title = R.string.sensorLinearAcceleration,
+            name = R.string.sensorLinearAcceleration,
             unit = R.string.unitAcceleration,
             info = R.string.infoLinearAcceleration,
             color = R.color.indigo,
@@ -69,7 +76,7 @@ object Globals {
             sensorType = Sensor.TYPE_AMBIENT_TEMPERATURE,
             axes = 1,
             dataPoints = 50,
-            title = R.string.sensorAmbientTemperature,
+            name = R.string.sensorAmbientTemperature,
             unit = R.string.unitTemperature,
             info = R.string.infoAmbientTemperature,
             color = R.color.blue,
@@ -79,7 +86,7 @@ object Globals {
             sensorType = Sensor.TYPE_LIGHT,
             axes = 1,
             dataPoints = 50,
-            title = R.string.sensorLight,
+            name = R.string.sensorLight,
             unit = R.string.unitIlluminance,
             info = R.string.infoLight,
             color = R.color.light_blue,
@@ -89,7 +96,7 @@ object Globals {
             sensorType = Sensor.TYPE_PRESSURE,
             axes = 1,
             dataPoints = 50,
-            title = R.string.sensorPressure,
+            name = R.string.sensorPressure,
             unit = R.string.unitPressure,
             info = R.string.infoPressure,
             color = R.color.cyan,
@@ -99,7 +106,7 @@ object Globals {
             sensorType = Sensor.TYPE_RELATIVE_HUMIDITY,
             axes = 1,
             dataPoints = 50,
-            title = R.string.sensorRelativeHumidity,
+            name = R.string.sensorRelativeHumidity,
             unit = R.string.unitPercent,
             info = R.string.infoRelativeHumidity,
             color = R.color.teal,
@@ -109,7 +116,7 @@ object Globals {
             sensorType = Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR,
             axes = 3,
             dataPoints = 100,
-            title = R.string.sensorGeomagneticRotationVector,
+            name = R.string.sensorGeomagneticRotationVector,
             unit = R.string.unitNone,
             info = R.string.infoGeomagneticRotationVector,
             color = R.color.green,
@@ -119,7 +126,7 @@ object Globals {
             sensorType = Sensor.TYPE_PROXIMITY,
             axes = 1,
             dataPoints = 25,
-            title = R.string.sensorProximity,
+            name = R.string.sensorProximity,
             unit = R.string.unitProximity,
             info = R.string.infoProximity,
             color = R.color.light_green,
@@ -129,7 +136,7 @@ object Globals {
             sensorType = Sensor.TYPE_STEP_COUNTER,
             axes = 1,
             dataPoints = 25,
-            title = R.string.sensorStepCounter,
+            name = R.string.sensorStepCounter,
             unit = R.string.unitStep,
             info = R.string.infoStepCounter,
             color = R.color.lime,

@@ -1,7 +1,6 @@
 package com.graytsar.sensor.ui.sensors
 
 import android.graphics.drawable.Drawable
-import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +19,9 @@ import com.graytsar.sensor.databinding.ItemSensorBinding
 import com.graytsar.sensor.model.UISensor
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 
+/**
+ * Adapter to display the sensors.
+ */
 class AdapterSensor(
     private val activity: FragmentActivity
 ) : ListAdapter<UISensor, AdapterSensor.ViewHolderSensor>(DIFF_CALLBACK) {
@@ -38,210 +40,21 @@ class AdapterSensor(
 
     override fun onBindViewHolder(holder: ViewHolderSensor, position: Int) {
         getItem(position)?.let { item ->
-            when (item.sensorType) {
-                Sensor.TYPE_ACCELEROMETER -> bindAccelerometer(item, holder)
-                Sensor.TYPE_MAGNETIC_FIELD -> bindMagnetometer(item, holder)
-                Sensor.TYPE_GRAVITY -> bindGravity(item, holder)
-                Sensor.TYPE_GYROSCOPE -> bindGyroscope(item, holder)
-                Sensor.TYPE_LINEAR_ACCELERATION -> bindLinearAcceleration(item, holder)
-                Sensor.TYPE_AMBIENT_TEMPERATURE -> bindTemperature(item, holder)
-                Sensor.TYPE_LIGHT -> bindLight(item, holder)
-                Sensor.TYPE_PRESSURE -> bindPressure(item, holder)
-                Sensor.TYPE_RELATIVE_HUMIDITY -> bindHumidity(item, holder)
-                Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> bindRotationVector(item, holder)
-                Sensor.TYPE_PROXIMITY -> bindProximity(item, holder)
-                Sensor.TYPE_STEP_COUNTER -> bindStepCounter(item, holder)
-            }
+            bindSensor(item, holder)
         }
     }
 
-    private fun bindAccelerometer(item: UISensor, holder: ViewHolderSensor) {
+    private fun bindSensor(item: UISensor, holder: ViewHolderSensor) {
         holder.initView(
             item = item,
             drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
+            title = activity.getString(item.name),
             backgroundColor = ContextCompat.getColor(activity, item.color)
         )
 
         holder.binding.cardSensor.setOnClickListener {
             val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_ACCELEROMETER)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindMagnetometer(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_MAGNETIC_FIELD)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindGravity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_GRAVITY)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindGyroscope(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_GYROSCOPE)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindLinearAcceleration(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_LINEAR_ACCELERATION)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindTemperature(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_AMBIENT_TEMPERATURE)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindLight(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_LIGHT)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindPressure(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_PRESSURE)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindHumidity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_RELATIVE_HUMIDITY)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindRotationVector(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindProximity(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_PROXIMITY)
-            }
-            navController.navigate(R.id.fragmentDetail, bundle)
-        }
-    }
-
-    private fun bindStepCounter(item: UISensor, holder: ViewHolderSensor) {
-        holder.initView(
-            item = item,
-            drawable = ContextCompat.getDrawable(activity, item.icon),
-            title = activity.getString(item.title),
-            backgroundColor = ContextCompat.getColor(activity, item.color)
-        )
-
-        holder.binding.cardSensor.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_SENSOR_TYPE, Sensor.TYPE_STEP_COUNTER)
+                putInt(ARG_SENSOR_TYPE, item.sensorType)
             }
             navController.navigate(R.id.fragmentDetail, bundle)
         }
@@ -287,7 +100,7 @@ class AdapterSensor(
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UISensor>() {
             override fun areItemsTheSame(oldItem: UISensor, newItem: UISensor): Boolean {
                 return oldItem.sensorType == newItem.sensorType
-                        && oldItem.title == newItem.title
+                        && oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(oldItem: UISensor, newItem: UISensor): Boolean {

@@ -21,5 +21,3 @@
 #-renamesourcefileattribute SourceFile
 
 -keepattributes SourceFile,LineNumberTable
-
--keep class com.github.aachartmodel.aainfographics.** { *; }

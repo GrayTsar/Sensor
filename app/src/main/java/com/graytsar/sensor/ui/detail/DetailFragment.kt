@@ -23,7 +23,6 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.graytsar.sensor.R
 import com.graytsar.sensor.RecordViewModel
 import com.graytsar.sensor.databinding.FragmentDetailBinding
@@ -34,6 +33,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * A fragment representing a single sensor in detail.
+ * It shows detailed information about the sensor and a chart with past sensor events.
+ * User can start a recording session for this sensor through a foreground service.
+ */
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
     private val recordViewModel: RecordViewModel by activityViewModels()
@@ -120,7 +124,7 @@ class DetailFragment : Fragment() {
             val layout = binding.detail.toolbarLayout
             val icon = binding.detail.appBarImage
 
-            layout.title = getString(it.title)
+            layout.title = getString(it.name)
             layout.setBackgroundColor(color)
             layout.setContentScrimColor(color)
             activity?.window?.statusBarColor = color
@@ -161,7 +165,7 @@ class DetailFragment : Fragment() {
         viewModel.sensorManager.registerListener(
             viewModel.sensorEventListener,
             viewModel.sensor,
-            SensorManager.SENSOR_DELAY_UI
+            SensorManager.SENSOR_DELAY_NORMAL
         )
     }
 
@@ -177,6 +181,11 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
+    /**
+     * Request notification permission to start [RecordService] in the foreground.
+     * If permission is granted, [startRecordingService] is called.
+     * User can start and stop the [RecordService].
+     */
     private fun onFabClicked() {
         if (!PermissionUtil.isNotificationPermissionGranted(requireContext())) {
             requestNotificationPermission()
@@ -190,9 +199,10 @@ class DetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Starts the [RecordService] in the foreground.
+     */
     private fun startRecordingService() {
-        Snackbar.make(binding.root, getString(R.string.startRecording), Snackbar.LENGTH_LONG).show()
-
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val id = viewModel.insertSensor()
             val intent = Intent(context, RecordService::class.java).apply {
@@ -205,10 +215,16 @@ class DetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Stops the [RecordService].
+     */
     private fun stopRecording() {
         recordViewModel.unbindAndStopService(requireActivity() as AppCompatActivity)
     }
 
+    /**
+     * Updates the chart with the latest values for a single axis sensor.
+     */
     private fun updateSingleChart() {
         xText.text = getString(
             viewModel.itemSensor.unit,
@@ -240,6 +256,9 @@ class DetailFragment : Fragment() {
         chart.aa_drawChartWithChartModel(chartModel)
     }
 
+    /**
+     * Updates the chart with the latest values for a multi axis sensor.
+     */
     private fun updateMultiChart() {
         xText.text = getString(
             viewModel.itemSensor.unit,
@@ -287,6 +306,9 @@ class DetailFragment : Fragment() {
         chart.aa_drawChartWithChartModel(chartModel)
     }
 
+    /**
+     * Requests the notification permission.
+     */
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= 33) {
             when {

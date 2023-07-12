@@ -16,6 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * A Fragment that displays a list of recording sessions.
+ * A user can select a session to export.
+ * A user can select a session to delete.
+ */
 @AndroidEntryPoint
 class ExportFragment : Fragment() {
     private val viewModel: ExportViewModel by viewModels()

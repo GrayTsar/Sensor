@@ -15,7 +15,7 @@ import androidx.paging.cachedIn
 import com.graytsar.sensor.repository.data.Record
 import com.graytsar.sensor.repository.entity.RecordEntity
 import com.graytsar.sensor.repository.repository.RecordRepository
-import com.graytsar.sensor.repository.repository.SensorRepository
+import com.graytsar.sensor.repository.repository.SessionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,18 +23,38 @@ import kotlinx.coroutines.flow.flatMapLatest
 import java.io.File
 import javax.inject.Inject
 
+/**
+ * ViewModel for the [ExportFragment].
+ */
 @HiltViewModel
 class ExportViewModel @Inject constructor(
     private val sensorManager: SensorManager,
-    val sensorRepository: SensorRepository,
-    val recordRepository: RecordRepository
+    val sessionRepository: SessionRepository,
+    private val recordRepository: RecordRepository
 ) : ViewModel() {
 
+    /**
+     * Flow of [PagingData] that represents the list of records.
+     */
     private val pageDataFlow: MutableStateFlow<Flow<PagingData<Record>>> = MutableStateFlow(
-        sensorRepository.getRecordsPaged()
+        sessionRepository.getRecordsPaged()
     )
+
+    /**
+     * Ready only flow of recording sessions.
+     */
     val pager = pageDataFlow.flatMapLatest { it }.cachedIn(viewModelScope)
 
+    /**
+     * Writes the sensor events to a file in the downloads folder.
+     *
+     * @param context the context of the application to get file uri.
+     * @param sensorType the type of sensor.
+     * @param recordingId the id of the recording session.
+     * @param fileName the name of the file.
+     *
+     * @return the [Uri] of the file.
+     */
     @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveFileToDownloads(
         context: Context,
@@ -57,6 +77,7 @@ class ExportViewModel @Inject constructor(
 
             output?.write(getHeaderString(sensorType).toByteArray())
             while (true) {
+                //write the sensor events paginated to the file. Since there could be a large amount of data.
                 val rows = recordRepository.getByRecodingLimit(recordingId, limit, offset)
                 if (rows.isEmpty()) {
                     break
@@ -73,6 +94,14 @@ class ExportViewModel @Inject constructor(
         return uri
     }
 
+    /**
+     * Writes the sensor events to a file in the downloads folder.
+     * @param sensorType the type of sensor.
+     * @param recordingId the id of the recording session.
+     * @param fileName the name of the file.
+     *
+     * @return the [Uri] of the file
+     */
     suspend fun saveFileToDownloads(sensorType: Int, recordingId: Long, fileName: String): Uri {
         val target = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -86,6 +115,7 @@ class ExportViewModel @Inject constructor(
 
             output.write(getHeaderString(sensorType).toByteArray())
             while (true) {
+                //write the sensor events paginated to the file. Since there could be a large amount of data.
                 val rows = recordRepository.getByRecodingLimit(recordingId, limit, offset)
                 if (rows.isEmpty()) {
                     break
@@ -102,6 +132,13 @@ class ExportViewModel @Inject constructor(
         return Uri.fromFile(target)
     }
 
+    /**
+     * Create the header for the csv file.
+     *
+     * @param sensorType the type of sensor.
+     *
+     * @return the header string.
+     */
     private fun getHeaderString(sensorType: Int): String {
         val sensor = sensorManager.getDefaultSensor(sensorType)
         return "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor}," +

@@ -32,6 +32,10 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.LinkedTransferQueue
 import javax.inject.Inject
 
+/**
+ * Service that records sensor data.
+ * This service should run in the foreground to prevent it from being killed when the app goes into the background.
+ */
 @AndroidEntryPoint
 class RecordService : Service() {
     @Inject
@@ -50,15 +54,30 @@ class RecordService : Service() {
 
     private var recordedCount = 0
     private var isRecording = false
+
+    /**
+     * Sensor events are written into this queue.
+     */
     private val events = LinkedTransferQueue<RecordEntity>()
+
+    /**
+     * Sensor events are transferred here to be written into the database.
+     */
     private val transfers = mutableListOf<RecordEntity>()
 
+    /**
+     * Current state of the service.
+     */
     private val _state: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    /**
+     * Read only state of the service.
+     */
     val state = _state.asStateFlow()
 
     private val builder: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, RECORD_CHANNEL_ID).apply {
-            setContentTitle(applicationContext.getString(model!!.title))
+            setContentTitle(applicationContext.getString(model!!.name))
             setSmallIcon(R.drawable.ic_app)
             setOngoing(true)
             addAction(
@@ -77,6 +96,9 @@ class RecordService : Service() {
             priority = NotificationCompat.PRIORITY_DEFAULT
         }
 
+    /**
+     * Sensor event listener. Adds events to [events] queue.
+     */
     private var sensorEventListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             if (event == null) return
@@ -133,6 +155,9 @@ class RecordService : Service() {
         return super.onUnbind(intent)
     }
 
+    /**
+     * Starts the recording session.
+     */
     private fun startRecordingService(intent: Intent) {
         recordId = intent.getLongExtra(ARG_RECORDING_ID, -1)
         val sensorType = intent.getIntExtra(ARG_SENSOR_TYPE, 1)
@@ -155,23 +180,31 @@ class RecordService : Service() {
 
         startForeground(
             RECORD_NOTIFICATION_ID,
-            builder.setContentText(getString(model!!.title)).build()
+            builder.setContentText(getString(model!!.name)).build()
         )
 
         launchRecording()
     }
 
+    /**
+     * Stops the recording session.
+     */
     private fun stopRecordingService() {
         sensorManager.unregisterListener(sensorEventListener)
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
 
+
+    /**
+     * Launches the recording session and write to database on another thread.
+     * Transfers the recorded [events] into the [transfers] list.
+     */
     private fun launchRecording() {
         isRecording = true
         scope.launch {
             while (isRecording) {
-                val count = events.drainTo(transfers, 1000)
+                val count = events.drainTo(transfers, 10000)
                 if (count != 0) {
                     recordedCount += count
                     recordRepository.insert(transfers)
@@ -186,6 +219,10 @@ class RecordService : Service() {
         }
     }
 
+    /**
+     * Cancels the recording session and write to database thread.
+     * Clears any events in the queue.
+     */
     private fun cancelRecording() {
         isRecording = false
         job.cancel()
@@ -193,6 +230,9 @@ class RecordService : Service() {
         events.clear()
     }
 
+    /**
+     * Notifies the user of the amount of events recorded.
+     */
     @SuppressLint("MissingPermission")
     private fun notify(text: String) {
         if (PermissionUtil.isNotificationPermissionGranted(applicationContext)) {

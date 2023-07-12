@@ -26,9 +26,6 @@ interface RecordDAO {
     @Query("DELETE FROM record")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM record WHERE record_id = :recordId")
-    suspend fun selectByRecording(recordId: Long): List<RecordEntity>
-
     @Query("SELECT * FROM record WHERE record_id = :recordId LIMIT :limit OFFSET :offset")
     suspend fun selectByRecordingLimit(recordId: Long, limit: Int, offset: Int): List<RecordEntity>
 }

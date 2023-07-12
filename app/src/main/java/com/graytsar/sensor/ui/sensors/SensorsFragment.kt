@@ -18,6 +18,9 @@ import com.graytsar.sensor.databinding.FragmentSensorsBinding
 import com.graytsar.sensor.utils.Globals
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Fragment to display the devices sensors.
+ */
 @AndroidEntryPoint
 class SensorsFragment : Fragment() {
     private val viewModel: SensorsViewModel by viewModels()

@@ -13,6 +13,9 @@ import com.graytsar.sensor.utils.keyPreferenceTheme
 import com.graytsar.sensor.utils.keyTheme
 import dagger.hilt.android.HiltAndroidApp
 
+/**
+ * Application class of the app.
+ */
 @HiltAndroidApp
 open class SensorApplication : Application() {
 
@@ -38,6 +41,9 @@ open class SensorApplication : Application() {
         createNotificationChannels()
     }
 
+    /**
+     * Creates the notification channels for the app.
+     */
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val loggingChannel = NotificationChannel(

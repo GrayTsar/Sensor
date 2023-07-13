@@ -74,18 +74,26 @@ class RecordViewModel : ViewModel() {
      * Unbinds the [RecordService] from the activity.
      */
     fun unbindService(activity: AppCompatActivity) {
-        activity.unbindService(recordServiceConnection)
+        try {
+            activity.unbindService(recordServiceConnection)
+        } catch (e: IllegalArgumentException) {
+            //do nothing
+        }
     }
 
     /**
      * Unbinds and stops the [RecordService] from the activity.
      */
     fun unbindAndStopService(activity: AppCompatActivity) {
-        activity.unbindService(recordServiceConnection)
-        val intent = Intent(activity, RecordService::class.java).apply {
-            putExtra(RecordService.ARG_ENABLED, false)
+        try {
+            activity.unbindService(recordServiceConnection)
+            val intent = Intent(activity, RecordService::class.java).apply {
+                putExtra(RecordService.ARG_ENABLED, false)
+            }
+            activity.stopService(intent)
+        } catch (e: IllegalArgumentException) {
+            //do nothing
         }
-        activity.stopService(intent)
         _recordServiceState.tryEmit(false)
         recordService = null
     }

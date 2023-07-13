@@ -108,8 +108,8 @@ class RecordService : Service() {
                     recordId = recordId,
                     timestamp = event.timestamp,
                     x = event.values[0],
-                    y = event.values[1],
-                    z = event.values[2]
+                    y = event.values.getOrElse(1) { 0.0f },
+                    z = event.values.getOrElse(2) { 0.0f }
                 )
             )
         }
@@ -124,11 +124,11 @@ class RecordService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val enableLog: Boolean = intent!!.getBooleanExtra(ARG_ENABLED, false)
+        val enableLog: Boolean = intent?.getBooleanExtra(ARG_ENABLED, false) ?: false
 
         if (enableLog) {
             _state.tryEmit(true)
-            startRecordingService(intent)
+            startRecordingService(intent!!)
         } else {
             _state.tryEmit(false)
             isRecording = false

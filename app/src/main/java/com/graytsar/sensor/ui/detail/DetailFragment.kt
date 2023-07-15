@@ -290,6 +290,7 @@ class DetailFragment : Fragment() {
                 )
             }
             chart.aa_drawChartWithChartModel(chartModel)
+            isDrawn = true
         }
     }
 
@@ -345,6 +346,7 @@ class DetailFragment : Fragment() {
                 )
             }
             chart.aa_drawChartWithChartModel(chartModel)
+            isDrawn = true
         }
     }
 

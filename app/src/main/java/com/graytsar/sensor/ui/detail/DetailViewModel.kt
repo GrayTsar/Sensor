@@ -11,6 +11,7 @@ import com.graytsar.sensor.repository.repository.SessionRepository
 import com.graytsar.sensor.utils.ARG_SENSOR_TYPE
 import com.graytsar.sensor.utils.Globals
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.concurrent.ConcurrentLinkedQueue
 import javax.inject.Inject
 
 /**
@@ -43,27 +44,17 @@ class DetailViewModel @Inject constructor(
     /**
      * x axis values.
      */
-    val xValues = arrayListOf<Float>()
+    val xValues = ConcurrentLinkedQueue<Float>()
 
     /**
      * y axis values.
      */
-    val yValues = arrayListOf<Float>()
+    val yValues = ConcurrentLinkedQueue<Float>()
 
     /**
      * z axis values.
      */
-    val zValues = arrayListOf<Float>()
-
-    /**
-     * Callbacks for updating the graph for single axis sensors.
-     */
-    var singleUpdate: (() -> Unit)? = null
-
-    /**
-     * Callbacks for updating the graph for multi axis sensors.
-     */
-    var multiUpdate: (() -> Unit)? = null
+    val zValues = ConcurrentLinkedQueue<Float>()
 
     /**
      * Current state of the recording session.
@@ -73,17 +64,15 @@ class DetailViewModel @Inject constructor(
     /**
      * A listener for sensor event. It will be called when the sensor value changes.
      * It will add the new value to the list of values and remove the first value if the list is too long.
-     * Invokes [singleUpdate] or [multiUpdate] depending on the number of axes.
      */
     val sensorEventListener: SensorEventListener = when (itemSensor.axes) {
         1 -> object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 if (event == null) return
                 if (xValues.size >= itemSensor.dataPoints) {
-                    xValues.removeFirstOrNull()
+                    runCatching { xValues.remove() }
                 }
                 xValues.add(event.values[0])
-                singleUpdate?.invoke()
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -95,14 +84,15 @@ class DetailViewModel @Inject constructor(
             override fun onSensorChanged(event: SensorEvent?) {
                 if (event == null) return
                 if (xValues.size >= itemSensor.dataPoints) {
-                    xValues.removeFirstOrNull()
-                    yValues.removeFirstOrNull()
-                    zValues.removeFirstOrNull()
+                    runCatching {
+                        xValues.remove()
+                        yValues.remove()
+                        zValues.remove()
+                    }
                 }
                 xValues.add(event.values[0])
                 yValues.add(event.values[1])
                 zValues.add(event.values[2])
-                multiUpdate?.invoke()
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

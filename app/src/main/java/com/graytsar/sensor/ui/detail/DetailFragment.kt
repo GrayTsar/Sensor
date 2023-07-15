@@ -30,6 +30,8 @@ import com.graytsar.sensor.service.RecordService
 import com.graytsar.sensor.util.PermissionUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -60,6 +62,8 @@ class DetailFragment : Fragment() {
     private lateinit var zText: TextView
 
     private lateinit var chart: AAChartView
+
+    private var looperJob: Job? = null
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -139,9 +143,6 @@ class DetailFragment : Fragment() {
 
         fab.setOnClickListener { onFabClicked() }
 
-        viewModel.singleUpdate = { updateSingleChart() }
-        viewModel.multiUpdate = { updateMultiChart() }
-
         viewLifecycleOwner.lifecycleScope.launch {
             recordViewModel.recordServicesState.collectLatest {
                 viewModel.isRecording = it
@@ -156,22 +157,29 @@ class DetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (viewModel.itemSensor.axes == 1) {
-            updateSingleChart()
-        } else {
-            updateMultiChart()
-        }
 
         viewModel.sensorManager.registerListener(
             viewModel.sensorEventListener,
             viewModel.sensor,
-            SensorManager.SENSOR_DELAY_NORMAL
+            SensorManager.SENSOR_DELAY_UI
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.itemSensor.axes == 1) {
+            loopSingle()
+        } else {
+            loopMulti()
+        }
+    }
+
+    override fun onPause() {
+        looperJob?.cancel()
+        super.onPause()
+    }
+
     override fun onStop() {
-        viewModel.singleUpdate = null
-        viewModel.multiUpdate = null
         viewModel.sensorManager.unregisterListener(viewModel.sensorEventListener)
         super.onStop()
     }
@@ -179,6 +187,24 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun loopSingle() {
+        looperJob = viewLifecycleOwner.lifecycleScope.launch {
+            while (true) {
+                updateSingleChart()
+                delay(16)
+            }
+        }
+    }
+
+    private fun loopMulti() {
+        looperJob = viewLifecycleOwner.lifecycleScope.launch {
+            while (true) {
+                updateMultiChart()
+                delay(16)
+            }
+        }
     }
 
     /**
@@ -303,6 +329,7 @@ class DetailFragment : Fragment() {
                 )
             )
         }
+
         chart.aa_drawChartWithChartModel(chartModel)
     }
 

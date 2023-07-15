@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.graytsar.sensor.R
@@ -64,6 +65,7 @@ class DetailFragment : Fragment() {
     private lateinit var chart: AAChartView
 
     private var looperJob: Job? = null
+    private var isDrawn = false
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -95,6 +97,7 @@ class DetailFragment : Fragment() {
         maxRange = binding.detail.maxRange
         info = binding.detail.textInformation
         chart = binding.detail.chart
+        chart.isClearBackgroundColor = true
 
         xText = binding.detail.xValDetail
         yText = binding.detail.yValDetail
@@ -257,29 +260,37 @@ class DetailFragment : Fragment() {
             viewModel.xValues.lastOrNull() ?: 0.0
         )
 
-        val chartModel = AAChartModel(
-            chartType = AAChartType.Line,
-            animationDuration = 0,
-            animationType = null,
-            touchEventEnabled = false,
-            tooltipEnabled = false,
-            dataLabelsEnabled = false,
-            xAxisLabelsEnabled = false,
-            yAxisTitle = "",
-            yAxisGridLineWidth = 0f,
-            backgroundColor = "#00000000",
-            axesTextColor = "#78909C"
-        ).apply {
-            series(
-                arrayOf(
-                    mapOf(
-                        "name" to "X",
-                        "data" to viewModel.xValues.toTypedArray()
+        if (isDrawn) {
+            val elements = arrayOf(
+                AASeriesElement()
+                    .name("X")
+                    .data(viewModel.xValues.toTypedArray())
+            )
+            chart.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(elements, false)
+        } else {
+            val chartModel = AAChartModel(
+                chartType = AAChartType.Line,
+                animationDuration = 0,
+                animationType = null,
+                touchEventEnabled = false,
+                tooltipEnabled = false,
+                dataLabelsEnabled = false,
+                xAxisLabelsEnabled = false,
+                yAxisTitle = "",
+                yAxisGridLineWidth = 0f,
+                axesTextColor = "#78909C"
+            ).apply {
+                series(
+                    arrayOf(
+                        mapOf(
+                            "name" to "X",
+                            "data" to viewModel.xValues.toTypedArray()
+                        )
                     )
                 )
-            )
+            }
+            chart.aa_drawChartWithChartModel(chartModel)
         }
-        chart.aa_drawChartWithChartModel(chartModel)
     }
 
     /**
@@ -299,38 +310,42 @@ class DetailFragment : Fragment() {
             viewModel.zValues.lastOrNull() ?: 0.0
         )
 
-        val chartModel = AAChartModel(
-            chartType = AAChartType.Line,
-            animationDuration = 0,
-            animationType = null,
-            touchEventEnabled = false,
-            tooltipEnabled = false,
-            dataLabelsEnabled = false,
-            xAxisLabelsEnabled = false,
-            yAxisTitle = "",
-            yAxisGridLineWidth = 0f,
-            backgroundColor = "#00000000",
-            axesTextColor = "#78909C"
-        ).apply {
-            series(
-                arrayOf(
-                    mapOf(
-                        "name" to "X",
-                        "data" to viewModel.xValues.toTypedArray()
-                    ),
-                    mapOf(
-                        "name" to "Y",
-                        "data" to viewModel.yValues.toTypedArray()
-                    ),
-                    mapOf(
-                        "name" to "Z",
-                        "data" to viewModel.zValues.toTypedArray()
+        if (isDrawn) {
+            val elements = arrayOf(
+                AASeriesElement()
+                    .name("X")
+                    .data(viewModel.xValues.toTypedArray()),
+                AASeriesElement()
+                    .name("Y")
+                    .data(viewModel.yValues.toTypedArray()),
+                AASeriesElement()
+                    .name("Z")
+                    .data(viewModel.zValues.toTypedArray())
+            )
+            chart.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(elements, false)
+        } else {
+            val chartModel = AAChartModel(
+                chartType = AAChartType.Line,
+                animationDuration = 0,
+                animationType = null,
+                touchEventEnabled = false,
+                tooltipEnabled = false,
+                dataLabelsEnabled = false,
+                xAxisLabelsEnabled = false,
+                yAxisTitle = "",
+                yAxisGridLineWidth = 0f,
+                axesTextColor = "#78909C"
+            ).apply {
+                series(
+                    arrayOf(
+                        AASeriesElement().name("X").data(viewModel.xValues.toTypedArray()),
+                        AASeriesElement().name("Y").data(viewModel.yValues.toTypedArray()),
+                        AASeriesElement().name("Z").data(viewModel.zValues.toTypedArray())
                     )
                 )
-            )
+            }
+            chart.aa_drawChartWithChartModel(chartModel)
         }
-
-        chart.aa_drawChartWithChartModel(chartModel)
     }
 
     /**

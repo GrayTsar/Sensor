@@ -141,8 +141,8 @@ class ExportViewModel @Inject constructor(
      */
     private fun getHeaderString(sensorType: Int): String {
         val sensor = sensorManager.getDefaultSensor(sensorType)
-        return "TIMESTAMP,X,Y,Z,NAME:${sensor.name},VENDOR:${sensor.vendor}," +
-                "VERSION:${sensor.version},POWER:${sensor.power}mA,MAXDELAY:${sensor.maxDelay}," +
-                "MINDELAY:${sensor.minDelay},MAXRANGE:${sensor.maximumRange}${System.lineSeparator()}"
+        return "TIMESTAMP,X,Y,Z,NAME:${sensor?.name.orEmpty()},VENDOR:${sensor?.vendor.orEmpty()}," +
+                "VERSION:${sensor?.version},POWER:${sensor?.power}mA,MAXDELAY:${sensor?.maxDelay}," +
+                "MINDELAY:${sensor?.minDelay},MAXRANGE:${sensor?.maximumRange}${System.lineSeparator()}"
     }
 }
